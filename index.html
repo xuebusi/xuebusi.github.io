@@ -73,6 +73,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中Picker的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:47:14.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Picker的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Picker</code> 是一个可以让用户从一组选项中选择一个选项的控件。它可以采用多种样式，如轮盘、菜单或段控制（segmented control）。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>最基本的 <code>Picker</code> 使用时需要配合 <code>@State</code> 属性来绑定选择的值。以下是一个简单的 <code>Picker</code> 示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在表单中使用"><a href="#在表单中使用" class="headerlink" title="在表单中使用"></a>在表单中使用</h3><p><code>Picker</code> 常常用在 <code>Form</code> 中，这会自动采用最适合表单样式的方式显示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Form</span> &#123;</span><br><span class="line">            <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-PickerStyle"><a href="#使用-PickerStyle" class="headerlink" title="使用 PickerStyle"></a>使用 <code>PickerStyle</code></h3><p>可以使用 <code>PickerStyle</code> 来改变 <code>Picker</code> 的外观和感觉：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">    <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">        <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.pickerStyle(<span class="type">SegmentedPickerStyle</span>())</span><br></pre></td></tr></table></figure>
+
+<p>SwiftUI 提供的 <code>PickerStyle</code> 有：</p>
+<ul>
+<li><code>DefaultPickerStyle</code></li>
+<li><code>SegmentedPickerStyle</code></li>
+<li><code>WheelPickerStyle</code></li>
+<li><code>InlinePickerStyle</code></li>
+<li><code>MenuPickerStyle</code></li>
+<li><code>AutomaticPickerStyle</code></li>
+</ul>
+<p>不同的 <code>PickerStyle</code> 在不同的平台和上下文中有不同的外观和行为。</p>
+<h3 id="在导航视图中使用"><a href="#在导航视图中使用" class="headerlink" title="在导航视图中使用"></a>在导航视图中使用</h3><p>在导航视图中，<code>Picker</code> 通常会显示为可以导航到另一个视图选择项的列表：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">Form</span> &#123;</span><br><span class="line">                <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">                    <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                        <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                .navigationTitle(<span class="string">&quot;Fruits&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 iOS 上，<code>Picker</code> 会自动跳转到一个新的屏幕，用户可以选择一个选项后返回。</p>
+<h3 id="结合使用-ForEach-和-Identifiable"><a href="#结合使用-ForEach-和-Identifiable" class="headerlink" title="结合使用 ForEach 和 Identifiable"></a>结合使用 <code>ForEach</code> 和 <code>Identifiable</code></h3><p>如果你的数据模型遵循 <code>Identifiable</code> 协议，你可以更简洁地使用 <code>ForEach</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Fruit</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id <span class="operator">=</span> <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">Fruit</span>?</span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="type">Fruit</span>(name: <span class="string">&quot;Apple&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Banana&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Cherry&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Date&quot;</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(fruits) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(fruit.name).tag(fruit <span class="keyword">as</span> <span class="type">Fruit</span>?)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，当使用自定义数据类型作为 <code>Picker</code> 的 <code>tag</code> 值时，需要将 <code>selectedFruit</code> 类型设置为可选的 (<code>Fruit?</code>)，因为 <code>Picker</code> 的 <code>tag</code> 需要能够匹配未选择任何值的情况。</p>
+<p>SwiftUI 的 <code>Picker</code> 是一个强大的控件，提供了灵活的接口来适应各种选择需求，并且能够很好地与其他 UI 控件集成，创建直观且有效的用户界面。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxl0000uh74a4ai440u" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中Label的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -128,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobous90000py743wp72616" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxq0008uh74gjxs9elt" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -183,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobousc0001py74czvw4m5k" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxo0001uh74951fexev" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -238,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="cloobousg000cpy742p0j5ht4" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="cloobtgxs000buh747xt2bawv" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -297,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobousd0002py74dlpm26le" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxp0003uh745nrj2kxi" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -359,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobouse0008py74c26349ac" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxp0004uh74533m27vw" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -424,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobousd0004py74dliqh6mk" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxp0002uh74aceq3yph" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -512,7 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobousd0003py747ccfeyxr" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxq0005uh7486yi5yep" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -608,7 +675,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobouse0005py74abk63wge" data-title="SwiftUI中的文本控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloobtgxq0006uh74fyjl5wfi" data-title="SwiftUI中的文本控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -669,71 +736,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E6%88%91%E7%8E%B0%E5%9C%A8%E8%A6%81%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAiOS%E4%B8%8A%E7%9A%84APP%EF%BC%8C%E6%88%91%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8SwiftUI%E8%BF%98%E6%98%AFUIKit%E5%91%A2%EF%BC%9F/" data-id="cloobousi000fpy7490qk3njl" data-title="我现在要开发一个iOS上的APP，我应该使用SwiftUI还是UIKit呢？" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-声明式语法和命令式语法的区别" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/%E5%A3%B0%E6%98%8E%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%91%BD%E4%BB%A4%E5%BC%8F%E8%AF%AD%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T07:57:06.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/%E5%A3%B0%E6%98%8E%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%91%BD%E4%BB%A4%E5%BC%8F%E8%AF%AD%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/">声明式语法和命令式语法的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>声明式语法和命令式语法是编程中描述软件逻辑的两种不同风格。它们在定义程序如何和应该做什么方面有本质的不同。</p>
-<h3 id="声明式语法（Declarative-Syntax）"><a href="#声明式语法（Declarative-Syntax）" class="headerlink" title="声明式语法（Declarative Syntax）"></a>声明式语法（Declarative Syntax）</h3><p>在声明式编程中，你描述<strong>“你想要什么”</strong>（What you want），而不是你要如何达到目的（How you achieve it）。你定义了目标状态，而具体的实现细节则通常由框架、库或系统自己处理。</p>
-<p><strong>特点</strong>:</p>
-<ul>
-<li><strong>抽象层次更高</strong>：更加关注描述问题的逻辑，而不是实现的步骤。</li>
-<li><strong>易于推理</strong>：由于直接表达了目的，因此通常代码更简洁，逻辑更清晰。</li>
-<li><strong>减少副作用</strong>：代码通常没有临时变量和迭代，从而减少了意外修改状态的风险。</li>
-<li><strong>改善可维护性</strong>：因为代码量减少且更加直观，所以通常更易于维护。</li>
-<li><strong>例子</strong>：SQL（描述你想要查询什么数据，而不是如何查询数据）、React和SwiftUI（描述UI应该如何根据数据状态显示，而不是如何修改UI）。</li>
-</ul>
-<h3 id="命令式语法（Imperative-Syntax）"><a href="#命令式语法（Imperative-Syntax）" class="headerlink" title="命令式语法（Imperative Syntax）"></a>命令式语法（Imperative Syntax）</h3><p>命令式编程关注<strong>“你如何做”</strong>（How you do it），需要提供达成目标的详细步骤。这通常涉及到编写更多的逻辑来手动处理状态的变化和应用的流程。</p>
-<p><strong>特点</strong>:</p>
-<ul>
-<li><strong>控制流程明确</strong>：详细指定了执行顺序和逻辑流程。</li>
-<li><strong>具体化操作</strong>：每一步都需要程序员明确指定。</li>
-<li><strong>灵活性高</strong>：因为可以控制每一步，所以在处理复杂逻辑时可能更具优势。</li>
-<li><strong>例子</strong>：大多数传统的编程语言如C、Java在处理UI时倾向于命令式风格，明确指定每一步如何创建和管理UI元素。</li>
-</ul>
-<h3 id="对比示例"><a href="#对比示例" class="headerlink" title="对比示例"></a>对比示例</h3><p>假设我们要更改一个列表的所有元素，使其翻倍。</p>
-<p><strong>声明式（SwiftUI风格）</strong>:</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers <span class="operator">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">let</span> doubledNumbers <span class="operator">=</span> numbers.map &#123; <span class="variable">$0</span> <span class="operator">*</span> <span class="number">2</span> &#125;</span><br></pre></td></tr></table></figure>
-<p>这里我们没有指定如何遍历数字，如何存储结果。我们只是描述了对每个元素想做的操作。</p>
-<p><strong>命令式（传统的C风格）</strong>:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> numbers[] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="type">int</span> doubledNumbers[<span class="keyword">sizeof</span>(numbers)/<span class="keyword">sizeof</span>(numbers[<span class="number">0</span>])];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(numbers)/<span class="keyword">sizeof</span>(numbers[<span class="number">0</span>]); i++) &#123;</span><br><span class="line">    doubledNumbers[i] = numbers[i] * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里我们具体指定了创建数组、循环的开始和结束条件，以及如何在每一次循环中翻倍当前元素。</p>
-<p>在UI开发中，声明式语法让状态和UI的同步变得更简单，因为UI框架（如SwiftUI）会负责监听数据变化并更新UI，而不需要开发者编写代码来手动操作DOM或视图元素。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E5%A3%B0%E6%98%8E%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%92%8C%E5%91%BD%E4%BB%A4%E5%BC%8F%E8%AF%AD%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="cloobousi000dpy74hcj0dbks" data-title="声明式语法和命令式语法的区别" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/%E6%88%91%E7%8E%B0%E5%9C%A8%E8%A6%81%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAiOS%E4%B8%8A%E7%9A%84APP%EF%BC%8C%E6%88%91%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8SwiftUI%E8%BF%98%E6%98%AFUIKit%E5%91%A2%EF%BC%9F/" data-id="cloobtgxt000fuh748edh3h2m" data-title="我现在要开发一个iOS上的APP，我应该使用SwiftUI还是UIKit呢？" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -781,6 +784,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Picker的用法</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Label的用法</a>
           </li>
         
@@ -794,10 +801,6 @@
         
           <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的TextField组件的用法</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的开关组件的用法</a>
           </li>
         
       </ul>
