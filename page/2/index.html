@@ -73,6 +73,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中Stepper的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:55:21.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Stepper的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Stepper</code> 控件允许用户通过点击增加或减少按钮来增加或减少一个值。它通常用于输入数量或调整设置，例如设置闹钟的时间或者调整购物车内商品的数量。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>下面是一个基础的 <code>Stepper</code> 控件用法示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> quantity <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>quantity</code> 是一个 <code>@State</code> 属性，它与 <code>Stepper</code> 绑定，用户点击 <code>Stepper</code> 来增加或减少 <code>quantity</code> 的值。</p>
+<h3 id="设置范围"><a href="#设置范围" class="headerlink" title="设置范围"></a>设置范围</h3><p>你可以为 <code>Stepper</code> 设置一个具体的数值范围：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这样，<code>quantity</code> 的值将被限制在 0 到 10 之间。</p>
+<h3 id="指定步长"><a href="#指定步长" class="headerlink" title="指定步长"></a>指定步长</h3><p>通过指定 <code>step</code> 参数，你可以控制每次增加或减少的量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">10</span>, step: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里每次点击会增加或减少 2 的单位。</p>
+<h3 id="响应更改"><a href="#响应更改" class="headerlink" title="响应更改"></a>响应更改</h3><p>如果你需要在值改变时执行某些操作，可以使用 <code>onIncrement</code> 和 <code>onDecrement</code> 闭包：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(onIncrement: &#123;</span><br><span class="line">    <span class="keyword">self</span>.quantity <span class="operator">+=</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">self</span>.performSomeAction()</span><br><span class="line">&#125;, onDecrement: &#123;</span><br><span class="line">    <span class="keyword">self</span>.quantity <span class="operator">-=</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">self</span>.performSomeAction()</span><br><span class="line">&#125;, label: &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>performSomeAction()</code> 函数会在数量增加或减少时被调用。</p>
+<h3 id="样式自定义"><a href="#样式自定义" class="headerlink" title="样式自定义"></a>样式自定义</h3><p><code>Stepper</code> 可以通过修饰符自定义样式，例如加入 <code>.labelsHidden()</code> 来隐藏标签：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>)</span><br><span class="line">    .labelsHidden()</span><br></pre></td></tr></table></figure>
+
+<h3 id="集成到其他-UI-中"><a href="#集成到其他-UI-中" class="headerlink" title="集成到其他 UI 中"></a>集成到其他 UI 中</h3><p><code>Stepper</code> 可以很容易地集成到列表或者表单中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Form</span> &#123;</span><br><span class="line">    <span class="type">Section</span>(header: <span class="type">Text</span>(<span class="string">&quot;Settings&quot;</span>)) &#123;</span><br><span class="line">        <span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>调整设置，如定时器的分钟数。</li>
+<li>购物车中商品的数量。</li>
+<li>任何需要简单加减数字输入的地方。</li>
+</ul>
+<p><code>Stepper</code> 因其简单直观的用户体验，在需要数字输入但又不适合打开键盘的场合尤其有用。在 SwiftUI 中，它的使用非常简洁，只需几行代码即可集成。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49b000bwd7456ln7svx" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中Slider组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -125,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b21000bt7745xwpbd5d" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49a0009wd741ggs1fi7" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -192,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b1z0002t774dixgbrn2" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4980003wd74c7rj77xl" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -259,7 +326,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b21000at774hwlwfmw9" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4980002wd74g703dnm7" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -314,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b1z0004t774cq6l4k4c" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49a0008wd74ba2vbaet" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -369,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clooe8b24000nt774fnx1ekqv" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clooeb49g000twd74b6rmg634" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -428,7 +495,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b22000ct7744a67f7si" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49c000fwd742wll708v" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -490,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b22000ft774adpf81z4" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49c000dwd74cl9scab2" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -555,7 +622,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b210009t774cvya8rux" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49c000hwd7455903itt" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -643,103 +710,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b22000gt7742jyw1qt2" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中的文本控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:04:52.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的文本控件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>SwiftUI 中的 <code>Text</code> 视图用于显示一行或多行只读文本。它是 SwiftUI 中显示文本内容的基础组件，支持字符串文字和动态字符串。</p>
-<p>这里有一些基本和常见的用法：</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>创建一个简单的 <code>Text</code> 视图：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="文本样式"><a href="#文本样式" class="headerlink" title="文本样式"></a>文本样式</h3><p>你可以为 <code>Text</code> 视图添加修饰符来改变文本的样式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">    .font(.title) <span class="comment">// 设置字体样式</span></span><br><span class="line">    .fontWeight(.bold) <span class="comment">// 设置字体权重</span></span><br><span class="line">    .foregroundColor(.blue) <span class="comment">// 设置文本颜色</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="多行文本和截断"><a href="#多行文本和截断" class="headerlink" title="多行文本和截断"></a>多行文本和截断</h3><p>SwiftUI 会根据需要自动换行文本，也可以控制截断的位置：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;This is a very long string that will wrap or truncate based on the available space.&quot;</span>)</span><br><span class="line">    .frame(width: <span class="number">100</span>) <span class="comment">// 限制视图的宽度</span></span><br><span class="line">    .lineLimit(<span class="number">2</span>) <span class="comment">// 最多显示两行</span></span><br><span class="line">    .truncationMode(.tail) <span class="comment">// 末尾截断</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="对齐文本"><a href="#对齐文本" class="headerlink" title="对齐文本"></a>对齐文本</h3><p>可以调整文本的对齐方式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Aligned Text&quot;</span>)</span><br><span class="line">    .frame(width: <span class="number">200</span>, height: <span class="number">200</span>) <span class="comment">// 设置视图的大小</span></span><br><span class="line">    .multilineTextAlignment(.center) <span class="comment">// 多行文本居中对齐</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="文本和图像的组合"><a href="#文本和图像的组合" class="headerlink" title="文本和图像的组合"></a>文本和图像的组合</h3><p><code>Text</code> 视图可以和其他视图比如 <code>Image</code> 组合在一起：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;star.fill&quot;</span>) <span class="comment">// 系统图标</span></span><br><span class="line">        .foregroundColor(.yellow) <span class="comment">// 设置图标颜色</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Favorite&quot;</span>)</span><br><span class="line">        .font(.headline) <span class="comment">// 设置文本字体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="本地化和动态文本"><a href="#本地化和动态文本" class="headerlink" title="本地化和动态文本"></a>本地化和动态文本</h3><p>SwiftUI 支持本地化和动态文本内容：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="type">LocalizedStringKey</span>(<span class="string">&quot;WelcomeMessage&quot;</span>))</span><br><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello, <span class="subst">\(userName)</span>!&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="文本样式的继承"><a href="#文本样式的继承" class="headerlink" title="文本样式的继承"></a>文本样式的继承</h3><p>如果你将 <code>Text</code> 视图放入另一个视图中，它将继承父视图的样式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;First Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Second Line&quot;</span>)</span><br><span class="line">&#125;.font(.title) <span class="comment">// 所有文本都应用标题字体样式</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="交互式文本（例如链接）"><a href="#交互式文本（例如链接）" class="headerlink" title="交互式文本（例如链接）"></a>交互式文本（例如链接）</h3><p>可以在 <code>Text</code> 视图中添加可交互的链接：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Visit Apple&#x27;s website for more information.&quot;</span>)</span><br><span class="line">    .underline()</span><br><span class="line">    .foregroundColor(.blue)</span><br><span class="line">    .onTapGesture &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> url <span class="operator">=</span> <span class="type">URL</span>(string: <span class="string">&quot;https://www.apple.com&quot;</span>) &#123;</span><br><span class="line">            <span class="type">UIApplication</span>.shared.open(url)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>Text</code> 视图是 SwiftUI 中非常强大的组件，其修饰符可以链式组合，用于创建丰富且响应式的文本界面。记住在实际的 iOS 开发环境中，某些功能（如打开 URL）可能需要其他的考虑（例如使用 <code>Link</code> 视图而不是 <code>onTapGesture</code>）。</p>
-<p>SwiftUI 的 <code>Text</code> 视图虽然简单，但它也支持一些高级用法，允许创建复杂和富有表现力的文本布局。以下是一些高级用法的示例：</p>
-<h3 id="富文本（Attributed-Strings）"><a href="#富文本（Attributed-Strings）" class="headerlink" title="富文本（Attributed Strings）"></a>富文本（Attributed Strings）</h3><p>在 SwiftUI 中，你可以使用属性字符串来创建富文本，这可以通过直接在 <code>Text</code> 初始化器中使用带有属性的字符串来实现：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> attributedString <span class="operator">=</span> <span class="type">NSAttributedString</span>( <span class="operator">...</span> ) <span class="comment">// 创建一个属性字符串</span></span><br><span class="line"><span class="type">Text</span>(attributedString)</span><br></pre></td></tr></table></figure>
-
-<p>在 SwiftUI 3.0 中，可以更方便地创建富文本，使用多个 <code>Text</code> 视图的组合，并对它们应用不同的修饰符：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;This &quot;</span>) <span class="operator">+</span></span><br><span class="line"><span class="type">Text</span>(<span class="string">&quot;word &quot;</span>).fontWeight(.bold) <span class="operator">+</span></span><br><span class="line"><span class="type">Text</span>(<span class="string">&quot;is bold.&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="文本插值和格式化"><a href="#文本插值和格式化" class="headerlink" title="文本插值和格式化"></a>文本插值和格式化</h3><p>SwiftUI 允许对插入到 <code>Text</code> 中的数据进行格式化：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;The temperature is <span class="subst">\(temperature, specifier: <span class="string">&quot;%.1f&quot;</span>)</span> degrees.&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>或者使用更现代的方法，配合 <code>FormatStyle</code>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(temperature, format: .number.precision(.fractionLength(<span class="number">1</span>)))</span><br></pre></td></tr></table></figure>
-
-<h3 id="组合和叠加视图"><a href="#组合和叠加视图" class="headerlink" title="组合和叠加视图"></a>组合和叠加视图</h3><p>在 SwiftUI 中，可以将 <code>Text</code> 视图与其他视图组合，并应用不同的布局和效果：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line">    .background(</span><br><span class="line">        <span class="type">Image</span>(<span class="string">&quot;backgroundImage&quot;</span>)</span><br><span class="line">            .resizable()</span><br><span class="line">            .aspectRatio(contentMode: .fill)</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-
-<h3 id="文本阴影和其他效果"><a href="#文本阴影和其他效果" class="headerlink" title="文本阴影和其他效果"></a>文本阴影和其他效果</h3><p>可以为文本添加阴影或其他视觉效果：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Elevated Text&quot;</span>)</span><br><span class="line">    .shadow(color: .gray, radius: <span class="number">2</span>, x: <span class="number">0</span>, y: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="条件修饰符"><a href="#条件修饰符" class="headerlink" title="条件修饰符"></a>条件修饰符</h3><p>可以基于条件应用不同的修饰符：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;This might be bold&quot;</span>)</span><br><span class="line">    .fontWeight(isBold <span class="operator">?</span> .bold : <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="选择性地隐藏视图"><a href="#选择性地隐藏视图" class="headerlink" title="选择性地隐藏视图"></a>选择性地隐藏视图</h3><p>有时候你可能想要基于某些条件隐藏 <code>Text</code> 视图。这可以通过条件修饰符实现：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hidden text&quot;</span>)</span><br><span class="line">    .opacity(isHidden <span class="operator">?</span> <span class="number">0</span> : <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="访问视图大小"><a href="#访问视图大小" class="headerlink" title="访问视图大小"></a>访问视图大小</h3><p>可以通过 <code>background</code> 修饰符和 <code>GeometryReader</code> 来获取 <code>Text</code> 视图的大小：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Dynamic Size&quot;</span>)</span><br><span class="line">    .background(<span class="type">GeometryReader</span> &#123; geometry <span class="keyword">in</span></span><br><span class="line">        <span class="type">Color</span>.clear.onAppear &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Text size: <span class="subst">\(geometry.size)</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="复杂的文本处理"><a href="#复杂的文本处理" class="headerlink" title="复杂的文本处理"></a>复杂的文本处理</h3><p>如果你需要对文本进行更复杂的处理，比如解析和渲染 HTML 或者 Markdown，你可能需要使用 <code>NSAttributedString</code> 或查找第三方库，或在 SwiftUI 中嵌入 <code>UIKit</code> 或 <code>AppKit</code> 组件来完成。</p>
-<h3 id="响应式文本"><a href="#响应式文本" class="headerlink" title="响应式文本"></a>响应式文本</h3><p>可以通过环境变量，如 <code>@EnvironmentObject</code> 或 <code>@ObservedObject</code> 来创建响应式文本，使其内容基于应用程序的状态而改变。</p>
-<p>SwiftUI <code>Text</code> 视图的高级用法，结合了修饰符和 SwiftUI 的其他视图和功能，可以创建高度定制化的文本展示效果。这些高级技巧可以帮助你更好地控制文本的布局、样式和行为。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooe8b23000ht774a78kfx2a" data-title="SwiftUI中的文本控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49d000jwd74bd7o5ajk" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -787,6 +758,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ZStack的用法</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中VStack的用法</a>
           </li>
         
@@ -800,10 +775,6 @@
         
           <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Link组件的用法</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ProgressView的用法</a>
           </li>
         
       </ul>
