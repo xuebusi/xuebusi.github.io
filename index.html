@@ -73,6 +73,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中List的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T14:05:28.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中List的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>List</code> 是一个用来展示数据集合的滚动列表视图。它类似于 UIKit 中的 <code>UITableView</code>，可以显示静态或动态的数据集合。<code>List</code> 可以和 <code>ForEach</code> 一起使用来显示动态数据，也可以直接放入静态视图。</p>
+<p>以下是使用 <code>List</code> 的几种常见方法：</p>
+<h3 id="显示静态内容"><a href="#显示静态内容" class="headerlink" title="显示静态内容"></a>显示静态内容</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StaticListView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span> &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Item 1&quot;</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Item 2&quot;</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Item 3&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">StaticListView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">StaticListView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="显示动态数据"><a href="#显示动态数据" class="headerlink" title="显示动态数据"></a>显示动态数据</h3><p>当你有一组动态数据时，可以使用 <code>ForEach</code> 来创建列表的每一行。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">DynamicListView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> items <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span> &#123;</span><br><span class="line">            <span class="type">ForEach</span>(items, id: \.<span class="keyword">self</span>) &#123; item <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(item)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">DynamicListView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">DynamicListView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Identifiable-数据模型"><a href="#使用-Identifiable-数据模型" class="headerlink" title="使用 Identifiable 数据模型"></a>使用 <code>Identifiable</code> 数据模型</h3><p>当你的数据模型遵守 <code>Identifiable</code> 协议时，你不需要指定 <code>id</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Item</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id <span class="operator">=</span> <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">IdentifiableListView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> items <span class="operator">=</span> [<span class="type">Item</span>(name: <span class="string">&quot;Apple&quot;</span>), <span class="type">Item</span>(name: <span class="string">&quot;Banana&quot;</span>), <span class="type">Item</span>(name: <span class="string">&quot;Cherry&quot;</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(items) &#123; item <span class="keyword">in</span></span><br><span class="line">            <span class="type">Text</span>(item.name)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">IdentifiableListView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">IdentifiableListView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加和删除操作"><a href="#添加和删除操作" class="headerlink" title="添加和删除操作"></a>添加和删除操作</h3><p>你可以通过在 <code>ForEach</code> 上调用 <code>.onDelete()</code> 和 <code>.onMove()</code> 方法来添加对列表的删除和移动操作的支持。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">EditableListView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> items <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">List</span> &#123;</span><br><span class="line">                <span class="type">ForEach</span>(items, id: \.<span class="keyword">self</span>) &#123; item <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(item)</span><br><span class="line">                &#125;</span><br><span class="line">                .onDelete(perform: delete)</span><br><span class="line">                .onMove(perform: move)</span><br><span class="line">            &#125;</span><br><span class="line">            .navigationBarItems(trailing: <span class="type">EditButton</span>())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">delete</span>(<span class="params">at</span> <span class="params">offsets</span>: <span class="type">IndexSet</span>) &#123;</span><br><span class="line">        items.remove(atOffsets: offsets)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">move</span>(<span class="params">from</span> <span class="params">source</span>: <span class="type">IndexSet</span>, <span class="params">to</span> <span class="params">destination</span>: <span class="type">Int</span>) &#123;</span><br><span class="line">        items.move(fromOffsets: source, toOffset: destination)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">EditableListView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">EditableListView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义行"><a href="#自定义行" class="headerlink" title="自定义行"></a>自定义行</h3><p>你可以在 <code>List</code> 中自定义行，比如添加图标和导航链接。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomRowListView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span> &#123;</span><br><span class="line">            <span class="type">NavigationLink</span>(destination: <span class="type">Text</span>(<span class="string">&quot;Destination&quot;</span>)) &#123;</span><br><span class="line">                <span class="type">HStack</span> &#123;</span><br><span class="line">                    <span class="type">Image</span>(systemName: <span class="string">&quot;folder&quot;</span>)</span><br><span class="line">                    <span class="type">Text</span>(<span class="string">&quot;Files&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomRowListView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">CustomRowListView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-List-的选择模式"><a href="#使用-List-的选择模式" class="headerlink" title="使用 List 的选择模式"></a>使用 <code>List</code> 的选择模式</h3><p>你还可以使用 <code>List</code> 的选择模式来创建可以选择单个或多个项的列表。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SelectableListView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> items <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>]</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedItems <span class="operator">=</span> <span class="type">Set</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(items, id: \.<span class="keyword">self</span>, selection: <span class="variable">$selectedItems</span>) &#123; item <span class="keyword">in</span></span><br><span class="line">            <span class="type">Text</span>(item)</span><br><span class="line">        &#125;</span><br><span class="line">        .toolbar &#123;</span><br><span class="line">            <span class="type">EditButton</span>()</span><br><span class="line">        &#125;</span><br><span class="line">        .environment(\.editMode, .constant(.active)) <span class="comment">// 使得列表始终处于编辑模式</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">SelectableListView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">SelectableListView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 SwiftUI 中，<code>List</code> 是一个非常强大的构建用户界面的工具，可以通过上述的各种方式灵活地显示和管理集合数据。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bk0005en74bhhsgvn3" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中ZStack的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -121,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49b000cwd74cym5b4ej" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bm000cen743x363m5z" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -189,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49b000awd74a7fo2jkx" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bm000den74c90ncn7q" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -245,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4970001wd74ahie4yqn" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bj0002en7434pp88j5" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -318,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clooeb49c000ewd74hjs9df8q" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clooem1bn000fen746w9lhbeg" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -374,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4990005wd746xlf2hsm" data-title="SwiftUI中Link组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bj0003en743c1zc8ws" data-title="SwiftUI中Link组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -428,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4990006wd74318m0vty" data-title="SwiftUI中ProgressView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bl0007en743yowf32w" data-title="SwiftUI中ProgressView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -480,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="clooeb49d000iwd74cr4k277l" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="clooem1bo000ken74dxwwgad1" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -535,7 +593,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4990004wd7434ee04ta" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bk0006en74grj66g6r" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -592,62 +650,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb49a0007wd74brn8fz81" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中Alert控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:58:19.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Alert控件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>Alert</code> 控件用来向用户显示警告或者提示信息，并且可以提供一个或多个操作供用户选择。<code>Alert</code> 通常用于提示错误信息、确认重要操作或展示信息确认。</p>
-<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>使用 <code>Alert</code> 需要创建一个状态变量来控制它的显示与隐藏，并且在视图的某个事件中触发这个状态变量的变化。然后，你可以使用 <code>.alert</code> 修饰符来在视图层级中添加一个 <code>Alert</code>。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，当按钮被点击时，<code>showAlert</code> 状态变为 <code>true</code>，这会触发 <code>.alert</code> 修饰符显示一个带有 “OK” 按钮的警告框。</p>
-<h3 id="带有多个按钮的-Alert"><a href="#带有多个按钮的-Alert" class="headerlink" title="带有多个按钮的 Alert"></a>带有多个按钮的 Alert</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Cancel&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Delete&quot;</span>, role: .destructive) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Save&quot;</span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里，除了取消按钮外，我们还添加了一个具有破坏性的删除操作和一个普通的保存操作。</p>
-<h3 id="Alert-的自定义内容"><a href="#Alert-的自定义内容" class="headerlink" title="Alert 的自定义内容"></a>Alert 的自定义内容</h3><p>你还可以自定义 <code>Alert</code> 的标题、消息和按钮。例如，下面的 <code>Alert</code> 有一个标题、消息和两个按钮：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.alert(isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Alert</span>(</span><br><span class="line">        title: <span class="type">Text</span>(<span class="string">&quot;Important message&quot;</span>),</span><br><span class="line">        message: <span class="type">Text</span>(<span class="string">&quot;Please read this.&quot;</span>),</span><br><span class="line">        primaryButton: .default(<span class="type">Text</span>(<span class="string">&quot;Got it!&quot;</span>)),</span><br><span class="line">        secondaryButton: .cancel()</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-Alert-获取用户输入"><a href="#使用-Alert-获取用户输入" class="headerlink" title="使用 Alert 获取用户输入"></a>使用 <code>Alert</code> 获取用户输入</h3><p>在 SwiftUI 中，如果你想在 <code>Alert</code> 中获取用户的输入，你通常会使用其他视图，如 <code>sheet</code>，因为 <code>Alert</code> 本身并不支持文本输入。不过，你可以通过弹出一个带有文本字段的 <code>sheet</code> 或者使用自定义的对话框视图来模拟这个行为。</p>
-<h3 id="使用-Alert-与-ObservableObject"><a href="#使用-Alert-与-ObservableObject" class="headerlink" title="使用 Alert 与 ObservableObject"></a>使用 <code>Alert</code> 与 <code>ObservableObject</code></h3><p>当你的视图模型遵循 <code>ObservableObject</code> 并使用 <code>@Published</code> 属性来管理状态时，你可以这样使用 <code>Alert</code>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">MyViewModel</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            viewModel.triggerAlert()</span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$viewModel</span>.showAlert) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">triggerAlert</span>() &#123;</span><br><span class="line">        showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在上面的例子中，<code>MyViewModel</code> 控制 <code>showAlert</code> 的状态，当 <code>triggerAlert</code> 方法被调用时，会显示 <code>Alert</code>。</p>
-<p><code>Alert</code> 在 SwiftUI 中是模态的，这意味着当它出现时，用户必须进行选择才能继续与应用交互。它的设计旨在用于必须要立即解决的情况，因此在设计用户界面时应慎用。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooeb4950000wd74hyu9eh14" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooem1bl0009en74e5sd1tim" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -663,7 +666,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -695,6 +698,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中List的用法</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ZStack的用法</a>
           </li>
         
@@ -708,10 +715,6 @@
         
           <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/">SwiftUI中的布局</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Link组件的用法</a>
           </li>
         
       </ul>
