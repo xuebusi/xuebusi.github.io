@@ -73,6 +73,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中Popover控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:06:54.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Popover控件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，Popover 是一种用于临时显示浮动内容的组件。它通常被用来提供额外的信息或选项，而不必将用户带离他们当前的上下文。Popover 在 iPad 上特别有用，因为它可以利用更大的屏幕尺寸来展示额外内容而不覆盖整个屏幕。</p>
+<h3 id="Popover-的基本用法"><a href="#Popover-的基本用法" class="headerlink" title="Popover 的基本用法"></a>Popover 的基本用法</h3><p>要在 SwiftUI 中创建一个 popover，你可以使用 <code>.popover</code> 修饰符。这需要一个绑定的布尔值，当该值为真时，会显示 popover。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingPopover <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Popover&quot;</span>) &#123;</span><br><span class="line">            showingPopover <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Here&#x27;s the content of the Popover.&quot;</span>)</span><br><span class="line">                .font(.headline)</span><br><span class="line">                .padding()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当用户点击按钮时，<code>showingPopover</code> 变为 <code>true</code>，这会触发 popover 的展示。</p>
+<h3 id="Popover-的附加配置"><a href="#Popover-的附加配置" class="headerlink" title="Popover 的附加配置"></a>Popover 的附加配置</h3><p>Popover 支持使用 <code>attachmentAnchor</code> 和 <code>arrowEdge</code> 参数来进一步配置其位置和箭头的朝向。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.popover(isPresented: <span class="variable">$showingPopover</span>, attachmentAnchor: .point(.bottom), arrowEdge: .top) &#123;</span><br><span class="line">    <span class="comment">// Popover 的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Popover-用于显示动态内容"><a href="#Popover-用于显示动态内容" class="headerlink" title="Popover 用于显示动态内容"></a>Popover 用于显示动态内容</h3><p>Popover 也可以用来显示动态内容，这意味着你可以根据某些状态或者条件来决定展示什么内容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> someCondition &#123;</span><br><span class="line">        <span class="type">SomeView</span>()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">AnotherView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Popover-与-item-绑定"><a href="#Popover-与-item-绑定" class="headerlink" title="Popover 与 item 绑定"></a>Popover 与 <code>item</code> 绑定</h3><p>除了使用布尔值，popover 还可以通过绑定到一个可选项上来展示，这可以使你基于选择的特定对象显示不同的 popover。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedPerson: <span class="type">Person</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(people) &#123; person <span class="keyword">in</span></span><br><span class="line">            <span class="type">Text</span>(person.name)</span><br><span class="line">                .onTapGesture &#123;</span><br><span class="line">                    <span class="keyword">self</span>.selectedPerson <span class="operator">=</span> person</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        .popover(item: <span class="variable">$selectedPerson</span>) &#123; person <span class="keyword">in</span></span><br><span class="line">            <span class="type">PersonDetailView</span>(person: person)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">UUID</span></span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，每个人的名字是一个列表项。当点击名字时，<code>selectedPerson</code> 被设置为该 <code>Person</code> 实例，并且展示了一个 popover 来显示更多关于这个人的详情。</p>
+<h3 id="在不同设备上的表现"><a href="#在不同设备上的表现" class="headerlink" title="在不同设备上的表现"></a>在不同设备上的表现</h3><p>Popover 在 iPadOS 上以浮动视图的形式展现，在 iPhone 上则会占据整个屏幕，类似于 modal presentation。因此，设计你的 popover 内容时，要考虑它在不同设备上的表现。</p>
+<p>Popover 通常用于临时任务或补充内容的场景，它的优点在于能够保持用户在当前的上下文中，同时提供额外的交互或信息。与其它模态视图一样，它们应该被谨慎使用，以免打断用户的工作流程。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioam0003ik744gj8f7wk" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中Sheet控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -118,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a50003dj749ym18zw6" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioam0005ik747ameabua" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -173,7 +228,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a10000dj74cqr0dap4" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioai0000ik74hkob1pmz" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -240,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a60006dj741itud0gb" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioan0007ik74d11y6gp0" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -304,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a50005dj7416k15cnq" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioan0006ik744ol292y5" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -371,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a40002dj74eitf83p2" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioal0002ik748zqaa4cz" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -438,7 +493,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a30001dj7454pt26xn" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioak0001ik743o9gh51s" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -493,7 +548,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a50004dj746mxx22q8" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioam0004ik745xrza3uq" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -548,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="cloocd2a8000gdj74ecetgzko" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="cloocioaq000iik74hr5nct01" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -607,69 +662,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a60007dj745q1c7bip" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中的开关组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:24:24.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的开关组件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>Toggle</code> 是一个用于切换布尔值的 UI 控件。这通常与应用的一些设置或状态开关对应。</p>
-<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>你可以这样创建一个基础的 <code>Toggle</code>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isOn <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Toggle</span>(<span class="string">&quot;Switch Label&quot;</span>, isOn: <span class="variable">$isOn</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里的 <code>$isOn</code> 是对 <code>isOn</code> 变量的一个绑定，它会在用户操作 <code>Toggle</code> 时自动更新。</p>
-<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p>SwiftUI 允许使用各种修饰符自定义 <code>Toggle</code> 的外观：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Toggle</span>(isOn: <span class="variable">$isOn</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Switch Label&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.toggleStyle(<span class="type">SwitchToggleStyle</span>(tint: .green)) <span class="comment">// 自定义开关颜色</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用自定义图标"><a href="#使用自定义图标" class="headerlink" title="使用自定义图标"></a>使用自定义图标</h3><p>你也可以为 <code>Toggle</code> 的标签使用自定义图标：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Toggle</span>(isOn: <span class="variable">$isOn</span>) &#123;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(systemName: <span class="string">&quot;moon.stars.fill&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Dark Mode&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="与列表集成"><a href="#与列表集成" class="headerlink" title="与列表集成"></a>与列表集成</h3><p><code>Toggle</code> 经常和 <code>List</code> 结合使用，尤其是在设置界面：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span> &#123;</span><br><span class="line">    <span class="type">Toggle</span>(<span class="string">&quot;Wi-Fi&quot;</span>, isOn: <span class="variable">$isWifiEnabled</span>)</span><br><span class="line">    <span class="type">Toggle</span>(<span class="string">&quot;Bluetooth&quot;</span>, isOn: <span class="variable">$isBluetoothEnabled</span>)</span><br><span class="line">    <span class="comment">// ... 其他设置项</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="无文本标签"><a href="#无文本标签" class="headerlink" title="无文本标签"></a>无文本标签</h3><p>如果你不需要显示文本标签，可以使用空 <code>Text</code> 或直接省略标签参数：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Toggle</span>(<span class="string">&quot;&quot;</span>, isOn: <span class="variable">$isOn</span>)</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="type">Toggle</span>(isOn: <span class="variable">$isOn</span>) &#123;</span><br><span class="line">    <span class="comment">// 省略标签</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="可访问性"><a href="#可访问性" class="headerlink" title="可访问性"></a>可访问性</h3><p>为了确保你的 <code>Toggle</code> 对于辅助功能用户来说是可访问的，你可以提供额外的信息：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Toggle</span>(<span class="string">&quot;Enable Notifications&quot;</span>, isOn: <span class="variable">$areNotificationsEnabled</span>)</span><br><span class="line">    .accessibilityLabel(<span class="type">Text</span>(<span class="string">&quot;Enable Notifications&quot;</span>))</span><br><span class="line">    .accessibilityHint(<span class="type">Text</span>(<span class="string">&quot;Toggles whether or not to receive notifications.&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="响应状态变化"><a href="#响应状态变化" class="headerlink" title="响应状态变化"></a>响应状态变化</h3><p>如果你想要在 <code>Toggle</code> 状态改变时执行一些操作，你可以使用 <code>.onChange(of:)</code> 修饰符：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Toggle</span>(<span class="string">&quot;Enable Notifications&quot;</span>, isOn: <span class="variable">$areNotificationsEnabled</span>)</span><br><span class="line">    .onChange(of: areNotificationsEnabled) &#123; newValue <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 当 Toggle 状态变化时执行</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Notifications are now <span class="subst">\(newValue <span class="operator">?</span> <span class="string">&quot;enabled&quot;</span> : <span class="string">&quot;disabled&quot;</span>)</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>Toggle</code> 组件可以很容易地为用户提供控制应用设置的方式，它是可声明式 UI 的一个例子，将状态的可视化与状态管理结合起来。通过在 SwiftUI 视图中声明状态和状态之间的绑定，<code>Toggle</code> 的状态改变可以传播到你的应用的其他部分，或者触发一些逻辑。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocd2a60009dj742uy242op" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cloocioan0009ik74cdddhf7j" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -717,6 +710,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Popover控件的用法</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Sheet控件的用法</a>
           </li>
         
@@ -730,10 +727,6 @@
         
           <li>
             <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Slider组件的用法</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Picker的用法</a>
           </li>
         
       </ul>
