@@ -251,11 +251,112 @@
 </ul>
 <p>用户交互按预期工作。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在本小节中，我们详细探讨了构建聊天应用的应用逻辑实现。从用户界面的交互到后端的数据处理，每一步都是为了提供流畅而可靠的用户体验。通过上述步骤的实现，我们的聊天应用将能够处理实时的消息交流，拥有健壮的逻辑处理能力以及优雅的错误处理机制。接下来的小节，我们将继续深入探讨应用的其他关键功能和实现细节。</p>
+<p><strong>第4小节：数据持久化</strong></p>
+<p>在聊天应用中，数据持久化是保证用户信息、消息历史以及应用状态在不同会话间能够得到保存和恢复的关键技术。不仅仅是为了增强用户体验，数据持久化同样是数据安全和隐私的重要组成部分。在本小节中，我们将讨论在SwiftUI应用中实现数据持久化的策略和技术。</p>
+<h3 id="持久化选项"><a href="#持久化选项" class="headerlink" title="持久化选项"></a>持久化选项</h3><p>SwiftUI应用中，我们可以选择多种方式来实现数据持久化：</p>
+<ol>
+<li><strong>UserDefaults</strong>：适合存储少量的用户偏好设置或简单的应用状态。</li>
+<li><strong>文件系统</strong>：适合存储大量数据，如日志文件或者用户生成的内容。</li>
+<li><strong>SQLite数据库</strong>：适合复杂的数据结构和大量数据的管理。</li>
+<li><strong>Core Data</strong>：苹果推荐的解决方案，集成了SQLite，并提供了丰富的数据管理功能。</li>
+<li><strong>CloudKit</strong>：允许数据在设备间同步，同时保留在iCloud上。</li>
+</ol>
+<h3 id="Core-Data集成"><a href="#Core-Data集成" class="headerlink" title="Core Data集成"></a>Core Data集成</h3><p>我们将以Core Data为例，探讨如何在SwiftUI聊天应用中实现数据持久化。</p>
+<ul>
+<li><strong>设置Core Data堆栈</strong>：这包括了<code>NSPersistentContainer</code>的创建和配置，它将负责管理数据模型和协调数据存储。</li>
+<li><strong>定义数据模型</strong>：在<code>.xcdatamodeld</code>文件中定义实体（Entity），包括<code>User</code>和<code>Message</code>等，并设置好它们的属性和关系。</li>
+<li><strong>管理上下文（Context）</strong>：使用<code>NSManagedObjectContext</code>来管理对象的生命周期，实现数据的增删改查操作。</li>
+</ul>
+<h3 id="数据存储和检索"><a href="#数据存储和检索" class="headerlink" title="数据存储和检索"></a>数据存储和检索</h3><ul>
+<li><strong>存储消息</strong>：当用户发送消息时，创建<code>Message</code>的实例，并通过上下文将其插入到持久化存储中。</li>
+<li><strong>读取会话</strong>：加载聊天会话时，从Core Data中检索相关联的<code>Message</code>实例，根据时间戳排序后显示在界面上。</li>
+</ul>
+<h3 id="同步和更新"><a href="#同步和更新" class="headerlink" title="同步和更新"></a>同步和更新</h3><ul>
+<li><strong>监听数据变化</strong>：利用<code>NSFetchedResultsController</code>监听Core Data模型的变化，当新消息被插入时，自动刷新UI。</li>
+<li><strong>后台更新</strong>：通过<code>performBackgroundTask</code>方法在后台线程上进行数据更新操作，以避免阻塞UI线程。</li>
+</ul>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><ul>
+<li><strong>处理Core Data错误</strong>：在进行数据操作时，正确处理<code>NSManagedObjectContext</code>的保存（save）操作可能出现的错误。</li>
+<li><strong>数据迁移</strong>：为了应对未来数据模型的变化，实现Core Data的数据迁移策略。</li>
+</ul>
+<h3 id="测试与维护"><a href="#测试与维护" class="headerlink" title="测试与维护"></a>测试与维护</h3><ul>
+<li><strong>单元测试</strong>：为数据模型的创建、更新、删除编写单元测试，确保数据层逻辑的正确性。</li>
+<li><strong>数据清理</strong>：实现数据清理策略，比如删除过旧的消息，避免数据库不断增大。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>数据持久化不仅能提高用户体验，同时对于保证数据的安全性和完整性也至关重要。通过使用Core Data，我们可以为聊天应用提供一个强大、灵活且易于维护的数据存储方案。在聊天应用中实现了数据持久化之后，无论用户何时回到应用，都能够立即接入到他们离开时的状态，保持流畅的聊天体验。在下一小节中，我们将进一步探讨如何将我们的聊天应用与云服务（如CloudKit）整合，实现跨设备的数据同步功能。</p>
+<p><strong>第5小节：网络请求和数据处理</strong></p>
+<p>当我们在构建一个现代的聊天应用时，网络请求成为了一个核心部分，它负责从远程服务器获取数据以及将数据推送到服务器。在本小节中，我们将介绍如何在聊天应用中处理网络请求和数据。</p>
+<h3 id="设计API接口"><a href="#设计API接口" class="headerlink" title="设计API接口"></a>设计API接口</h3><p>在开始编写代码之前，我们需要设计我们聊天应用所需的API接口。这些接口应包括：</p>
+<ul>
+<li>用户注册与登录</li>
+<li>消息发送与接收</li>
+<li>用户状态更新</li>
+<li>好友列表和消息历史获取</li>
+</ul>
+<p>API设计应该遵循RESTful原则或者使用更现代的GraphQL。</p>
+<h3 id="使用Swift的网络框架"><a href="#使用Swift的网络框架" class="headerlink" title="使用Swift的网络框架"></a>使用Swift的网络框架</h3><p>Swift提供了多种网络请求的方法，如<code>URLSession</code>，它是一个强大且灵活的网络通信框架。</p>
+<ul>
+<li><strong>创建网络请求</strong>：使用<code>URLRequest</code>构建请求，包括URL、HTTP方法（如GET、POST）、请求头和请求体。</li>
+<li><strong>发送请求和接收响应</strong>：利用<code>URLSession</code>发起请求，并通过<code>URLSessionDataTask</code>处理回调。</li>
+<li><strong>解析JSON数据</strong>：使用<code>JSONDecoder</code>将服务器返回的JSON数据解析成Swift的结构体。</li>
+</ul>
+<h3 id="异步和等待"><a href="#异步和等待" class="headerlink" title="异步和等待"></a>异步和等待</h3><p>SwiftUI 与 Swift 5.5 引入的 async&#x2F;await 一起，可以大大简化异步网络请求的处理。</p>
+<ul>
+<li><strong>异步函数</strong>：定义异步函数来发起网络请求，使用<code>await</code>关键字等待响应。</li>
+<li><strong>错误处理</strong>：使用<code>do-catch</code>语句捕获并处理网络请求或数据解析中可能发生的错误。</li>
+</ul>
+<h3 id="数据模型和解析"><a href="#数据模型和解析" class="headerlink" title="数据模型和解析"></a>数据模型和解析</h3><p>定义数据模型来对应API返回的数据格式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">User</span>: <span class="title class_">Codable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Message</span>: <span class="title class_">Codable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> senderId: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> receiverId: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> content: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> timestamp: <span class="type">Date</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>Codable</code>协议自动将JSON数据和模型进行映射。</p>
+<h3 id="实时聊天功能"><a href="#实时聊天功能" class="headerlink" title="实时聊天功能"></a>实时聊天功能</h3><p>对于聊天应用来说，实时通讯是必不可少的。WebSocket 是一种在单个TCP连接上进行全双工通讯的协议。</p>
+<ul>
+<li><strong>使用WebSocket</strong>：通过<code>URLSessionWebSocketTask</code>来与服务器建立WebSocket连接。</li>
+<li><strong>接收消息</strong>：监听WebSocket的消息事件来实时接收新消息。</li>
+<li><strong>发送消息</strong>：发送消息通过WebSocket实时传递给其他用户。</li>
+</ul>
+<h3 id="网络状态监听"><a href="#网络状态监听" class="headerlink" title="网络状态监听"></a>网络状态监听</h3><p>考虑到网络状态可能时常变化，应用应能响应网络状态的改变。</p>
+<ul>
+<li><strong>使用Reachability</strong>：检测网络连接状态，根据网络状况提示用户或执行重连策略。</li>
+<li><strong>网络指示器</strong>：提供用户界面反馈，例如当应用正在进行网络请求时显示加载指示器。</li>
+</ul>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>安全性是聊天应用中一个重要的议题。</p>
+<ul>
+<li><strong>使用HTTPS</strong>：确保所有的网络请求都通过安全的HTTP连接进行。</li>
+<li><strong>身份验证</strong>：使用OAuth、JWT等机制来管理和验证用户身份。</li>
+<li><strong>数据加密</strong>：对敏感数据进行加密，确保即使在传输过程中数据被截获也无法被解读。</li>
+</ul>
+<h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><p>网络请求的测试至关重要。</p>
+<ul>
+<li><strong>单元测试</strong>：为网络请求编写单元测试，使用Mock对象来模拟网络响应。</li>
+<li><strong>集成测试</strong>：确保网络请求与应用其他部分的整合运行无误。</li>
+</ul>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>网络请求和数据处理是构建聊天应用的核心部分。利用Swift的现代编程特性和网络框架，我们可以有效地发送请求、接收响应、处理数据，并保证用户信息的安全性。在下一小节中，我们将讨论如何</p>
+<p>实现跨平台的消息推送通知，这是提升用户体验的另一个关键点。</p>
+<p><strong>第6小节：应用测试和发布准备</strong></p>
+<p>在开发完一个应用后，进行彻底的测试并做好发布前的各种准备工作是至关重要的。这一步骤确保了你的应用能够在广泛发布之前，满足质量标准，减少可能的错误或问题，为最终用户提供良好的体验。</p>
+<h3 id="应用测试"><a href="#应用测试" class="headerlink" title="应用测试"></a>应用测试</h3><p><strong>单元测试</strong>：为应用的每一个独立模块编写单元测试，验证逻辑的正确性。在聊天应用中，需要确保消息处理、用户认证、数据解析等核心功能的准确无误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"><span class="keyword">@testable</span> <span class="keyword">import</span> ChatApp</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChatAppTests</span>: <span class="title class_">XCTestCase</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testMessageParsing</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> json <span class="operator">=</span> <span class="string">&quot;&#123; <span class="subst">\&quot;</span>senderId<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>1<span class="subst">\&quot;</span>, <span class="subst">\&quot;</span>receiverId<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>2<span class="subst">\&quot;</span>, <span class="subst">\&quot;</span>content<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>Hello<span class="subst">\&quot;</span> &#125;&quot;</span></span><br><span class="line">        <span class="keyword">let</span> data <span class="operator">=</span> <span class="type">Data</span>(json.utf8)</span><br><span class="line">        <span class="keyword">let</span> message <span class="operator">=</span> <span class="keyword">try?</span> <span class="type">JSONDecoder</span>().decode(<span class="type">Message</span>.<span class="keyword">self</span>, from: data)</span><br><span class="line">        <span class="type">XCTAssertNotNil</span>(message)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>集成测试</strong>：检查应用中各个模块之间的交互是否正确。这包括用户界面流程的测试，确保视图控制器和视图模型间的交互按预期工作。</p>
+<p><strong>性能测试</strong>：确保应用的性能达标。例如，消息加载和发送的速度要快，内存消耗要低。</p>
+<p><strong>安全性测试</strong>：验证应用的安全措施，包括数据加密和身份验证流程。</p>
+<h3 id="用户界面测试"><a href="#用户界面测试" class="headerlink" title="用户界面测试"></a>用户界面测试</h3><p><strong>UI测试</strong>：自动化测试用户界面，确保用户的交互行为如点击、滚动、输入等能够产生预期的结果。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChatAppUITests</span>: <span class="title class_">XCTestCase</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testChatFlow</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> app <span class="operator">=</span> <span class="type">XCUIApplication</span>()</span><br><span class="line">        app.launch()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> messageTextField <span class="operator">=</span> app.textFields[<span class="string">&quot;messageTextField&quot;</span>]</span><br><span class="line">        messageTextField.tap()</span><br><span class="line">        messageTextField.typeText(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> sendButton <span class="operator">=</span> app.buttons[<span class="string">&quot;sendButton&quot;</span>]</span><br><span class="line">        sendButton.tap()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 验证消息是否显示在聊天界面上</span></span><br><span class="line">        <span class="keyword">let</span> chatBubble <span class="operator">=</span> app.staticTexts[<span class="string">&quot;Hello, World!&quot;</span>]</span><br><span class="line">        <span class="type">XCTAssertTrue</span>(chatBubble.exists)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>可访问性测试</strong>：确保应用支持VoiceOver等辅助功能，使得所有用户都能使用你的应用。</p>
+<h3 id="发布前的准备"><a href="#发布前的准备" class="headerlink" title="发布前的准备"></a>发布前的准备</h3><p><strong>Beta测试</strong>：通过TestFlight或类似的服务，发布应用的测试版本，邀请用户参与beta测试。</p>
+<p><strong>性能优化</strong>：回顾代码，查找并优化可能的性能瓶颈，如减少不必要的网络请求，优化图片加载。</p>
+<p><strong>本地化</strong>：确保应用支持多语言，包括界面文本和用户内容的适当本地化。</p>
+<p><strong>应用商店优化（ASO）</strong>：为了在应用商店中获得更好的曝光，优化应用的标题、描述、关键字和截图。</p>
+<p><strong>隐私政策和用户协议</strong>：准备并审核应用的隐私政策和用户协议文档，确保符合法律法规和应用商店的要求。</p>
+<p><strong>备份和恢复策略</strong>：确保应用支持数据备份和恢复功能，以便用户更换设备后可以恢复数据。</p>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><p>确保你的聊天应用在发布前通过了各种形式的测试，这包括了功能、性能、安全性和用户界面的测试。同时，完成发布前的各项准备工作，确保你的应用在上架后能够吸引用户并且避免法律风险。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E8%81%8A%E5%A4%A9%E5%BA%94%E7%94%A8/" data-id="clop425ie000v0q74b8vc5x18" data-title="SwiftUI核心技术第15章构建一个完整的聊天应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E8%81%8A%E5%A4%A9%E5%BA%94%E7%94%A8/" data-id="clop4qssk00005o749qi8fn4g" data-title="SwiftUI核心技术第15章构建一个完整的聊天应用" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -385,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/" data-id="clop425id000u0q747k3m798u" data-title="SwiftUI核心技术第14章测试与调试" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/" data-id="clop4m924000y3m741fjh8i5s" data-title="SwiftUI核心技术第14章测试与调试" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -502,7 +603,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="clop425id000t0q745amv85il" data-title="SwiftUI核心技术第13章性能优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="clop4m924000t3m746nhicd93" data-title="SwiftUI核心技术第13章性能优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -670,7 +771,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC12%E7%AB%A0Dark-Mode%E5%92%8CAccessibility/" data-id="clop425id000s0q747avs4o0z" data-title="SwiftUI核心技术第12章Dark Mode和Accessibility" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC12%E7%AB%A0Dark-Mode%E5%92%8CAccessibility/" data-id="clop4m923000q3m742nt6bleh" data-title="SwiftUI核心技术第12章Dark Mode和Accessibility" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -783,7 +884,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/" data-id="clop425id000r0q74d60k1j96" data-title="SwiftUI核心技术第11章适配多平台" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/" data-id="clop4m923000s3m742f6uchtn" data-title="SwiftUI核心技术第11章适配多平台" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -903,7 +1004,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/" data-id="clop425id000q0q7406jr521e" data-title="SwiftUI核心技术第10章集成Core Data和CloudKit" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/" data-id="clop4m922000n3m74gpk2hevp" data-title="SwiftUI核心技术第10章集成Core Data和CloudKit" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1026,7 +1127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/" data-id="clop425ie00110q74ciwqbsge" data-title="SwiftUI核心技术第9章复合视图与可复用性" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/" data-id="clop4m92700193m74dc1m083t" data-title="SwiftUI核心技术第9章复合视图与可复用性" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1192,7 +1293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" data-id="clop425ie00100q749b22fmyv" data-title="SwiftUI核心技术第8章动画与转场" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" data-id="clop4m92500103m74ekh8fqkj" data-title="SwiftUI核心技术第8章动画与转场" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1328,7 +1429,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop425ie000z0q74azl0hkr1" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop4m924000x3m7437mxhtbm" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1456,7 +1557,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop425ie000y0q747lg48y8d" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop4m924000z3m74azk5epqg" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
