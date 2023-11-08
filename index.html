@@ -73,6 +73,1151 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI核心技术第7章导航与呈现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T01:09:18.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/">SwiftUI核心技术第7章导航与呈现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第7章：导航与呈现</strong></p>
+<p><strong>1. NavigationView和NavigationViewLink</strong></p>
+<p>在SwiftUI中，<code>NavigationView</code>和<code>NavigationLink</code>组合起来使用，提供了一个强大的导航框架，让我们可以构建具有层次结构的页面间跳转。它们的设计遵循了SwiftUI的声明式语法，使得页面跳转和数据传递变得直观和易于管理。</p>
+<p><strong>NavigationView</strong></p>
+<p><code>NavigationView</code>是一个容器视图，它承载着你的视图层次结构，并提供了展示这些视图的空间。你可以把它看作是页面导航的起点。通常，一个<code>NavigationView</code>包含一个或多个<code>View</code>，这些<code>View</code>可以通过<code>NavigationLink</code>来进行跳转。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NavigationView</span> &#123;</span><br><span class="line">    <span class="type">List</span>(selection: <span class="variable">$selectedItem</span>) &#123;</span><br><span class="line">        <span class="type">NavigationLink</span>(destination: <span class="type">DetailView</span>(item: item)) &#123;</span><br><span class="line">            <span class="type">Text</span>(item.title)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    .navigationBarTitle(<span class="type">Text</span>(<span class="string">&quot;Items&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>NavigationView</code>包含了一个列表，列表中的每一项都绑定了一个<code>NavigationLink</code>，点击时将展示<code>DetailView</code>。</p>
+<p><strong>NavigationLink</strong></p>
+<p><code>NavigationLink</code>负责在<code>NavigationView</code>中触发页面跳转。它有多个初始化方法，可以根据需求选择使用。最基本的用法是提供一个目标视图和触发跳转的内容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NavigationLink</span>(destination: <span class="type">DetailView</span>(item: item)) &#123;</span><br><span class="line">    <span class="type">Text</span>(item.title)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里<code>NavigationLink</code>的目的地是<code>DetailView</code>，用户点击列表项上的<code>Text</code>时会触发导航到<code>DetailView</code>。</p>
+<p><strong>激活和反激活链接</strong></p>
+<p><code>NavigationLink</code>可以与SwiftUI的状态绑定，以编程方式激活或反激活导航。通过在<code>NavigationLink</code>初始化时传递一个布尔型的绑定，你可以控制导航的行为。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isLinkActive <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">NavigationView</span> &#123;</span><br><span class="line">        <span class="type">NavigationLink</span>(destination: <span class="type">DetailView</span>(), isActive: <span class="variable">$isLinkActive</span>) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;Go to Details&quot;</span>) &#123;</span><br><span class="line">                <span class="keyword">self</span>.isLinkActive <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，一个按钮被用来激活<code>NavigationLink</code>。当用户点击按钮，<code>isLinkActive</code>状态变为<code>true</code>，触发导航到<code>DetailView</code>。</p>
+<p><strong>传递数据</strong></p>
+<p>在导航过程中，你可能需要向目的地视图传递数据。<code>NavigationLink</code>的<code>destination</code>参数让你可以轻松做到这一点。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NavigationLink</span>(destination: <span class="type">DetailView</span>(item: item)) &#123;</span><br><span class="line">    <span class="type">ItemRow</span>(item: item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，每个<code>ItemRow</code>是一个列表中的行，它带有一个与之关联的<code>item</code>数据模型。点击<code>ItemRow</code>时，<code>item</code>将被传递到<code>DetailView</code>。</p>
+<p><strong>小结</strong></p>
+<p><code>NavigationView</code>和<code>NavigationLink</code>构成了SwiftUI中页面导航的基石。它们的使用方式灵活而强大，支持各种复杂的导航模式。通过声明式语法，我们可以更专注于视图的内容和业务逻辑，而不是导航的细节。本章节的后续部分将探讨更高级的导航模式，如使用<code>TabView</code>和<code>modal</code>呈现，以及如何处理数据传递和状态管理。</p>
+<p><strong>2. TabView</strong></p>
+<p>在构建一个用户界面时，底部的标签栏是一种常见的设计，允许用户轻松切换不同的视图或功能模块。在SwiftUI中，这可以通过<code>TabView</code>来实现。<code>TabView</code>为应用提供了一个选项卡式的界面，每个选项卡都代表了一个视图。</p>
+<p><strong>基本用法</strong></p>
+<p><code>TabView</code>的基本用法涉及到声明式地列出每一个选项卡，并使用<code>tabItem</code>修饰符来定义每个标签的外观，通常包括图标和文本。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TabView</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;首页&quot;</span>)</span><br><span class="line">        .tabItem &#123;</span><br><span class="line">            <span class="type">Image</span>(systemName: <span class="string">&quot;house&quot;</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Home&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;设置&quot;</span>)</span><br><span class="line">        .tabItem &#123;</span><br><span class="line">            <span class="type">Image</span>(systemName: <span class="string">&quot;gear&quot;</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Settings&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个简单的例子中，<code>TabView</code>包含了两个选项卡：“首页”和“设置”，每个选项卡都是用<code>Text</code>视图表示的，并且有对应的系统图标。</p>
+<p><strong>选项卡状态管理</strong></p>
+<p><code>TabView</code>可以与<code>@State</code>变量绑定，从而允许你编程方式控制当前激活的选项卡。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedTab <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">TabView</span>(selection: <span class="variable">$selectedTab</span>) &#123;</span><br><span class="line">        <span class="type">HomeView</span>()</span><br><span class="line">            .tabItem &#123;</span><br><span class="line">                <span class="type">Image</span>(systemName: <span class="string">&quot;house&quot;</span>)</span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Home&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            .tag(<span class="number">0</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="type">SettingsView</span>()</span><br><span class="line">            .tabItem &#123;</span><br><span class="line">                <span class="type">Image</span>(systemName: <span class="string">&quot;gear&quot;</span>)</span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Settings&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            .tag(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述代码中，<code>selectedTab</code>绑定到<code>TabView</code>的<code>selection</code>参数。通过改变<code>selectedTab</code>的值，你可以改变当前选中的标签页。</p>
+<p><strong>自定义外观</strong></p>
+<p><code>TabView</code>的外观可以通过多种方式进行自定义。例如，可以使用<code>.accentColor</code>来改变选中标签的颜色。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TabView</span> &#123;</span><br><span class="line">    <span class="comment">// ... 你的选项卡</span></span><br><span class="line">&#125;</span><br><span class="line">.accentColor(.green)</span><br></pre></td></tr></table></figure>
+
+<p><strong>结合NavigationView使用</strong></p>
+<p>在<code>TabView</code>内部，你可能还会嵌入<code>NavigationView</code>，以在选项卡内部提供导航堆栈。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TabView</span> &#123;</span><br><span class="line">    <span class="type">NavigationView</span> &#123;</span><br><span class="line">        <span class="type">HomeView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    .tabItem &#123;</span><br><span class="line">        <span class="type">Image</span>(systemName: <span class="string">&quot;house&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Home&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 其他选项卡</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做可以确保每个选项卡都能拥有独立的导航历史，这对于用户体验非常重要。</p>
+<p><strong>使用场景</strong></p>
+<p><code>TabView</code>在很多类型的应用中都非常有用。它是构建具有多个独立部分的应用的理想选择，例如社交网络应用、具有个人中心、消息、设置等的应用。</p>
+<p><strong>小结</strong></p>
+<p>通过本节的介绍，我们了解了如何使用<code>TabView</code>创建具有多个交互式选项卡的界面。<code>TabView</code>不仅提供了高度的可定制性，还能够很好地与其他视图和数据流模式协同工作。在接下来的小节中，我们将继续探索更多关于SwiftUI中视图呈现和数据流管理的先进概念。</p>
+<p><strong>3. Sheets和Alerts</strong></p>
+<p>在构建应用时，弹出视图和警告框（Alerts）是与用户交互的重要方式。在SwiftUI中，这通常通过使用<code>Sheet</code>和<code>Alert</code>视图完成。</p>
+<p><strong>Sheets</strong></p>
+<p>Sheet是一种覆盖在当前内容上的卡片样式视图，通常用于导航流程之外的辅助任务，比如表单填写、设置选项等。</p>
+<p><strong>创建Sheet</strong></p>
+<p>要创建一个Sheet，你需要使用<code>.sheet</code>修饰符，并为其提供一个绑定的布尔值，这个布尔值决定Sheet是否可见。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingSheet <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Show Sheet&quot;</span>) &#123;</span><br><span class="line">        showingSheet.toggle()</span><br><span class="line">    &#125;</span><br><span class="line">    .sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">        <span class="comment">// Sheet的内容</span></span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Here&#x27;s the Sheet&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义Sheet</strong></p>
+<p>Sheet的内容可以是任意视图。例如，你可以创建一个包含表单的<code>NavigationView</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">    <span class="type">NavigationView</span> &#123;</span><br><span class="line">        <span class="type">Form</span> &#123;</span><br><span class="line">            <span class="comment">// 表单内容</span></span><br><span class="line">        &#125;</span><br><span class="line">        .navigationBarTitle(<span class="string">&quot;Settings&quot;</span>, displayMode: .inline)</span><br><span class="line">        .navigationBarItems(trailing: <span class="type">Button</span>(<span class="string">&quot;Done&quot;</span>) &#123;</span><br><span class="line">            showingSheet <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用Sheet实现细节</strong></p>
+<p>在内部，Sheet会自动管理自己的显示和隐藏。你可以将<code>showingSheet</code>绑定到视图的某个状态或者对象的属性上，当这个属性变化时，对应的Sheet会自动显示或隐藏。</p>
+<p><strong>Alerts</strong></p>
+<p>Alerts用于显示重要信息，并可以提供一个或多个操作选项。</p>
+<p><strong>创建Alert</strong></p>
+<p>和Sheet类似，Alert也使用绑定的布尔值来控制显示状态。不过，创建Alert时，通常还会指定标题、消息和按钮。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">        showingAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    .alert(isPresented: <span class="variable">$showingAlert</span>) &#123;</span><br><span class="line">        <span class="type">Alert</span>(</span><br><span class="line">            title: <span class="type">Text</span>(<span class="string">&quot;Warning&quot;</span>),</span><br><span class="line">            message: <span class="type">Text</span>(<span class="string">&quot;Are you sure?&quot;</span>),</span><br><span class="line">            primaryButton: .destructive(<span class="type">Text</span>(<span class="string">&quot;Delete&quot;</span>)) &#123;</span><br><span class="line">                <span class="comment">// 删除操作</span></span><br><span class="line">            &#125;,</span><br><span class="line">            secondaryButton: .cancel()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Alert的样式</strong></p>
+<p>Alert可以有多种样式，从简单的带有单一按钮的Alert到复杂的带有多个按钮和自定义操作的Alert。</p>
+<p><strong>小结</strong></p>
+<p>Sheet和Alert都是在SwiftUI中管理临时视图和用户交互的重要工具。通过合理使用这两种视图，你可以创建出既直观又有效的用户体验。正如我们所见，SwiftUI提供的<code>.sheet</code>和<code>.alert</code>修饰符让这两种视图的展示和管理变得十分简单。在接下来的章节中，我们将深入探讨如何利用SwiftUI的高级特性来构建更为复杂的用户交互界面。</p>
+<p><strong>4. Navigation的高级用法</strong></p>
+<p>SwiftUI的导航系统提供了一种直观且声明式的方法来处理视图间的转换。除了基础的<code>NavigationView</code>和<code>NavigationLink</code>之外，我们还可以采用更高级的用法来增强用户体验和视图的灵活性。</p>
+<p><strong>程序化导航</strong></p>
+<p>在某些情况下，你可能需要从视图模型或响应某个事件时进行导航。这可以通过绑定到视图模型中的属性并使用<code>NavigationLink</code>的<code>isActive</code>参数实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> isDetailViewActive <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@StateObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">ViewModel</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">NavigationLink</span>(destination: <span class="type">DetailView</span>(), isActive: <span class="variable">$viewModel</span>.isDetailViewActive) &#123; </span><br><span class="line">                <span class="type">EmptyView</span>()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;Go to Details&quot;</span>) &#123;</span><br><span class="line">                viewModel.isDetailViewActive <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>隐藏和显示导航栏</strong></p>
+<p>在用户界面中，有时候我们需要隐藏导航栏来提供沉浸式体验，或者我们需要在特定的视图中改变导航栏的显示方式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">DetailView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="comment">// 隐藏导航栏</span></span><br><span class="line">        .navigationBarHidden(<span class="literal">true</span>)</span><br><span class="line">        <span class="comment">// 在视图即将出现时设置导航栏样式</span></span><br><span class="line">        .onAppear &#123;</span><br><span class="line">            <span class="comment">// 设置导航栏样式</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义后退按钮行为</strong></p>
+<p>有时默认的后退按钮行为并不符合我们的需要。在SwiftUI中，我们可以通过添加一个自定义的按钮并绑定其行为来覆盖默认的后退按钮。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomBackButtonView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@Environment</span>(\.presentationMode) <span class="keyword">var</span> presentationMode</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            <span class="comment">// 执行自定义后退操作</span></span><br><span class="line">            presentationMode.wrappedValue.dismiss()</span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">HStack</span> &#123;</span><br><span class="line">                <span class="type">Image</span>(systemName: <span class="string">&quot;arrow.left&quot;</span>)</span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Back&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>深度链接</strong></p>
+<p>深度链接是指直接导航到应用内部的某个特定页面的链接。在SwiftUI中，我们可以监听来自URL的深度链接，并根据链接的内容导航到相应的视图。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.onOpenURL &#123; url <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 解析URL并进行导航</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>嵌套导航</strong></p>
+<p>在构建复杂的界面时，我们可能会需要嵌套多个<code>NavigationView</code>。虽然这在用户界面上并不常见，但在特定的设计中可能是必要的。嵌套导航需要细心处理，以确保导航栈的正确和流畅的用户体验。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NavigationView</span> &#123;</span><br><span class="line">    <span class="comment">// 主界面</span></span><br><span class="line">    <span class="type">NavigationView</span> &#123;</span><br><span class="line">        <span class="comment">// 嵌套的子界面</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>小结</strong></p>
+<p>通过上述高级导航功能，开发者可以在SwiftUI中创建复杂且具有出色用户体验的导航流。这些高级技巧的掌握可以帮助你更好地管理视图层级和导航逻辑，让应用的导航更加直观和响应用户操作。在后续章节中，我们将探索如何将这些高级导航技巧与应用的其它部分相结合，以构建完整且功能丰富的应用程序。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop2dwbf000pl3742ct7fqva" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术第6章数据流与绑定" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T00:52:43.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/">SwiftUI核心技术第6章数据流与绑定</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第6章：数据流与绑定</strong></p>
+<p><strong>1. State和Binding</strong></p>
+<p>在SwiftUI中，数据流的管理是构建动态和响应式用户界面的核心。<code>State</code>和<code>Binding</code>是实现这种数据流动的基本工具，它们使得数据和视图能够保持同步。</p>
+<p><strong>State：拥有数据的真相</strong></p>
+<p><code>@State</code> 是一个属性包装器，用于声明SwiftUI管理的状态。这个状态是私有的，仅在当前视图内部使用。当状态变化时，SwiftUI会自动重新绘制依赖于这个状态的视图部分。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isToggled <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Toggle</span>(<span class="string">&quot;开关&quot;</span>, isOn: <span class="variable">$isToggled</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>isToggled</code> 是一个布尔状态，与一个开关绑定。当用户切换开关时，<code>isToggled</code> 的值会改变，触发视图的更新。</p>
+<p><strong>Binding：连接状态和视图</strong></p>
+<p><code>Binding</code> 提供了对某个状态的读写权限，但不拥有这个状态本身。通过<code>$</code>符号，我们可以从一个<code>@State</code>变量创建一个<code>Binding</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ToggleView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@Binding</span> <span class="keyword">var</span> isOn: <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Toggle</span>(<span class="string">&quot;开关&quot;</span>, isOn: <span class="variable">$isOn</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>ToggleView</code> 需要一个<code>Binding</code>来控制开关的状态，这个<code>Binding</code>可以从父视图的<code>@State</code>中派生而来。</p>
+<p><strong>使用State和Binding</strong></p>
+<p>在实际的应用中，<code>@State</code>适用于简单的局部状态管理，如界面的某个开关、文本输入框的内容等。当状态改变时，只有使用到该状态的视图会重新渲染，从而优化了性能。</p>
+<p><code>@Binding</code>则用于将状态的控制权从一个视图传递到另一个视图。例如，在一个父视图中定义了<code>@State</code>，那么就可以将这个状态以<code>Binding</code>的形式传递给子视图，让子视图能够读取并修改这个状态。</p>
+<p><strong>State和视图的生命周期</strong></p>
+<p>理解<code>@State</code>与视图的生命周期是紧密相关的也很重要。当一个视图被SwiftUI重新绘制时，<code>@State</code>所持有的状态会被保留下来。这意味着状态的变更是持久的，即使视图的某些其他部分可能因为不同的原因而重新渲染。</p>
+<p><strong>总结</strong></p>
+<p><code>State</code>和<code>Binding</code>是SwiftUI中数据流的基础。<code>@State</code>用于创建可变的状态，当状态变化时，视图会响应这些变化。而<code>Binding</code>则用于在视图之间共享状态，允许多个视图共同拥有和修改状态。通过恰当地使用这两个工具，我们可以创建出既简洁又高效的响应式用户界面。在接下来的章节中，我们将深入探讨如何在更复杂的应用架构中管理状态和数据流。</p>
+<p><strong>2. ObservedObject和EnvironmentObject</strong></p>
+<p>在构建复杂的SwiftUI应用时，我们经常需要处理跨多个视图共享的数据。在这种情况下，仅使用<code>@State</code>和<code>@Binding</code>可能不够用，因为它们主要用于单个视图或其直接子视图的状态管理。这时，<code>@ObservedObject</code>和<code>@EnvironmentObject</code>就成为了重要的工具。</p>
+<p><strong>ObservedObject：动态数据的监听者</strong></p>
+<p><code>@ObservedObject</code>用于绑定外部的可观察对象（通常是遵循<code>ObservableObject</code>协议的类实例），当可观察对象发出变化通知时，视图会重新渲染以反映新的数据。</p>
+<p>这里有一个<code>ObservableObject</code>的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UserData</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> username: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;用户&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Published</code>属性包装器用于标记会发生变化的数据。一旦<code>username</code>的值发生变更，就会自动通知所有的观察者。</p>
+<p>在视图中使用<code>@ObservedObject</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">UserView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> userData: <span class="type">UserData</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;用户名: <span class="subst">\(userData.username)</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>UserView</code>中，<code>userData</code>作为一个<code>@ObservedObject</code>提供了对<code>UserData</code>实例的引用。当<code>username</code>更新时，<code>UserView</code>也会更新其显示。</p>
+<p><strong>EnvironmentObject：跨层级的数据共享</strong></p>
+<p><code>@EnvironmentObject</code>是一种特殊类型的数据流工具，它可以让数据在视图层级间传递而不需要显式地通过参数传递。它非常适合那些被多个视图访问的全局数据或设置。</p>
+<p>首先，你需要在某个父视图中将数据对象添加到环境中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@main</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyApp</span>: <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">Scene</span> &#123;</span><br><span class="line">        <span class="type">WindowGroup</span> &#123;</span><br><span class="line">            <span class="type">ContentView</span>()</span><br><span class="line">                .environmentObject(<span class="type">UserData</span>())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，在子视图中，你可以直接通过<code>@EnvironmentObject</code>来访问这个数据对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ProfileView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@EnvironmentObject</span> <span class="keyword">var</span> userData: <span class="type">UserData</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;欢迎, <span class="subst">\(userData.username)</span>!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不需要显式地从父视图传递<code>UserData</code>到<code>ProfileView</code>，<code>ProfileView</code>可以直接从环境中获取这个对象。</p>
+<p><strong>总结</strong></p>
+<p><code>@ObservedObject</code>和<code>@EnvironmentObject</code>为我们提供了强大的数据管理能力，使得数据在视图之间传递变得简单且高效。它们都依赖于<code>ObservableObject</code>协议来观察数据模型的变化并响应更新。<code>@ObservedObject</code>适用于需要直接引用的情况，而<code>@EnvironmentObject</code>更适合于全局或共享数据的情况，尤其是在视图层级较深时。</p>
+<p>在接下来的内容中，我们将探讨这些数据流工具如何与SwiftUI的声明式UI框架协同工作，以及如何利用它们来构建响应式和可维护的应用架构。</p>
+<p><strong>3. @Published和Combine</strong></p>
+<p>在SwiftUI中，数据的流动和管理是构建应用的核心。为了实现响应式的数据流，SwiftUI密切结合了Combine框架。Combine是一个响应式编程框架，它可以处理所有类型的异步事件。<code>@Published</code>是Combine框架中的一个关键特性，它用于创建可观察的对象属性，当这些属性的值发生变化时，它会自动通知系统。</p>
+<p><strong>使用@Published</strong></p>
+<p>使用<code>@Published</code>可以很容易地将一个类属性变成响应式的属性。这意味着，当属性的值改变时，所有订阅了这个属性的订阅者都会接收到通知，并且可以响应这些变化。</p>
+<p>下面是一个使用<code>@Published</code>的例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Combine</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ProfileViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> age: <span class="type">Int</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>ProfileViewModel</code>是一个遵循<code>ObservableObject</code>协议的类，它有两个<code>@Published</code>属性：<code>name</code>和<code>age</code>。当这些属性中的任何一个的值改变时，所有的观察者都会得到通知。</p>
+<p><strong>整合Combine</strong></p>
+<p>Combine框架的强大之处在于它可以让你定义复杂的数据处理和变换流程。例如，你可以对输入进行校验、过滤、转换，然后将处理后的数据传递到UI或其他部分。</p>
+<p>这里是如何使用Combine订阅<code>@Published</code>属性变化的例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cancellables <span class="operator">=</span> <span class="type">Set</span>&lt;<span class="type">AnyCancellable</span>&gt;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> profileVM <span class="operator">=</span> <span class="type">ProfileViewModel</span>()</span><br><span class="line">profileVM.<span class="variable">$name</span></span><br><span class="line">    .sink &#123; name <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Name is now <span class="subst">\(name)</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    .store(in: <span class="operator">&amp;</span>cancellables)</span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，<code>$name</code>是对<code>name</code>属性的Publisher访问。<code>.sink</code>方法会接收一个闭包，这个闭包会在每次<code>name</code>属性更新时被调用。<code>.store(in:)</code>方法用于管理订阅生命周期，防止早期释放。</p>
+<p><strong>结合SwiftUI视图</strong></p>
+<p>在SwiftUI中，你通常不需要直接处理订阅，因为SwiftUI视图可以直接使用<code>@ObservedObject</code>或<code>@EnvironmentObject</code>来绑定到可观察的对象。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ProfileView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel: <span class="type">ProfileViewModel</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">TextField</span>(<span class="string">&quot;Name&quot;</span>, text: <span class="variable">$viewModel</span>.name)</span><br><span class="line">        <span class="type">TextField</span>(<span class="string">&quot;Age&quot;</span>, value: <span class="variable">$viewModel</span>.age, formatter: <span class="type">NumberFormatter</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>ProfileView</code>中，每当<code>viewModel</code>的<code>name</code>或<code>age</code>属性变化时，视图会自动更新。</p>
+<p><strong>小结</strong></p>
+<p><code>@Published</code>与Combine框架结合使用，为SwiftUI应用带来了强大的响应式编程能力。这种模式不仅使状态管理变得简洁，还能够创建可维护和可扩展的数据流处理逻辑。随着你深入本书，你将会看到更多关于Combine在实际SwiftUI应用中的强大用例和模式。</p>
+<p><strong>4. 数据流的最佳实践</strong></p>
+<p>在构建SwiftUI应用时，高效和可维护的数据流管理是非常重要的。为了达到这个目标，我们需要遵循一些最佳实践来确保我们的应用结构清晰，数据流动合理。以下是在使用SwiftUI时应考虑的数据流最佳实践。</p>
+<p><strong>一、明确数据源的单一真相</strong></p>
+<p>在任何给定的时刻，应用的每个数据点都应该有一个清晰的，可信的来源。这意味着对于任何可变的数据，都应该有一个单一的可信源，而所有视图的状态应反映这个来源。使用<code>@State</code>的私有属性用于视图的内部状态，而模型对象中的<code>@Published</code>属性用于应用范围的状态。</p>
+<p><strong>二、使用单向数据流</strong></p>
+<p>在SwiftUI中，数据应该从父视图流向子视图（单向数据流）。父视图传递数据到子视图，子视图通过事件传递回父视图，而不是直接修改父视图的状态。这样可以避免复杂的数据依赖和潜在的循环更新问题。</p>
+<p><strong>三、合理使用@State，@Binding，@ObservedObject，和@EnvironmentObject</strong></p>
+<ul>
+<li><strong>@State</strong> 应当用于视图的局部状态管理，不应跨越多个视图。</li>
+<li><strong>@Binding</strong> 允许子视图与父视图的状态或模型中的数据进行通信。</li>
+<li><strong>@ObservedObject</strong> 用于当视图需要响应外部模型对象变化时。</li>
+<li><strong>@EnvironmentObject</strong> 适用于多个视图需要访问同一共享数据对象的情况。</li>
+</ul>
+<p><strong>四、谨慎管理生命周期</strong></p>
+<p>识别并管理数据对象的生命周期，尤其是当使用<code>@ObservedObject</code>或<code>@EnvironmentObject</code>时。避免不必要的重新创建对象，以减少内存使用和性能损耗。</p>
+<p><strong>五、精细控制数据变更</strong></p>
+<p>使用<code>objectWillChange</code>手动发送变更通知可以精细控制观察的对象何时更新UI。当需要优化性能或处理复杂的数据变更时这非常有用。</p>
+<p><strong>六、利用Combine进行复杂的数据操作</strong></p>
+<p>Combine框架提供了一套完整的工具，用于处理复杂的数据转换和异步操作。应充分利用这些工具来实现复杂的数据流和事件处理。</p>
+<p><strong>七、避免内存泄漏</strong></p>
+<p>当处理数据流和绑定时，确保正确管理订阅，使用<code>AnyCancellable</code>存储返回的订阅，并在不需要时取消订阅，以避免内存泄漏。</p>
+<p><strong>八、编写可测试的代码</strong></p>
+<p>将数据处理逻辑抽象到可单独测试的模型和服务中。避免将业务逻辑放入视图中，这样可以让代码更容易被测试和维护。</p>
+<p><strong>小结</strong></p>
+<p>遵循上述的数据流最佳实践将有助于您构建出高效、稳定且易于维护的SwiftUI应用。确保理解和正确应用每一种属性装饰器和Combine操作符是至关重要的。本书后续章节将会进一步深入这些概念，并结合实例演示如何在真实世界的应用中实践这些最佳实践。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop2dwbg000sl3743c1la00q" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术第5章布局管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T00:47:49.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/">SwiftUI核心技术第5章布局管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第5章：布局管理</strong></p>
+<p><strong>1. 堆（Stacks）</strong></p>
+<p>在SwiftUI中，布局是通过组合不同的视图和使用布局容器来实现的，其中最基础和最常用的布局容器是堆（Stack）。Stacks在SwiftUI中主要有三种类型：<code>HStack</code>、<code>VStack</code>和<code>ZStack</code>，它们分别代表水平堆、垂直堆和覆盖堆。通过这三种Stack，可以构建出复杂的布局结构。</p>
+<p><strong>理解堆的工作方式</strong></p>
+<ul>
+<li><code>HStack</code>（水平堆）将其子视图沿着水平轴排列。</li>
+<li><code>VStack</code>（垂直堆）将子视图沿着垂直轴排列。</li>
+<li><code>ZStack</code>（覆盖堆）则将子视图按照代码中的顺序覆盖排列，即先声明的视图会被后声明的视图覆盖。</li>
+</ul>
+<p><strong>使用HStack和VStack管理布局</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .leading, spacing: <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第一行&quot;</span>)</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;左侧&quot;</span>)</span><br><span class="line">        <span class="type">Spacer</span>() <span class="comment">// Spacer会推动旁边的视图尽可能远的距离</span></span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;右侧&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第二行&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.padding() <span class="comment">// 对VStack添加内边距</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码示例中，我们首先创建了一个<code>VStack</code>，其子视图之间有10点的间距，并且它们在水平方向上左对齐。在这个垂直堆中，我们有两行文本和一个<code>HStack</code>。在<code>HStack</code>中，两个文本视图被一个<code>Spacer</code>隔开，这会推动这些文本视图到<code>HStack</code>的两侧。</p>
+<p><strong>ZStack的层叠效果</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ZStack</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(<span class="string">&quot;background&quot;</span>)</span><br><span class="line">        .resizable()</span><br><span class="line">        .aspectRatio(contentMode: .fill)</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;层叠的顶部文本&quot;</span>)</span><br><span class="line">            .font(.largeTitle)</span><br><span class="line">            .foregroundColor(.white)</span><br><span class="line">        <span class="type">Spacer</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.frame(height: <span class="number">300</span>) <span class="comment">// 设置ZStack的高度</span></span><br><span class="line">.clipped() <span class="comment">// 保证图片不会超出ZStack的边界</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>ZStack</code>用于创建层叠效果。它首先放置了一张背景图片，然后在图片上层放置了一个<code>VStack</code>，其中包含了一行文本。</p>
+<p><strong>使用堆的布局行为</strong></p>
+<ul>
+<li><code>Stacks</code>默认会尽可能地占据父视图提供的空间，除非使用<code>frame</code>、<code>edgesIgnoringSafeArea</code>、<code>fixedSize</code>等修饰符进行限制。</li>
+<li><code>alignment</code>参数控制子视图在交叉轴上的对齐方式（对于<code>HStack</code>是垂直对齐，对于<code>VStack</code>是水平对齐）。</li>
+<li><code>spacing</code>参数决定子视图之间的间距。</li>
+</ul>
+<p><strong>对齐和分布</strong></p>
+<p>Stacks的另一个关键特性是对齐。开发者可以非常细致地控制如何对齐子视图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .top) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;顶部对齐&quot;</span>)</span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;还是顶部对齐&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个<code>HStack</code>中，所有的子视图都会在顶部对齐，即使它们的高度不同。</p>
+<p><strong>总结</strong></p>
+<p>通过理解和利用Stacks，你可以构建出直观且灵活的布局。Stacks的简单性和强大的组合能力，使得它们成为SwiftUI布局的核心工具。它们可以嵌套使用，也可以与其他布局视图和控件配合，以创建出复杂且响应式的用户界面。随着你</p>
+<p>对这些基础布局工具的熟悉和运用，你将能够更加精准地操控空间，为你的应用提供坚实的视觉基础。</p>
+<p><strong>2. 对齐与帧（Alignment and Frames）</strong></p>
+<p>布局的精髓在于如何控制视图的大小和位置。在SwiftUI中，<code>对齐</code>和<code>帧</code>是两个基本但强大的概念，它们定义了视图在父视图中的具体摆放方式。</p>
+<p><strong>理解对齐</strong></p>
+<p>对齐在SwiftUI中是通过对齐指南来实现的，它定义了视图如何根据父视图或兄弟视图的对齐线来定位自己。例如，在一个<code>VStack</code>中，你可以通过<code>alignment</code>参数设置子视图在水平方向上的对齐方式，而在<code>HStack</code>中，这会影响子视图在垂直方向上的对齐。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .bottom) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;底部对齐&quot;</span>)</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;star&quot;</span>)</span><br><span class="line">        .alignmentGuide(.bottom) &#123; d <span class="keyword">in</span> d[.top] &#125;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;这个星星将对齐顶部&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们通过<code>.alignmentGuide</code>修饰符来改变图像视图的默认对齐行为，使其按照顶部对齐而不是底部。</p>
+<p><strong>使用帧控制视图大小</strong></p>
+<p>帧（frame）允许你为视图设置一个明确的大小或者提供一个理想的大小范围。<code>frame</code>修饰符可以指定宽度（<code>width</code>）、高度（<code>height</code>）、最小宽度（<code>minWidth</code>）、最大宽度（<code>maxWidth</code>）、最小高度（<code>minHeight</code>）、和最大高度（<code>maxHeight</code>）。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;固定大小的文本框&quot;</span>)</span><br><span class="line">    .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">    .border(<span class="type">Color</span>.red)</span><br></pre></td></tr></table></figure>
+
+<p>上述代码将文本框的宽度和高度都固定在了100点，无论内容大小如何，文本框都不会改变尺寸。</p>
+<p><strong>对齐和帧的组合使用</strong></p>
+<p>对齐和帧可以组合使用，以创建更复杂的布局效果。例如，你可能想要创建一个宽度固定，但高度根据内容动态调整的文本视图，同时在其内部文本垂直居中对齐。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;垂直居中的文本&quot;</span>)</span><br><span class="line">    .frame(minHeight: <span class="number">0</span>, maxHeight: .infinity)</span><br><span class="line">    .frame(width: <span class="number">200</span>)</span><br><span class="line">    .background(<span class="type">Color</span>.gray)</span><br><span class="line">    .alignmentGuide(.vertical) &#123; d <span class="keyword">in</span></span><br><span class="line">        d[<span class="type">VerticalAlignment</span>.center]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们使用了两个<code>frame</code>修饰符：第一个<code>frame</code>确保文本在垂直方向上可以扩展到可用的全部空间，第二个<code>frame</code>则设置了文本的固定宽度。通过<code>alignmentGuide</code>，文本在其框架内垂直居中。</p>
+<p><strong>总结</strong></p>
+<p>对齐和帧是布局时的两个非常重要的概念。通过精确的对齐控制，你可以确保界面元素以一种一致和预期的方式排列。同时，使用帧可以限制和指定视图的大小，无论是固定的还是灵活的。掌握了这些工具，你将能够设计出外观精确且布局合理的界面，即便是面对各种屏幕尺寸和设备方向，你的应用界面也能保持其应有的布局和结构。</p>
+<p><strong>3. Spacer和Divider</strong></p>
+<p>在构建用户界面时，除了直接操纵视图的尺寸和对齐，SwiftUI还提供了用于控制视图间隔的工具：Spacer和Divider。这些工具在进行视图布局时是不可或缺的，它们可以帮助我们创建出更为优雅和灵活的用户界面。</p>
+<p><strong>Spacer: 创建灵活的空间</strong></p>
+<p>Spacer是一个会尽可能占用多余空间的视图。在一个Stack中，Spacer可以推动相邻的视图，使其与Stack的边缘或其他视图保持距离。Spacer本身没有可见的内容，但它可以控制布局的间距。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;左边&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 占据所有可用空间</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;右边&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述例子中，Spacer位于两个文本视图之间，并推动它们分别靠近水平Stack的左右边缘。</p>
+<p>Spacer的另一个常用场景是在其前后添加修饰符，以控制其最小空间尺寸。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;左边&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>()</span><br><span class="line">        .frame(minWidth: <span class="number">20</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;右边&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，Spacer至少会创建20点的空间，即使在更大的容器中，它也会扩展以填满额外的空间。</p>
+<p><strong>Divider: 分隔视图</strong></p>
+<p>Divider是一个用于分隔内容的细线，通常在视觉上表示不同部分的内容。它可以在列表、VStack或HStack中作为清晰分界线使用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第一部分&quot;</span>)</span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第二部分&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Divider会自动采用垂直或水平方向，取决于它所在的Stack类型。在VStack中，它是水平的；而在HStack中，则是垂直的。</p>
+<p><strong>自定义Spacer和Divider</strong></p>
+<p>虽然Spacer和Divider是很好的布局工具，但有时你可能需要更多的自定义。例如，你可以使用背景和框架修饰符来自定义Divider的样式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Divider</span>()</span><br><span class="line">    .background(<span class="type">Color</span>.blue)</span><br><span class="line">    .frame(height: <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们自定义了Divider的颜色和高度，创建了一个蓝色的分隔线。</p>
+<p>同样，你也可以对Spacer进行类似的自定义。</p>
+<p><strong>总结</strong></p>
+<p>Spacer和Divider是在SwiftUI中创建和维护视图间隙的简单而强大的工具。它们支持布局的灵活性，同时为内容的视觉分隔提供方便。在理解了如何利用Spacer来控制视图的扩展和收缩，以及如何使用Divider来清晰地区分内容之后，你将能够创建出既美观又实用的布局设计。</p>
+<p><strong>4. 布局优先级</strong></p>
+<p>当我们在SwiftUI中构建复杂的界面时，经常会遇到多个视图争抢空间的情况。布局优先级（Layout Priority）是一个高级的概念，它允许我们微调视图如何在父视图中分配额外的空间。理解并正确使用布局优先级，可以帮助我们创建更加精确和高度定制的用户界面。</p>
+<p><strong>基本概念</strong></p>
+<p>在SwiftUI中，所有视图默认具有相同的布局优先级，值为0。当空间不足以满足所有子视图的理想尺寸时，系统会根据布局优先级来决定哪个视图可以首先满足其尺寸需求。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;非常非常长的文本&quot;</span>).layoutPriority(<span class="number">1</span>)</span><br><span class="line">    <span class="type">Spacer</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;短文本&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，第一个<code>Text</code>视图的布局优先级被设置为1，这意味着它在空间分配时会被优先考虑。即使在有限的空间中，它也会尽可能地显示完整的内容，而<code>Spacer</code>和第二个<code>Text</code>视图会相应地压缩。</p>
+<p><strong>布局优先级的使用</strong></p>
+<p>布局优先级的值可以是任意的正浮点数。数值越大，获取额外空间的优先级就越高。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;需要更多空间的文本&quot;</span>).layoutPriority(<span class="number">2</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;不那么重要的文本&quot;</span>).layoutPriority(<span class="number">1</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;普通文本&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，第一个文本视图被赋予了最高的优先级（2），其次是第二个文本视图（1），最后是没有显式设置优先级的文本视图（默认为0）。因此，当空间有限时，第一个文本视图会尽量显示更多的内容。</p>
+<p><strong>布局优先级的策略</strong></p>
+<p>布局优先级通常用于解决视图间的竞争关系，但是它并不是解决所有布局问题的万能钥匙。合理使用布局优先级需要策略，过度依赖可能会导致布局变得难以预测和管理。在设置优先级时，你应当始终考虑内容的重要性以及用户体验。</p>
+<p>一个良好的策略是尽量保持简单，只在确实需要时调整布局优先级。并且，始终牢记布局的整体目标是创造既满足设计需求又对用户友好的界面。</p>
+<p><strong>结合其他布局工具</strong></p>
+<p>布局优先级并不孤立工作，它应该与其他布局工具一起使用，例如<code>frame</code>、<code>alignment</code>、<code>Spacer</code>等。在实际开发中，你会发现布局优先级是与其他布局概念协同工作的，比如使用<code>fixedSize</code>来防止视图被压缩，或者与<code>flexible</code>结合来调整视图的压缩和扩展行为。</p>
+<p><strong>总结</strong></p>
+<p>掌握了布局优先级的概念和使用方法后，我们就能更加精细地控制SwiftUI布局的行为。正确的布局优先级设置能够确保重要的内容得到展示，辅助视图适应剩余空间，从而创造出既直观又富有层次的用户界面。在设计复杂的布局时，优先级的细微调整可以带来显著的视觉和体验改善。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" data-id="clop2dwbf000rl374b6lv1xeh" data-title="SwiftUI核心技术第5章布局管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术4章视图与控件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T16:35:47.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/">SwiftUI核心技术4章视图与控件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第二部分：构建用户界面</strong></p>
+<p><strong>第4章：视图与控件</strong></p>
+<p><strong>1. Text和Image</strong></p>
+<p>在SwiftUI中，用户界面是由各种视图组成的，其中最基本的两种视图是<code>Text</code>和<code>Image</code>。本节将详细探讨如何使用这两种视图来显示文本和图像。</p>
+<p><strong>Text</strong></p>
+<p><code>Text</code>视图用于在应用中显示一行或多行只读文本。它是最常见的视图之一，因为文本是用户交互的基本元素。</p>
+<p><strong>基础用法</strong></p>
+<p>创建一个<code>Text</code>视图非常简单，只需要传入一个字符串即可：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello, SwiftUI!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>样式定制</strong></p>
+<p><code>Text</code>视图提供了多种修饰符来定制文本的显示方式：</p>
+<ul>
+<li><code>.font(_:)</code>：设置字体样式。</li>
+<li><code>.fontWeight(_:)</code>：设置字体的粗细。</li>
+<li><code>.foregroundColor(_:)</code>：设置文本颜色。</li>
+<li><code>.lineLimit(_:)</code>：设置最多显示行数。</li>
+<li><code>.multilineTextAlignment(_:)</code>：设置多行文本的对齐方式。</li>
+<li><code>.padding(_:)</code>：为文本周围添加填充。</li>
+</ul>
+<p>例如，要创建一个居中对齐、蓝色、加粗的文本，您可以这样写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Welcome to SwiftUI&quot;</span>)</span><br><span class="line">    .font(.headline)</span><br><span class="line">    .fontWeight(.bold)</span><br><span class="line">    .foregroundColor(.blue)</span><br><span class="line">    .multilineTextAlignment(.center)</span><br><span class="line">    .padding()</span><br></pre></td></tr></table></figure>
+
+<p><strong>国际化和本地化</strong></p>
+<p>SwiftUI还支持文本的国际化和本地化。使用<code>LocalizedStringKey</code>初始化<code>Text</code>视图，可以确保文本根据用户的设备语言环境显示正确：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="type">LocalizedStringKey</span>(<span class="string">&quot;hello_message&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p><strong>Image</strong></p>
+<p><code>Image</code>视图用于在应用中显示图像。您可以从应用的资产目录、文件系统或网络加载图像。</p>
+<p><strong>从资产目录加载</strong></p>
+<p>最常用的加载图像方式是从Xcode项目的Assets.xcassets目录：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Image</span>(<span class="string">&quot;myImage&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>图像修饰符</strong></p>
+<p><code>Image</code>视图也可以使用多种修饰符来调整显示的图像：</p>
+<ul>
+<li><code>.resizable()</code>：允许图像根据视图的大小进行拉伸或压缩。</li>
+<li><code>.aspectRatio(_:_:)</code>：设置图像的宽高比。</li>
+<li><code>.clipShape(_:)</code>：剪切图像到特定的形状。</li>
+<li><code>.shadow(_:)</code>：为图像添加阴影。</li>
+</ul>
+<p>例如，要创建一个圆形、有阴影的图像，您可以这样写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Image</span>(<span class="string">&quot;profile_pic&quot;</span>)</span><br><span class="line">    .resizable()</span><br><span class="line">    .aspectRatio(contentMode: .fill)</span><br><span class="line">    .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">    .clipShape(<span class="type">Circle</span>())</span><br><span class="line">    .shadow(radius: <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>加载和显示网络图像</strong></p>
+<p>要显示来自网络的图像，您通常需要使用SwiftUI的<code>AsyncImage</code>视图或结合URLSession自定义一个加载器。由于本节重点是<code>Image</code>视图，我们将在后续章节详细探讨如何加载网络图像。</p>
+<p><strong>总结</strong></p>
+<p><code>Text</code>和<code>Image</code>是构建SwiftUI应用界面时最基础的元素。它们不仅用法简单，而且通过修饰符提供了强大的样式定制能力。通过合理使用这两种视图，您可以快速构建出丰富多彩且吸引人的界面。接下来的小节，我们将进一步探索SwiftUI中其他重要的视图和控件。</p>
+<p><strong>2. Buttons和Toggle</strong></p>
+<p>在SwiftUI中，<code>Button</code>和<code>Toggle</code>是两种用于用户交互的基本控件。它们使应用可以响应用户的操作，执行任务或更改状态。</p>
+<p><strong>Button</strong></p>
+<p>按钮是用户界面的基本组件，用于响应用户的点击或触摸操作。</p>
+<p><strong>创建按钮</strong></p>
+<p>在SwiftUI中，创建一个按钮需要提供一个动作和一个如何显示的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 在这里执行按钮的动作</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;按钮被点击&quot;</span>)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="comment">// 提供按钮的内容</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;点击我&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>按钮样式</strong></p>
+<p>您可以使用修饰符来定制按钮的样式。例如，给按钮添加边框、背景色等：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;点击我&quot;</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;按钮被点击&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.frame(width: <span class="number">200</span>, height: <span class="number">60</span>)</span><br><span class="line">.background(<span class="type">Color</span>.blue)</span><br><span class="line">.foregroundColor(.white)</span><br><span class="line">.cornerRadius(<span class="number">10</span>)</span><br><span class="line">.padding()</span><br></pre></td></tr></table></figure>
+
+<p>SwiftUI还提供了<code>buttonStyle(_:)</code>修饰符来应用预定义的按钮样式。</p>
+<p><strong>Toggle</strong></p>
+<p><code>Toggle</code>是一个开关控件，用于表示和改变一个布尔值的状态。</p>
+<p><strong>创建Toggle</strong></p>
+<p>创建一个<code>Toggle</code>同样需要一个绑定的状态和一个显示的标签：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isOn <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Toggle</span>(isOn: <span class="variable">$isOn</span>) &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;切换状态&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，<code>isOn</code>是一个<code>@State</code>属性，这意味着它是一个可变状态，当<code>Toggle</code>被切换时，视图会自动更新。</p>
+<p><strong>定制Toggle</strong></p>
+<p>可以使用<code>.toggleStyle(_:)</code>修饰符来定制<code>Toggle</code>的外观。SwiftUI提供了一些内建的样式，如<code>SwitchToggleStyle</code>和<code>CheckboxToggleStyle</code>（后者在macOS上可用）。</p>
+<p><strong>绑定和控制</strong></p>
+<p>按钮和开关的强大之处在于它们与SwiftUI的数据绑定系统的整合。当您使用<code>$</code>前缀创建绑定时，UI 控件将能够直接修改数据，反之亦然。这是SwiftUI声明式编程范式的核心。</p>
+<p><strong>响应用户输入</strong></p>
+<p>通常，按钮和开关会更改应用的状态或触发某个操作。例如，您可能会根据开关的状态显示或隐藏文本视图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isAccepted <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Toggle</span>(isOn: <span class="variable">$isAccepted</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;接受条款和条件&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;继续&quot;</span>) &#123;</span><br><span class="line">            <span class="comment">// 可以在这里校验开关状态，例如是否接受了条款和条件</span></span><br><span class="line">            proceedWithAction()</span><br><span class="line">        &#125;</span><br><span class="line">        .disabled(<span class="operator">!</span>isAccepted) <span class="comment">// 当不接受条款时禁用按钮</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<p>按钮和开关是任何交互式应用程序的基础，它们提供了一种简单有效的方式来收集用户输入并作出反应。SwiftUI的<code>Button</code>和<code>Toggle</code>视图配合数据绑定，使得创建动态和响应式的用户界面变得异常简单。它们的样式和行为可以通过一系列的修饰符进行定制，以适应您的设计需求。在接下来的小节中，我们将继续探讨如何使用SwiftUI构建更复杂的用户界面元素。</p>
+<p><strong>3. TextField和Slider</strong></p>
+<p>在SwiftUI中，创建交互式表单和控制元素是构建现代应用程序不可或缺的一部分。<code>TextField</code>和<code>Slider</code>是两种常用的控件，它们允许用户输入文本和选择值的范围。</p>
+<p><strong>TextField</strong></p>
+<p><code>TextField</code>是一个用于用户输入文本的控件，它可以接受键盘输入，并且可以对输入的文本进行格式化和校验。</p>
+<p><strong>创建TextField</strong></p>
+<p>创建一个<code>TextField</code>通常需要两个参数：一个标签和一个绑定到文本值的变量。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> username: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">TextField</span>(<span class="string">&quot;用户名&quot;</span>, text: <span class="variable">$username</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，每当用户在文本字段中输入时，<code>username</code>变量都会更新。<code>@State</code>属性包装器用于在本地视图状态中存储可变数据。</p>
+<p><strong>定制TextField</strong></p>
+<p>您可以使用修饰符来定制<code>TextField</code>的外观和行为，例如设置字体、颜色、对齐方式、键盘类型等。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;用户名&quot;</span>, text: <span class="variable">$username</span>)</span><br><span class="line">    .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">    .padding()</span><br><span class="line">    .keyboardType(.default)</span><br><span class="line">    .autocapitalization(.none)</span><br><span class="line">    .disableAutocorrection(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用了<code>textFieldStyle(_:)</code>来为文本字段设置圆角边框样式，并进行了一些其他的配置。</p>
+<p><strong>Slider</strong></p>
+<p><code>Slider</code>允许用户从一个范围内选择一个值。它可以用于设置音量、选择亮度或应用任何其他需要用户选择一个数值的场景。</p>
+<p><strong>创建Slider</strong></p>
+<p>创建<code>Slider</code>至少需要一个绑定到数值的变量和一个值的范围。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> sliderValue: <span class="type">Double</span> <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Slider</span>(value: <span class="variable">$sliderValue</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>Slider</code>允许用户在0到1之间选择一个值。</p>
+<p><strong>定制Slider</strong></p>
+<p><code>Slider</code>同样可以使用修饰符进行外观和功能的定制。您可以设置步长，决定滑块在变化时是否持续触发更新，以及添加标签。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(</span><br><span class="line">    value: <span class="variable">$sliderValue</span>,</span><br><span class="line">    in: <span class="number">0</span><span class="operator">...</span><span class="number">1</span>,</span><br><span class="line">    step: <span class="number">0.1</span>,</span><br><span class="line">    onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// editing 是一个布尔值，表示是否正在编辑</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;当前滑块的值：<span class="subst">\(sliderValue)</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">.accentColor(.green)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，滑块的步长设置为0.1，且我们还指定了一个闭包，在用户编辑滑块值时触发。</p>
+<p><strong>总结</strong></p>
+<p><code>TextField</code>和<code>Slider</code>为SwiftUI应用提供了基本的用户输入功能。通过与<code>@State</code>或其他形式的状态管理相结合，它们为开发者提供了创建动态和响应式表单的能力。定制这些控件的外观和行为使它们能够匹配应用程序的设计语言，提供更好的用户体验。在接下来的章节中，我们将探索SwiftUI中的其他高级控件和视图，并学习如何将它们组合在一起以构建复杂和功能丰富的用户界面。</p>
+<p><strong>4. 自定义视图和控件</strong></p>
+<p>SwiftUI的真正魅力之一在于它为开发者提供了丰富的自定义视图和控件的能力。通过结合现有的视图和控件以及Swift语言的强大特性，我们可以创建完全定制的用户界面元素，以完美地适应我们的设计需求。</p>
+<p><strong>理解视图的组合</strong></p>
+<p>在SwiftUI中，最基本的自定义视图起始于现有的视图的组合。SwiftUI的视图是可组合的，意味着你可以将简单的视图组合成复杂的视图。比如，我们可以创建一个带有文本和图像的自定义按钮视图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomButton</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">HStack</span> &#123;</span><br><span class="line">            <span class="type">Image</span>(systemName: <span class="string">&quot;star.fill&quot;</span>)</span><br><span class="line">                .resizable()</span><br><span class="line">                .frame(width: <span class="number">20</span>, height: <span class="number">20</span>)</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;收藏&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        .padding()</span><br><span class="line">        .background(<span class="type">Color</span>.blue)</span><br><span class="line">        .foregroundColor(.white)</span><br><span class="line">        .cornerRadius(<span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个<code>CustomButton</code>就是一个自定义视图，它可以在任何其他的SwiftUI视图中使用。</p>
+<p><strong>创建完全自定义的视图</strong></p>
+<p>如果需要更高级的自定义，你可以从<code>View</code>协议开始，实现自己的<code>body</code>属性。这允许你控制视图的渲染方式，并响应用户的输入。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CircularProgressView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> progress: <span class="type">Double</span> <span class="comment">// 从0.0到1.0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ZStack</span> &#123;</span><br><span class="line">            <span class="type">Circle</span>()</span><br><span class="line">                .stroke(lineWidth: <span class="number">20</span>)</span><br><span class="line">                .opacity(<span class="number">0.3</span>)</span><br><span class="line">                .foregroundColor(<span class="type">Color</span>.blue)</span><br><span class="line">            </span><br><span class="line">            <span class="type">Circle</span>()</span><br><span class="line">                .trim(from: <span class="number">0.0</span>, to: <span class="type">CGFloat</span>(<span class="built_in">min</span>(<span class="keyword">self</span>.progress, <span class="number">1.0</span>)))</span><br><span class="line">                .stroke(style: <span class="type">StrokeStyle</span>(lineWidth: <span class="number">20</span>, lineCap: .round, lineJoin: .round))</span><br><span class="line">                .foregroundColor(<span class="type">Color</span>.blue)</span><br><span class="line">                .rotationEffect(<span class="type">Angle</span>(degrees: <span class="number">270.0</span>))</span><br><span class="line">                .animation(.linear)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们创建了一个显示进度的环形视图，它会根据<code>progress</code>属性显示不同的填充量。</p>
+<p><strong>响应用户交互</strong></p>
+<p>自定义视图可以通过各种手势识别器来响应用户的交互。例如，你可能会有一个自定义滑块控件，它通过拖动来改变值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomSlider</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@Binding</span> <span class="keyword">var</span> value: <span class="type">Double</span> <span class="comment">// 绑定到外部状态</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">GeometryReader</span> &#123; geometry <span class="keyword">in</span></span><br><span class="line">            <span class="type">Rectangle</span>()</span><br><span class="line">                .foregroundColor(.gray)</span><br><span class="line">                .frame(height: <span class="number">20</span>)</span><br><span class="line">                .gesture(</span><br><span class="line">                    <span class="type">DragGesture</span>(minimumDistance: <span class="number">0</span>)</span><br><span class="line">                        .onChanged &#123; gesture <span class="keyword">in</span></span><br><span class="line">                            <span class="keyword">self</span>.value <span class="operator">=</span> <span class="type">Double</span>(gesture.location.x <span class="operator">/</span> geometry.size.width)</span><br><span class="line">                        &#125;</span><br><span class="line">                )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们使用<code>GeometryReader</code>来获取视图的大小，并根据用户拖动的位置来更新<code>value</code>。</p>
+<p><strong>保持性能</strong></p>
+<p>在创建自定义视图和控件时，要记住保持它们的性能。这意味着：</p>
+<ul>
+<li>避免不必要的视图重绘和状态更新。</li>
+<li>合理使用<code>.animation()</code>和<code>.transition()</code>修饰符来为视图变化提供流畅的过渡效果。</li>
+<li>当视图层次变得复杂时，考虑使用<code>drawingGroup()</code>或<code>cache</code>等优化技术。</li>
+</ul>
+<p><strong>总结</strong></p>
+<p>SwiftUI提供了强大的工具集，可以帮助开发者创建精美且功能丰富的自定义视图和控件。通过结合视图的组合、自定义绘制、响应用户输入等技术，你可以创建出完全符合你的设计和功能需求的用户界面元素。记住，自定义视图和控件不仅仅是关于创造外观，更重要的是它们提供了</p>
+<p>与用户交互的新方式。随着你的SwiftUI技能的提高，你将能够更有效地利用这些工具，打造出既美观又高效的应用程序。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop2dwbf000ol3749wto0uut" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术第3章环境搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T16:28:17.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">SwiftUI核心技术第3章环境搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>1. Xcode和SwiftUI</strong></p>
+<p>为了开始使用SwiftUI，您需要安装Xcode，这是Apple提供的官方集成开发环境（IDE）。Xcode提供了构建iOS、iPadOS、macOS、watchOS和tvOS应用的所有工具和资源。SwiftUI是Xcode的一部分，是一个用于设计和开发用户界面的框架。在这一节中，我们将指导您如何设置Xcode和开始使用SwiftUI。</p>
+<p><strong>安装Xcode</strong></p>
+<ol>
+<li><p><strong>从Mac App Store下载Xcode</strong></p>
+<p>Xcode是免费的，可以直接从Mac App Store下载。确保您的Mac操作系统是最新的，因为新版本的Xcode通常只能在最新或次新的操作系统上运行。</p>
+</li>
+<li><p><strong>启动Xcode并安装额外组件</strong></p>
+<p>当您第一次打开Xcode时，它可能会提示您安装额外的必需组件。按照提示进行安装。</p>
+</li>
+<li><p><strong>接受Xcode许可协议</strong></p>
+<p>在安装组件之前，您可能需要接受Xcode的许可协议。您可以通过Xcode或使用终端命令行来完成这一步骤。</p>
+</li>
+</ol>
+<p><strong>配置Xcode</strong></p>
+<p>安装完成后，您可能需要进行一些基础配置：</p>
+<ol>
+<li><p><strong>设置开发者账户</strong></p>
+<p>在Xcode的Preferences（偏好设置）中，您可以登录您的Apple开发者账户。如果您还没有账户，您需要注册一个。</p>
+</li>
+<li><p><strong>下载模拟器或配置开发设备</strong></p>
+<p>如果您打算在真实设备上运行应用，需要在Xcode中配置您的iOS设备。否则，您可以下载并使用模拟器。</p>
+</li>
+</ol>
+<p><strong>创建SwiftUI项目</strong></p>
+<ol>
+<li><p><strong>打开Xcode并创建一个新的项目</strong></p>
+<p>选择“Create a new Xcode project”（创建一个新的Xcode项目）。</p>
+</li>
+<li><p><strong>选择项目模板</strong></p>
+<p>在模板选择器中，选择“App”作为您的项目模板。</p>
+</li>
+<li><p><strong>配置项目设置</strong></p>
+<p>您需要填写项目名称、团队、组织名称、组织标识符以及选择您想要支持的平台。</p>
+</li>
+<li><p><strong>选择SwiftUI作为界面</strong></p>
+<p>在创建项目时，确保在“User Interface”选项中选择“SwiftUI”。</p>
+</li>
+</ol>
+<p><strong>探索SwiftUI</strong></p>
+<ol>
+<li><p><strong>Canvas</strong></p>
+<p>Xcode提供了一个实时预览界面（Canvas），您可以看到SwiftUI代码的实时渲染结果。通过点击Canvas右上角的“Resume”按钮，可以启动或刷新预览。</p>
+</li>
+<li><p><strong>Inspector</strong></p>
+<p>Xcode的Inspector可以帮助您调整SwiftUI视图的属性，您可以直接通过图形界面来调整代码，而不需要编写任何代码。</p>
+</li>
+<li><p><strong>代码编辑器</strong></p>
+<p>Xcode的代码编辑器是您编写Swift和SwiftUI代码的地方。它提供了代码高亮、自动完成等功能，这可以极大提升编码效率。</p>
+</li>
+</ol>
+<p><strong>构建和运行</strong></p>
+<ol>
+<li><p><strong>选择目标</strong></p>
+<p>在Xcode顶部的工具栏中，您可以选择要在哪个模拟器或真实设备上运行您的应用。</p>
+</li>
+<li><p><strong>构建并运行应用</strong></p>
+<p>点击工具栏中的“Run”按钮（或使用快捷键<code>Command + R</code>）来构建并运行您的应用。如果一切设置正确，您应该能看到您的SwiftUI应用在模拟器或设备上运行。</p>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<p>设置Xcode并开始使用SwiftUI是开发现代iOS应用的第一步。通过Xcode，您可以使用SwiftUI框架来创建美观、响应迅速且易于维护的用户界面。本节提供了有关如何安装和配置Xcode、创建新的SwiftUI项目以及构建和运行应用的基本信息。掌握这些基础知识后，您将准备好深入探索SwiftUI的强大功能，并开始构建您自己的应用。</p>
+<p><strong>2. Swift Package Manager</strong></p>
+<p>Swift Package Manager（简称SPM）是Apple官方提供的一个用于自动化Swift代码的依赖管理和分发的工具。它与Xcode紧密集成，允许开发者方便地添加、更新和管理依赖库。</p>
+<p><strong>SPM的概念</strong></p>
+<ol>
+<li><strong>包（Package）</strong>：是一个或多个库的集合，它们共享一个构建设置和版本号。</li>
+<li><strong>库（Library）</strong>：是可复用代码的集合，用于构建程序或其他库。</li>
+<li><strong>依赖（Dependency）</strong>：是您的项目需要的外部库或包。</li>
+</ol>
+<p><strong>使用Swift Package Manager</strong></p>
+<ol>
+<li><p><strong>创建Package.swift</strong></p>
+<p>为了使用SPM，您的项目需要一个<code>Package.swift</code>文件，这是一个定义了包的名称、平台、Swift版本和依赖的清单文件。以下是一个基本的<code>Package.swift</code>示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swift-tools-version:5.3</span></span><br><span class="line"><span class="keyword">import</span> PackageDescription</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> package <span class="operator">=</span> <span class="type">Package</span>(</span><br><span class="line">    name: <span class="string">&quot;MyLibrary&quot;</span>,</span><br><span class="line">    platforms: [</span><br><span class="line">       .macOS(.v10_15), .iOS(.v13)</span><br><span class="line">    ],</span><br><span class="line">    products: [</span><br><span class="line">        .library(</span><br><span class="line">            name: <span class="string">&quot;MyLibrary&quot;</span>,</span><br><span class="line">            targets: [<span class="string">&quot;MyLibrary&quot;</span>]),</span><br><span class="line">    ],</span><br><span class="line">    dependencies: [</span><br><span class="line">        .package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, from: <span class="string">&quot;1.0.0&quot;</span>),</span><br><span class="line">    ],</span><br><span class="line">    targets: [</span><br><span class="line">        .target(</span><br><span class="line">            name: <span class="string">&quot;MyLibrary&quot;</span>,</span><br><span class="line">            dependencies: []),</span><br><span class="line">        .testTarget(</span><br><span class="line">            name: <span class="string">&quot;MyLibraryTests&quot;</span>,</span><br><span class="line">            dependencies: [<span class="string">&quot;MyLibrary&quot;</span>]),</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加依赖</strong></p>
+<p>在<code>Package.swift</code>文件中，您可以添加其他包作为依赖。SPM将自动下载和链接这些依赖。</p>
+</li>
+<li><p><strong>集成到Xcode项目</strong></p>
+<p>您可以通过Xcode直接添加SPM依赖：</p>
+<ul>
+<li>打开Xcode项目或工作区。</li>
+<li>选择“File” &gt; “Swift Packages” &gt; “Add Package Dependency…”。</li>
+<li>输入包的Git存储库URL，然后选择一个版本号或分支。</li>
+<li>选择要添加到哪个目标，然后完成集成流程。</li>
+</ul>
+</li>
+<li><p><strong>使用命令行</strong></p>
+<p>您也可以通过命令行界面使用SPM：</p>
+<ul>
+<li><code>swift build</code>：构建您的项目。</li>
+<li><code>swift test</code>：测试您的项目。</li>
+<li><code>swift run</code>：运行您的项目。</li>
+<li><code>swift package update</code>：更新您的依赖。</li>
+</ul>
+</li>
+</ol>
+<p><strong>管理依赖版本</strong></p>
+<p>SPM支持多种方式指定依赖版本：</p>
+<ul>
+<li>指定一个具体版本号。</li>
+<li>指定一个版本范围。</li>
+<li>使用分支名称或提交哈希。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, .exact(<span class="string">&quot;1.0.0&quot;</span>))</span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, from: <span class="string">&quot;1.0.0&quot;</span>)</span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, .branch(<span class="string">&quot;main&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<p>Swift Package Manager是一个强大的依赖管理工具，它简化了Swift项目中库和依赖的管理。通过声明式的<code>Package.swift</code>文件和Xcode的集成，SPM使得添加、更新和维护依赖变得既简单又可靠。了解SPM是现代Swift开发的重要组成部分，尤其是当您开始构建更大型且依赖多个第三方库的项目时。掌握SPM的使用将帮助您保持项目的清洁和组织，提高构建的可复用性和可维护性。</p>
+<p><strong>3. 创建第一个SwiftUI应用</strong></p>
+<p>进入到SwiftUI世界的第一步是创建您的第一个SwiftUI应用。本节将指导您完成创建和运行一个基本的SwiftUI应用程序的步骤，让您快速体验到SwiftUI开发的流畅和直观。</p>
+<p><strong>设置项目</strong></p>
+<ol>
+<li><p><strong>启动Xcode</strong>：<br>打开Xcode。在欢迎屏幕上选择“Create a new Xcode project”或在菜单栏选择“File” &gt; “New” &gt; “Project”。</p>
+</li>
+<li><p><strong>选择模板</strong>：<br>在项目模板选择界面，选择“App”作为项目模板。这将创建一个包含所有必需文件的iOS应用程序项目。</p>
+</li>
+<li><p><strong>项目配置</strong>：<br>在“Choose options for your new project”界面，填写项目的详细信息：</p>
+<ul>
+<li><code>Product Name</code>：应用程序的名称。</li>
+<li><code>Team</code>：如果您已注册Apple开发者计划并设置了Xcode，选择您的开发者团队。</li>
+<li><code>Organization Identifier</code>：通常是您或您公司的域名反写（例如com.example）。</li>
+<li><code>Interface</code>：确保选择“SwiftUI”。</li>
+<li><code>Language</code>：选择“Swift”。</li>
+<li><code>Lifecycle</code>：根据您的需求选择“SwiftUI App”。</li>
+<li><code>Use Core Data</code>：如果不需要，保持未选中状态。</li>
+<li><code>Include Tests</code>：如果您打算写测试，选择相应的测试复选框。</li>
+</ul>
+</li>
+<li><p><strong>选择保存位置</strong>：<br>选择一个适合您项目的位置，并且如果您想使用版本控制（例如Git），确保选中“Create Git repository”。</p>
+</li>
+</ol>
+<p><strong>探索SwiftUI工作区</strong></p>
+<ol>
+<li><p><strong>Project Navigator</strong>：<br>在Xcode左侧的侧边栏中，您可以看到Project Navigator，它展示了项目中所有的文件和资源。</p>
+</li>
+<li><p><strong>ContentView.swift</strong>：<br>这是您的SwiftUI视图代码所在的文件。Xcode默认为您提供了一个包含Text视图的简单SwiftUI视图。</p>
+</li>
+<li><p><strong>Preview</strong>：<br>Xcode支持SwiftUI的实时预览。如果Preview未自动显示，您可以点击代码编辑器顶部的“Resume”按钮来加载它。</p>
+</li>
+</ol>
+<p><strong>编写SwiftUI代码</strong></p>
+<ol>
+<li><p><strong>修改ContentView</strong>：</p>
+<ul>
+<li><p>用以下代码替换<code>ContentView</code>结构体中的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Hello, SwiftUI!&quot;</span>)</span><br><span class="line">            .padding()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>使用Preview</strong>：</p>
+<ul>
+<li>使用Preview功能，您可以实时看到代码更改的效果。如果预览未显示，点击“Resume”按钮。</li>
+</ul>
+</li>
+</ol>
+<p><strong>运行应用</strong></p>
+<ol>
+<li><p><strong>选择模拟器或设备</strong>：<br>在Xcode工具栏中，选择一个模拟器或连接的设备作为目标。</p>
+</li>
+<li><p><strong>构建并运行</strong>：<br>点击工具栏中的“Run”按钮或使用快捷键<code>Command + R</code>来编译并运行您的应用。</p>
+</li>
+<li><p><strong>查看结果</strong>：<br>您的应用程序将启动，并在所选模拟器或设备上显示“Hello, SwiftUI!”文本。</p>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<p>恭喜您！通过完成这些步骤，您已经成功创建并运行了您的第一个SwiftUI应用。这只是一个开始，SwiftUI有着非常丰富的视图和控件供您使用，通过学习和实验，您将能够构建出功能强大且界面美观的应用程序。接下来的章节中，我们将进一步深入探索SwiftUI提供的各种构建用户界面的工具和技术。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop2dwbf000ql374dbacazy0" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T16:07:31.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/">SwiftUI核心技术</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>前言</strong></p>
+<ul>
+<li>SwiftUI的介绍</li>
+<li>SwiftUI与UIKit的比较</li>
+<li>本书适用读者</li>
+<li>如何使用本书</li>
+</ul>
+<p><strong>第一部分：SwiftUI基础</strong></p>
+<ul>
+<li>第1章：SwiftUI概述<ul>
+<li>SwiftUI的设计哲学</li>
+<li>SwiftUI的架构</li>
+<li>MVVM设计模式在SwiftUI中的应用</li>
+</ul>
+</li>
+<li>第2章：Swift语言回顾<ul>
+<li>Swift基础</li>
+<li>面向协议编程</li>
+<li>Swift中的函数式编程特性</li>
+</ul>
+</li>
+<li>第3章：环境搭建<ul>
+<li>Xcode和SwiftUI</li>
+<li>Swift Package Manager</li>
+<li>创建第一个SwiftUI应用</li>
+</ul>
+</li>
+</ul>
+<p><strong>第二部分：构建用户界面</strong></p>
+<ul>
+<li>第4章：视图与控件<ul>
+<li>Text和Image</li>
+<li>Buttons和Toggle</li>
+<li>TextField和Slider</li>
+<li>自定义视图和控件</li>
+</ul>
+</li>
+<li>第5章：布局管理<ul>
+<li>堆（Stacks）</li>
+<li>对齐与帧（Alignment and Frames）</li>
+<li>Spacer和Divider</li>
+<li>布局优先级</li>
+</ul>
+</li>
+<li>第6章：数据流与绑定<ul>
+<li>State和Binding</li>
+<li>ObservedObject和EnvironmentObject</li>
+<li>@Published和Combine</li>
+<li>数据流的最佳实践</li>
+</ul>
+</li>
+<li>第7章：导航与呈现<ul>
+<li>NavigationView和NavigationViewLink</li>
+<li>TabView</li>
+<li>Sheets和Alerts</li>
+<li>Navigation的高级用法</li>
+</ul>
+</li>
+</ul>
+<p><strong>第三部分：进阶SwiftUI</strong></p>
+<ul>
+<li>第8章：动画与转场<ul>
+<li>基础动画</li>
+<li>自定义动画</li>
+<li>交互式和响应式动画</li>
+<li>转场动画</li>
+</ul>
+</li>
+<li>第9章：复合视图与可复用性<ul>
+<li>组合现有视图</li>
+<li>创建可复用的视图库</li>
+<li>自定义Modifier</li>
+</ul>
+</li>
+<li>第10章：集成Core Data和CloudKit<ul>
+<li>Core Data概念和配置</li>
+<li>SwiftUIT中的Core Data集成</li>
+<li>使用CloudKit进行数据同步</li>
+</ul>
+</li>
+</ul>
+<p><strong>第四部分：平台特定的设计</strong></p>
+<ul>
+<li>第11章：适配多平台<ul>
+<li>Catalyst: 从iOS到macOS</li>
+<li>watchOS特有的UI组件</li>
+<li>tvOS和大屏体验</li>
+</ul>
+</li>
+<li>第12章：Dark Mode和Accessibility<ul>
+<li>支持暗黑模式</li>
+<li>辅助功能的最佳实践</li>
+<li>动态字体与国际化</li>
+</ul>
+</li>
+</ul>
+<p><strong>第五部分：性能优化与测试</strong></p>
+<ul>
+<li>第13章：性能优化<ul>
+<li>诊断和解决性能问题</li>
+<li>延迟加载和内存管理</li>
+<li>视图更新效率优化</li>
+</ul>
+</li>
+<li>第14章：测试与调试<ul>
+<li>单元测试和UI测试</li>
+<li>使用Xcode调试</li>
+<li>预览与条件编译</li>
+</ul>
+</li>
+</ul>
+<p><strong>第六部分：实战案例</strong></p>
+<ul>
+<li>第15章：构建一个完整的应用（Part 1）<ul>
+<li>应用结构规划</li>
+<li>用户界面设计</li>
+<li>应用逻辑实现</li>
+</ul>
+</li>
+<li>第16章：构建一个完整的应用（Part 2）<ul>
+<li>数据持久化</li>
+<li>网络请求和数据处理</li>
+<li>应用测试和发布准备</li>
+</ul>
+</li>
+</ul>
+<p><strong>附录</strong></p>
+<ul>
+<li>A：SwiftUI视图和控件清单</li>
+<li>B：SwiftUI常见问题解答</li>
+<li>C：资源和进一步阅读</li>
+</ul>
+<p><strong>结束语</strong></p>
+<ul>
+<li>对SwiftUI的展望</li>
+<li>社区和支持</li>
+</ul>
+<p><strong>索引</strong></p>
+<hr>
+<p>这个大纲为读者提供了从基础到进阶，再到实际应用开发的完整路径。可以</p>
+<p>根据读者的反馈和最新的SwiftUI更新不断调整和增补内容。</p>
+<p>当然，以下是一段示例前言的草稿，可以用作你书籍的前言部分。</p>
+<hr>
+<p><strong>前言</strong></p>
+<p>欢迎来到《SwiftUI核心技术》，一本旨在探索和解锁Apple最新UI框架——SwiftUI的无限潜力的指南。在这个移动第一的时代，出色的用户界面和顺畅的用户体验是成功应用的关键。随着SwiftUI的出现，Apple开创了一种新的构建UI的方式，它比以往更加直观，更具表现力，且在所有Apple设备上都提供一致的体验。</p>
+<p><strong>SwiftUI的介绍</strong></p>
+<p>SwiftUI是Apple在2019年引入的一个创新的UI工具包，用于在所有Apple平台上构建用户界面。它利用Swift语言的强大功能，通过声明性语法简化了UI开发。SwiftUI不仅提供了一种更简洁、更易于理解的方式来构建UI，而且还具有数据驱动的特点，这意味着UI的每个部分都是根据应用状态的变化来更新的。</p>
+<p><strong>SwiftUI与UIKit的比较</strong></p>
+<p>尽管UIKit已经是iOS应用开发的主导UI框架多年，但SwiftUI带来了许多优势，特别是在创建跨平台UI时。UIKit依赖于命令式编程和手动管理的UIView，而SwiftUI使用声明式代码和自动管理的视图体系结构。这就意味着用SwiftUI可以用更少的代码做更多的工作，同时减少了出错的可能性。不过，对于已经存在的项目，UIKit仍然是必不可少的，因此理解两者的差异对于现代iOS开发者来说至关重要。</p>
+<p><strong>本书适用读者</strong></p>
+<p>无论您是新手程序员还是有经验的开发者，只要您对掌握SwiftUI感兴趣，这本书就是为您准备的。我们假设您已经对Swift语言有了基本的了解，并希望扩展您的知识库来包括UI设计。如果您是从UIKit转型来的开发者，这本书将帮助您理解SwiftUI的独特之处，并指导您如何迁移现有的知识和技能。</p>
+<p><strong>如何使用本书</strong></p>
+<p>《SwiftUI核心技术》是按模块组织的，从基础知识到高级应用，最后是综合案例研究。您可以按顺序阅读以构建坚实的基础，也可以直接跳到对您当前项目最相关的章节。每个概念都伴随着代码示例和最佳实践，以便您可以实践所学，并在实际中应用这些技能。书中还包含了挑战和练习，让您能够测试自己的理解并巩固学习成果。</p>
+<p>当您准备开始您的SwiftUI之旅时，希望这本书成为您的指南，带您更深入地了解如何使用这一令人兴奋的新框架来创造美妙、响应迅速且富有表现力的用户界面。</p>
+<hr>
+<p>希望这段前言能够为您的书籍奠定一个温馨而专业的开场。您可以根据实际需要调整这段文本，以更好地符合您对书籍的愿景。</p>
+<p><strong>第1章：SwiftUI概述</strong></p>
+<p><strong>1. SwiftUI的设计哲学</strong></p>
+<p>苹果公司在2019年WWDC上推出SwiftUI时，开启了iOS、macOS、watchOS和tvOS开发的新篇章。该框架的设计哲学突破了以往UI开发的界限，以优雅且革命性的方式提高了开发速度、改善了代码的质量，并统一了跨平台的用户体验。本节将详细介绍构成SwiftUI设计哲学的核心元素。</p>
+<p><strong>简洁的声明性语法</strong></p>
+<p>SwiftUI的核心是其声明性语法。在传统的命令式编程模型中，开发者需要详细指定如何绘制和更新用户界面的每一个变化。这种方式虽然直接，但随着应用界面变得越来越复杂，代码就会变得难以理解和维护。相比之下，SwiftUI采用声明性方法，允许开发者表达他们想要的界面应该是什么样子，而非如何绘制界面。</p>
+<p>例如，一个按钮的创建和配置，在UIKit中可能需要数行代码来设定它的状态和外观，还要添加响应点击的动作。而在SwiftUI中，同样的按钮只需要几行声明性代码即可完成：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;点击我&quot;</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;按钮被点击&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的语法不仅使代码更易读，也使得UI的各个组件能够更容易地重用和组合。</p>
+<p><strong>组件化和可组合性</strong></p>
+<p>SwiftUI强调组件化—创建可重用的UI组件—以及可组合性—将这些组件拼接成复杂的UI。每个SwiftUI视图都是一种结构体，这是一种轻量级的数据类型，非常适合用来描述UI组件。这与UIKit的类和对象相比，可以显著提高性能，特别是在用户界面需要快速重建时。</p>
+<p>此外，SwiftUI的视图可以包含其他视图，这就为开发者提供了极大的灵活性来构建复杂的用户界面。例如，可以创建一个自定义的按钮样式，然后在不同的地方多次使用，而无需重写样式代码。</p>
+<p><strong>一致性和跨平台设计</strong></p>
+<p>SwiftUI的一个显著特点是其跨平台能力。相同的SwiftUI代码可以运行在iOS、macOS、watchOS和tvOS上，无需做出太多修改。这种一致性意味着开发者可以为所有Apple平台构建统一的应用体验，同时允许针对特定平台的优化。</p>
+<p>跨平台设计的好处是显而易见的。开发者可以集中精力于创建出色的用户体验，而不是花费时间在适配不同平台的布局和控件上。SwiftUI通过提供一致的API和控件集，确保了界面在各个设备上都能保持良好的交互和视觉效果。</p>
+<p><strong>数据驱动的UI更新</strong></p>
+<p>SwiftUI的另一个核心特性是数据驱动的UI更新。这意味着UI的状态可以被绑定到应用程序的数据模型上，当数据变化时，UI会自动更新。这种绑定使用了Swift的属性包装器如<code>@State</code>和<code>@Binding</code>，它们提供了一种声明性的方式来定义视图的源数据。</p>
+<p>以一个简单的文本输入为例，在UIKit中，您可能需要实现委托模式来响应文本变化，然后手动更新UI。而在SwiftUI中，您可以这样做：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> userName: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span></span><br><span class="line"></span><br><span class="line"> &#123;</span><br><span class="line">        <span class="type">TextField</span>(<span class="string">&quot;请输入用户名&quot;</span>, text: <span class="variable">$userName</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;您好，<span class="subst">\(userName)</span>!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>TextField</code>的文本被绑定到<code>userName</code>状态上。当用户在文本字段中输入时，<code>userName</code>会自动更新，而且相关的<code>Text</code>视图也会即时反映这个变化。</p>
+<p><strong>总结</strong></p>
+<p>SwiftUI的设计哲学是为了提高开发效率、改善代码质量，并使应用能够快速适应未来的变化。通过其声明性语法、组件化和可组合性、一致性以及数据驱动的UI更新，SwiftUI为现代应用开发树立了新的标准。接下来，我们将进一步探讨SwiftUI是如何实现这些设计理念的，并通过实例展示这些概念在实际开发中的应用。</p>
+<p><strong>2. SwiftUI的架构</strong></p>
+<p>SwiftUI是构建在一系列高效且现代的编程模式和原则之上的，它不仅简化了用户界面的创建，而且通过其独特的架构提升了应用性能和开发效率。在本节中，我们将深入了解构成SwiftUI架构的各个部分，以及它们如何协同工作以创建流畅且动态的用户界面。</p>
+<p><strong>视图层次结构与组件</strong></p>
+<p>在SwiftUI中，一切都是视图。从文本标签(<code>Text</code>)到按钮(<code>Button</code>)，再到整个屏幕(<code>ContentView</code>)，所有的UI组件都是视图。SwiftUI使用一种结构体(<code>struct</code>)来定义视图，这是一个轻量级的数据类型，非常适合描述UI组件。每个视图都知道如何绘制自己，并能定义自己的布局。</p>
+<p>一个关键概念是视图的层次结构，它表示视图的嵌套。父视图可以包含多个子视图，创建出丰富的布局。SwiftUI使用声明性的方法来组织视图层次，这意味着您声明界面应该如何组织，而不是编写代码来动态创建和管理视图对象。</p>
+<p><strong>布局系统</strong></p>
+<p>SwiftUI的布局系统是自适应和响应式的，允许视图以一种非常自然的方式响应外部条件的变化，如设备的屏幕大小或者设备方向。布局是由视图本身以及环境(<code>Environment</code>)中的信息决定的。每个视图提供了一个<code>body</code>属性，描述了其子视图的布局。</p>
+<p>SwiftUI的<code>Stack</code>、<code>List</code>、<code>Grid</code>等布局容器帮助您定义强大而灵活的布局。例如，一个<code>VStack</code>会垂直堆叠其子视图，而一个<code>HStack</code>则会水平堆叠。每个容器都可以包含其他容器，从而创建复杂且响应式的布局结构。</p>
+<p><strong>数据流和绑定</strong></p>
+<p>SwiftUI的架构旨在促进数据流的清晰和一致。它通过使用一系列属性包装器来实现，如<code>@State</code>、<code>@Binding</code>、<code>@ObservedObject</code>和<code>@EnvironmentObject</code>。这些属性包装器提供了不同层级的数据流和状态管理，确保视图与数据保持同步。</p>
+<p><code>@State</code>是一种私有的、视图内的状态管理，用于存储视图的本地数据。<code>@Binding</code>则创建了一个可读写的连接到另一个视图持有的<code>@State</code>的连接，从而允许数据在不同视图间共享。</p>
+<p>对于更复杂的数据管理，<code>@ObservedObject</code>和<code>@EnvironmentObject</code>使得视图能够订阅外部的数据模型。当数据模型标记为<code>ObservableObject</code>并且其内部的数据通过<code>@Published</code>包装器进行更改时，订阅这些模型的视图会自动更新。</p>
+<p><strong>声明性渲染</strong></p>
+<p>SwiftUI的架构在内部使用了一种高效的声明性渲染引擎，它能够智能地重绘改变了的部分而非整个界面。这是通过比较视图的当前状态和新的声明来实现的。当状态发生变化时，SwiftUI计算出最小的差异，并且只更新需要改变的部分。</p>
+<p>这种智能重绘是非常重要的，因为它意味着视图的更新可以非常快速，并且能保持性能，即使在复杂的界面和动画中也是如此。</p>
+<p><strong>Swift与SwiftUI的紧密集成</strong></p>
+<p>SwiftUI与Swift编程语言的紧密集成提供了许多编程上的好处。利用Swift的强类型系统、函数式编程特性和高级语言构造，SwiftUI可以确保代码安全、清晰且易于理解。</p>
+<p>SwiftUI的一切，从其布局系统到与Combine框架的集成，都是为了简化编程模型，允许开发者以一种更直观和高效的方式来构建用户界面。</p>
+<p><strong>总结</strong></p>
+<p>SwiftUI的架构是其强大功能和易用性的基石。通过视图层次结构、响应式布局系统、清晰的数据流和绑定以及高效的声明性渲染，SwiftUI提供了一个坚实的基础来构建现代的跨平台应用。了解这些概念对于充分利用SwiftUI的潜力是至关重要的。在本书的后续章节中，我们将进一步深入探讨每个概念，并通过具体的代码示例来展示它们在实际开发中的应用。</p>
+<p><strong>3. MVVM设计模式在SwiftUI中的应用</strong></p>
+<p>在现代应用开发中，架构模式的选择对于确保代码的可读性、可维护性和可扩展性至关重要。Model-View-ViewModel (MVVM) 是一种被广泛采用的设计模式，尤其是在SwiftUI中，它提供了一种清晰地分离用户界面和业务逻辑的方式。本节将探讨MVVM设计模式，并详细说明它如何在SwiftUI中得到应用。</p>
+<p><strong>MVVM的核心概念</strong></p>
+<p>MVVM设计模式将应用分为三个主要组件：Model、View和ViewModel。</p>
+<ul>
+<li><strong>Model</strong> - 表示应用的数据和业务逻辑。它是纯粹的Swift类或结构体，不含任何UI代码。</li>
+<li><strong>View</strong> - 显示应用的用户界面。在SwiftUI中，所有的UI组件都是视图，从单个按钮到整个屏幕。</li>
+<li><strong>ViewModel</strong> - 作为Model和View之间的桥梁。它包含了展示逻辑，但不包含业务逻辑或者状态管理的代码。</li>
+</ul>
+<p>MVVM通过这种分离，确保了UI代码的简洁性，并允许业务逻辑独立于UI，使其更易于测试和重用。</p>
+<p><strong>ViewModel在SwiftUI中的角色</strong></p>
+<p>在SwiftUI中，ViewModel通常是一个符合<code>ObservableObject</code>协议的Swift类。它会暴露出用于UI显示的数据，并将用户的交互转化为模型更新和视图的状态更改。</p>
+<p>例如，如果您有一个任务列表应用，ViewModel可能包含一个任务数组的状态以及添加新任务的方法。当用户通过界面添加任务时，ViewModel会更新Model，并通知View重新渲染以显示新任务。</p>
+<p><strong>数据绑定和状态管理</strong></p>
+<p>SwiftUI的数据绑定特性与MVVM的配合尤其紧密。使用<code>@Published</code>属性包装器，ViewModel可以提供可观察的数据属性，当这些属性的值变化时，关联的视图可以自动更新。</p>
+<p>此外，SwiftUI的状态管理属性包装器，如<code>@State</code>、<code>@Binding</code>、<code>@StateObject</code>和<code>@EnvironmentObject</code>，进一步简化了ViewModel与View之间数据和状态的同步。</p>
+<p><strong>MVVM的实际应用</strong></p>
+<p>在SwiftUI应用中实施MVVM时，ViewModel的职责包括：</p>
+<ul>
+<li>提供视图所需的数据。</li>
+<li>响应用户输入并更新Model。</li>
+<li>监控Model的变化并通知View更新。</li>
+<li>处理导航和视图间的协调逻辑。</li>
+</ul>
+<p>由于SwiftUI的视图是声明性的，ViewModel成为控制视图状态的中心。开发者不再需要写大量的引导代码来手动更新UI，而是可以依靠SwiftUI的绑定机制和ViewModel来自动处理。</p>
+<p><strong>总结</strong></p>
+<p>MVVM设计模式在SwiftUI中的应用为创建结构化和高效的应用程序提供了框架。通过将业务逻辑移至ViewModel，并利用SwiftUI的响应式数据绑定，开发者能够创建更清晰、更易于维护和扩展的代码。在本书接下来的章节中，我们将通过具体示例深入探讨MVVM模式在SwiftUI应用开发中的具体实现和最佳实践。</p>
+<p><strong>第2章：Swift语言回顾</strong></p>
+<p><strong>1. Swift基础</strong></p>
+<p>Swift 是由苹果公司开发的一种强大的编程语言，旨在为开发者提供一种简单、清晰且高效的语言工具。它既适合新手学习编程，也足以满足专业开发者构建复杂应用的需求。在本节中，我们将回顾Swift语言的基础，为深入学习SwiftUI打下坚实的基础。</p>
+<p><strong>变量和常量</strong></p>
+<p>Swift 使用 <code>var</code> 关键字来声明变量，<code>let</code> 关键字来声明常量。变量是可以被赋予不同值的标识符，而常量一旦设定初始值后则不能更改。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> greeting <span class="operator">=</span> <span class="string">&quot;Hello, world!&quot;</span></span><br><span class="line"><span class="keyword">let</span> pi <span class="operator">=</span> <span class="number">3.14159</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>数据类型</strong></p>
+<p>Swift 是一种类型安全的语言，这意味着每个变量都有一个明确的类型。Swift 的基本数据类型包括 <code>Int</code>、<code>Float</code>、<code>Double</code>、<code>Bool</code>、<code>String</code> 等。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age: <span class="type">Int</span> <span class="operator">=</span> <span class="number">30</span></span><br><span class="line"><span class="keyword">var</span> price: <span class="type">Double</span> <span class="operator">=</span> <span class="number">29.99</span></span><br><span class="line"><span class="keyword">var</span> isHidden: <span class="type">Bool</span> <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"><span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;John Doe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>控制流</strong></p>
+<p>Swift 提供了丰富的控制流结构，包括 <code>if</code>、<code>else</code> 条件语句，<code>switch</code> 语句，以及 <code>for-in</code>、<code>while</code> 和 <code>repeat-while</code> 循环。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> age <span class="operator">&gt;</span> <span class="number">18</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Adult&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Minor&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">1</span><span class="operator">...</span><span class="number">5</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(index)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>函数</strong></p>
+<p>函数是执行特定任务的自包含代码块。Swift 的函数使用 <code>func</code> 关键字声明，可以接受参数和返回值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">greet</span>(<span class="params">person</span>: <span class="type">String</span>) -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello, <span class="subst">\(person)</span>!&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(greet(person: <span class="string">&quot;Anna&quot;</span>)) <span class="comment">// Prints &quot;Hello, Anna!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>闭包</strong></p>
+<p>闭包是可以在代码中被传递和使用的自包含功能块，类似于其他语言中的匿名函数。闭包捕获并存储它们的上下文中的任何常量和变量的引用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> names <span class="operator">=</span> [<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;Alex&quot;</span>, <span class="string">&quot;Ewa&quot;</span>, <span class="string">&quot;Barry&quot;</span>, <span class="string">&quot;Daniella&quot;</span>]</span><br><span class="line"><span class="keyword">var</span> reversedNames <span class="operator">=</span> names.sorted(by: &#123; <span class="variable">$0</span> <span class="operator">&gt;</span> <span class="variable">$1</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>结构体和类</strong></p>
+<p>Swift 中的结构体和类是构建代码的基本构件。结构体是值类型，而类是引用类型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Point</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> x: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> y: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vehicle</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> numberOfWheels <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">description</span>() -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;<span class="subst">\(numberOfWheels)</span> wheel(s)&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>属性和方法</strong></p>
+<p>属性用于存储值，方法用于添加特定的行为。计算属性则提供了一种自定义的 getter 和 setter 来间接获取和设置其他属性或变量的值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Circle</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> radius: <span class="type">Double</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> circumference: <span class="type">Double</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> pi <span class="operator">*</span> radius <span class="operator">*</span> <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>协议和扩展</strong></p>
+<p>协议定义了一组方法和属性的蓝图，类、结构体和枚举可以实现这些协议。扩展则允许你为现有的类型添加新的功能。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">String</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">capitalizedFirst</span>() -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">prefix</span>(<span class="number">1</span>).uppercased() <span class="operator">+</span> <span class="keyword">self</span>.lowercased().dropFirst()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>错误处理</strong></p>
+<p>Swift 中的错误处理允许你表示并处理程序执行中可能遇到的错误条件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">PrinterError</span>: <span class="title class_">Error</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> outOfPaper</span><br><span class="line">    <span class="keyword">case</span> noToner</span><br><span class="line">    <span class="keyword">case</span> onFire</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">send</span>(<span class="params">job</span>: <span class="type">Int</span>, <span class="params">toPrinter</span> <span class="params">printerName</span>: <span class="type">String</span>) <span class="keyword">throws</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> printerName <span class="operator">==</span> <span class="string">&quot;Never Has Toner&quot;</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="type">PrinterError</span>.noToner</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Job sent&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>泛型</strong></p>
+<p>泛型允许你写出灵活、可重用的函数和类型，它们可以工作于任何类型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">swapTwoValues</span>&lt;<span class="type">T</span>&gt;(<span class="keyword">_</span> <span class="params">a</span>: <span class="keyword">inout</span> <span class="type">T</span>, <span class="keyword">_</span> <span class="params">b</span>: <span class="keyword">inout</span> <span class="type">T</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> temporaryA <span class="operator">=</span> a</span><br><span class="line">    a <span class="operator">=</span> b</span><br><span class="line">    b <span class="operator">=</span> temporaryA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<p>这些是Swift语言的一些核心概念，掌握它们对于理解SwiftUI的工作方式至关重要。Swift的这些特性提供了构建SwiftUI应用所需的工具和构建块，接下来的章节中我们将看到这些基础如何在实际的SwiftUI编程中得到应用。</p>
+<p><strong>2. 面向协议编程</strong></p>
+<p>面向协议编程（Protocol-Oriented Programming，POP）是Swift语言的一个核心范式。与面向对象编程（Object-Oriented Programming，OOP）关注在类和继承上构建程序的层次结构不同，POP倡导通过定义协议并将它们实现于类、结构体或枚举来构建程序的行为和形态。在本节中，我们将探讨POP的基础，以及如何在Swift中应用这个强大的编程范式。</p>
+<p><strong>协议的定义</strong></p>
+<p>协议定义了一套蓝图，规定了采纳协议的类型必须实现哪些方法和属性。协议可以被类、结构体或枚举类型采纳，以提供所需的实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">identify</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">identify</span>() &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;My ID is <span class="subst">\(id)</span>.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述例子中，任何采纳<code>Identifiable</code>协议的类型都必须有一个<code>id</code>属性，并且默认提供了一个<code>identify</code>方法的实现。</p>
+<p><strong>面向协议的优势</strong></p>
+<ul>
+<li><strong>复用性</strong>：通过定义协议，您可以创建可在多种类型间复用的方法和属性。</li>
+<li><strong>松耦合</strong>：类型之间的依赖性降低，因为它们依赖于协议，而不是具体的实现。</li>
+<li><strong>灵活性</strong>：可以为不同的类型添加协议扩展，为它们提供特定的功能，而无需修改原有类型代码。</li>
+<li><strong>适应性</strong>：类型可以同时采纳多个协议，易于适配和扩展。</li>
+</ul>
+<p><strong>使用协议定义行为</strong></p>
+<p>一个典型的POP实践是定义一系列协议来代表应用的不同部分可以共享的行为，而不是创建基类。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">Flyable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> airspeedVelocity: <span class="type">Double</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protocol</span> <span class="title class_">Feasible</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> isFeasible: <span class="type">Bool</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在，任何类型都可以采纳Flyable和Feasible协议，不仅限于某个类的子类。</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Bird</span>: <span class="title class_">Flyable</span>, <span class="title class_">Feasible</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> airspeedVelocity: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">var</span> isFeasible: <span class="type">Bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在扩展中采纳协议</strong></p>
+<p>Swift允许在类型的扩展中采纳协议。这意味着即使是先前定义好的类型，也可以被增强来采纳新的协议。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">Array</span>: <span class="title class_">Identifiable</span> <span class="title class_">where</span> <span class="title class_">Element</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.map &#123; <span class="variable">$0</span>.id &#125;.joined(separator: <span class="string">&quot;, &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，只要数组的元素采纳了<code>Identifiable</code>协议，数组本身就自动采纳了<code>Identifiable</code>。</p>
+<p><strong>关联类型</strong></p>
+<p>协议可以具有关联类型，这是一种未被指定的类型占位符，其具体类型将由协议的采纳者提供。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protocol</span> <span class="title class_">Container</span> &#123;</span><br><span class="line">    <span class="keyword">associatedtype</span> <span class="type">Item</span></span><br><span class="line">    <span class="keyword">mutating</span> <span class="keyword">func</span> <span class="title function_">append</span>(<span class="keyword">_</span> <span class="params">item</span>: <span class="type">Item</span>)</span><br><span class="line">    <span class="keyword">var</span> count: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">subscript</span>(<span class="params">i</span>: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">IntStack</span>: <span class="title class_">Container</span> &#123;</span><br><span class="line">    <span class="comment">// 实现Container协议的要求</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Item</span> <span class="operator">=</span> <span class="type">Int</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关联类型增加了协议的灵活性，使其可以被不同的类型以不同的方式采纳。</p>
+<p><strong>总结</strong></p>
+<p>面向协议编程是Swift语言的一个核心原则，它鼓励开发者通过协议来定义接口和行为，而不是传统的继承。这样的方法为代码提供了更高的复用性和灵活性，也更加</p>
+<p>安全。在SwiftUI中，您会发现许多UI组件都是基于协议来构建的，这使得自定义和扩展UI变得十分方便和高效。通过本节的学习，您应该对如何使用面向协议编程来构建更强大、更模块化的Swift应用有了更深刻的理解。</p>
+<p><strong>3. Swift中的函数式编程特性</strong></p>
+<p>函数式编程是一种编程范式，它将计算视为数学函数的评估，并避免状态以及可变数据。Swift虽然不是一个纯函数式编程语言，但它融合了许多函数式编程的特性。这些特性可以帮助开发者编写更简洁、更易于理解的代码。在本节中，我们将探索Swift中的函数式编程特性及其在实际编程中的应用。</p>
+<p><strong>不可变性</strong></p>
+<p>在函数式编程中，不可变性是一个核心概念。不可变的数据可以避免副作用和状态变化，这使得程序更容易理解和调试。在Swift中，使用<code>let</code>关键字声明的常量是不可变的。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> constantArray <span class="operator">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="comment">// constantArray[0] = 4 // 这行代码将导致编译错误，因为数组是不可变的</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>一等函数</strong></p>
+<p>Swift将函数作为一等公民，这意味着函数可以作为其他函数的参数传递，也可以作为函数的返回值，还可以赋值给变量。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">add</span>(<span class="keyword">_</span> <span class="params">a</span>: <span class="type">Int</span>, <span class="keyword">_</span> <span class="params">b</span>: <span class="type">Int</span>) -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a <span class="operator">+</span> b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mathFunction: (<span class="type">Int</span>, <span class="type">Int</span>) -&gt; <span class="type">Int</span> <span class="operator">=</span> add</span><br><span class="line"><span class="built_in">print</span>(mathFunction(<span class="number">2</span>, <span class="number">3</span>)) <span class="comment">// 输出 5</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>高阶函数</strong></p>
+<p>Swift标准库中提供了多种高阶函数，如<code>map</code>、<code>filter</code>、<code>reduce</code>等，这些函数都可以接受一个函数作为输入。</p>
+<ul>
+<li><code>map</code> 用于将集合中的每个元素通过特定的方法进行转换。</li>
+<li><code>filter</code> 用于选择集合中符合特定条件的元素。</li>
+<li><code>reduce</code> 用于将集合中的元素合并成一个单一的值。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers <span class="operator">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">let</span> squaredNumbers <span class="operator">=</span> numbers.map &#123; <span class="variable">$0</span> <span class="operator">*</span> <span class="variable">$0</span> &#125; <span class="comment">// [1, 4, 9, 16, 25]</span></span><br><span class="line"><span class="keyword">let</span> evenNumbers <span class="operator">=</span> numbers.filter &#123; <span class="variable">$0</span> <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span> &#125; <span class="comment">// [2, 4]</span></span><br><span class="line"><span class="keyword">let</span> sumOfNumbers <span class="operator">=</span> numbers.reduce(<span class="number">0</span>, <span class="operator">+</span>) <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>闭包</strong></p>
+<p>闭包是自包含的函数代码块，可以在代码中传递和使用。它们尤其适用于函数式编程，因为它们可以捕获和存储任何它们所在上下文中的常量和变量的引用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> names <span class="operator">=</span> [<span class="string">&quot;Chris&quot;</span>, <span class="string">&quot;Alex&quot;</span>, <span class="string">&quot;Ewa&quot;</span>, <span class="string">&quot;Barry&quot;</span>, <span class="string">&quot;Daniella&quot;</span>]</span><br><span class="line"><span class="keyword">let</span> reversedNames <span class="operator">=</span> names.sorted(by: &#123; s1, s2 <span class="keyword">in</span> <span class="keyword">return</span> s1 <span class="operator">&gt;</span> s2 &#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>柯里化（Currying）</strong></p>
+<p>柯里化是函数式编程中的一个概念，指的是将一个接受多个参数的函数转换成一系列只接受单一参数的函数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">add</span>(<span class="keyword">_</span> <span class="params">a</span>: <span class="type">Int</span>) -&gt; (<span class="type">Int</span>) -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; b <span class="keyword">in</span> <span class="keyword">return</span> a <span class="operator">+</span> b &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> addTwo <span class="operator">=</span> add(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> addTwo(<span class="number">3</span>) <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>惰性求值（Lazy Evaluation）</strong></p>
+<p>Swift中的序列和集合提供了惰性求值的选项，这意味着只有在需要计算值的时候才会进行计算。这可以提高程序的性能，特别是在处理大型数据集时。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data <span class="operator">=</span> <span class="number">1</span><span class="operator">...</span><span class="number">1000</span></span><br><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> data.lazy.filter &#123; <span class="variable">$0</span> <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span> &#125;.map &#123; <span class="variable">$0</span> <span class="operator">*</span> <span class="number">2</span> &#125;</span><br><span class="line"><span class="comment">// result 的计算将会被延迟，直到实际被需要</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<p>Swift的函数式编程特性能够帮助开发者写出更加清晰、简洁和可维护的代码。通过利用不可变性、高阶函数、闭</p>
+<p>包等特性，Swift开发者可以编写出更加表达力强、逻辑清晰的代码。在SwiftUI开发中，这些特性被广泛应用，以实现数据和UI的高效绑定和操作。掌握这些函数式编程的概念将在接下来的章节中帮助读者更好地理解SwiftUI的设计和实现方式。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop2dwbf000nl37487sk3vjy" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中ScrollView的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -115,7 +1260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjs00007ia749rfohpdg" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbb0006l3741kcxaozp" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -173,7 +1318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjry0002ia74gka9d27r" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwba0004l374duzd1ptj" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -233,7 +1378,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjs2000eia74ddq8fifb" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbd000dl374d5ta17gn" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -301,353 +1446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjs1000cia743p3cfve2" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中HStack的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:52:20.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中HStack的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><code>HStack</code> 是 SwiftUI 中一个非常基础和常用的布局工具，用于在水平方向上堆叠视图。以下是 <code>HStack</code> 的一些基本用法：</p>
-<h3 id="创建一个基础的-HStack"><a href="#创建一个基础的-HStack" class="headerlink" title="创建一个基础的 HStack"></a>创建一个基础的 HStack</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Center&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这会将三个文本视图水平排列在一行内。</p>
-<h3 id="调整间距"><a href="#调整间距" class="headerlink" title="调整间距"></a>调整间距</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Center&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这将会在子视图之间设置为20点的间距。</p>
-<h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p><code>HStack</code> 默认在垂直方向上是居中对齐的，但你可以改变这个对齐方式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .top) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Top&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Aligned&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Text&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这会在垂直方向上将文本对齐到顶部。</p>
-<h3 id="使用-Spacer"><a href="#使用-Spacer" class="headerlink" title="使用 Spacer"></a>使用 Spacer</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 使用 Spacer 会推动两侧的文本到左右边缘</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>Spacer</code> 占据所有可用的空间，这里将会使两个文本视图分别对齐到左右边缘。</p>
-<h3 id="嵌套-HStack"><a href="#嵌套-HStack" class="headerlink" title="嵌套 HStack"></a>嵌套 HStack</h3><p><code>HStack</code> 可以嵌套使用，以创建更复杂的布局：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Left&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Left&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Right&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Right&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这将在水平方向上创建两个垂直堆叠，每个堆叠包含两个文本视图。</p>
-<h3 id="结合使用-Frame-和-Alignment"><a href="#结合使用-Frame-和-Alignment" class="headerlink" title="结合使用 Frame 和 Alignment"></a>结合使用 Frame 和 Alignment</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .bottom) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Bottom&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">100</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Aligned&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">100</span>, alignment: .trailing)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这将设置每个文本视图的宽度，并在底部对齐它们。</p>
-<h3 id="在实际应用中"><a href="#在实际应用中" class="headerlink" title="在实际应用中"></a>在实际应用中</h3><p><code>HStack</code> 通常与其它布局视图（如 <code>VStack</code>, <code>ZStack</code>, <code>ScrollView</code>）一起使用，以实现复杂的用户界面布局。下面是一个常见的例子，结合 <code>HStack</code> 和 <code>VStack</code>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(systemName: <span class="string">&quot;star.fill&quot;</span>)</span><br><span class="line">            .foregroundColor(.yellow)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Favorite&quot;</span>)</span><br><span class="line">            .font(.headline)</span><br><span class="line">        <span class="type">Spacer</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    .padding()</span><br><span class="line">    </span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 其他内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这会创建一个包含星形图标和标题的水平布局，并将其包裹在垂直布局中，通常这会作为列表的一部分。使用 <code>Divider</code> 来分隔列表项是常见的做法。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjrv0000ia743kwz4iyu" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中的布局" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:47:45.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/">SwiftUI中的布局</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，布局是通过一系列的容器视图来实现的，这些容器视图可以控制它们子视图的位置和大小。常用的布局容器有 <code>HStack</code>、<code>VStack</code>、<code>ZStack</code>、<code>Grid</code>、<code>List</code> 和 <code>ScrollView</code> 等。</p>
-<h3 id="基本的布局结构"><a href="#基本的布局结构" class="headerlink" title="基本的布局结构"></a>基本的布局结构</h3><ul>
-<li><strong>HStack</strong>：水平堆叠子视图。</li>
-<li><strong>VStack</strong>：垂直堆叠子视图。</li>
-<li><strong>ZStack</strong>：重叠子视图，即在 Z 轴上（深度方向）堆叠。</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123; <span class="comment">// 垂直堆叠</span></span><br><span class="line">            <span class="type">HStack</span> &#123; <span class="comment">// 水平堆叠</span></span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">                <span class="type">Spacer</span>() <span class="comment">// 使用 Spacer 来推动两边的文本</span></span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">ZStack</span> &#123; <span class="comment">// Z轴堆叠</span></span><br><span class="line">                <span class="type">Circle</span>().fill(<span class="type">Color</span>.blue)</span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Foreground&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="对齐和间距"><a href="#对齐和间距" class="headerlink" title="对齐和间距"></a>对齐和间距</h3><p>可以对堆叠容器使用 <code>alignment</code> 和 <code>spacing</code> 参数来定义子视图的对齐方式和间距。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .top, spacing: <span class="number">20</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="帧（Frame）"><a href="#帧（Frame）" class="headerlink" title="帧（Frame）"></a>帧（Frame）</h3><p>通过 <code>.frame</code> 修饰符可以为视图设定宽度、高度和对齐方式。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">    .frame(width: <span class="number">200</span>, height: <span class="number">200</span>, alignment: .center)</span><br></pre></td></tr></table></figure>
-
-<h3 id="弹性空间和填充"><a href="#弹性空间和填充" class="headerlink" title="弹性空间和填充"></a>弹性空间和填充</h3><ul>
-<li><strong>Spacer</strong>：在视图之间创建一个可扩展的空间，常用于推动视图到屏幕的边缘。</li>
-<li><strong>Padding</strong>：通过 <code>.padding</code> 修饰符来为视图添加内边距。</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;First&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 将占据可用的所有空间</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Last&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.padding() <span class="comment">// 在 VStack 的所有边缘添加内边距</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Divider-和-Separator"><a href="#Divider-和-Separator" class="headerlink" title="Divider 和 Separator"></a>Divider 和 Separator</h3><p>可以使用 <code>Divider</code> 来在视图中添加一条分割线。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Above Divider&quot;</span>)</span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Below Divider&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="ScrollView"><a href="#ScrollView" class="headerlink" title="ScrollView"></a>ScrollView</h3><p><code>ScrollView</code> 允许内容超出屏幕大小时滚动查看。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ScrollView</span> &#123;</span><br><span class="line">    <span class="type">VStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">        <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">100</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Row <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p><code>List</code> 用于创建一个滚动的列表视图。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">100</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Item <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Grids"><a href="#Grids" class="headerlink" title="Grids"></a>Grids</h3><p>在 SwiftUI 中，可以使用 <code>LazyVGrid</code> 和 <code>LazyHGrid</code> 来创建网格布局。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LazyVGrid</span>(columns: [<span class="type">GridItem</span>(.adaptive(minimum: <span class="number">100</span>))]) &#123;</span><br><span class="line">    <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">100</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Item <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Frame-Layout"><a href="#Frame-Layout" class="headerlink" title="Frame Layout"></a>Frame Layout</h3><p>对于复杂的布局，可能需要手动计算视图的尺寸和位置，使用 <code>.frame</code> 修饰符来设置大小，并使用 <code>.offset</code>、<code>.position</code> 等修饰符来调整位置。</p>
-<h3 id="自定义布局"><a href="#自定义布局" class="headerlink" title="自定义布局"></a>自定义布局</h3><p>可以通过创建自定义的 <code>ViewModifier</code> 或者自定义的布局容器来创建复杂的布局模式。</p>
-<p>SwiftUI 的布局系统是高度可组合的，你可以将多个布局容器和修饰符组合在一起，来创建复杂和响应式的用户界面。重要的是要理解 SwiftUI 的布局原则——尤其是容器如何影响内部子视图的布局，以及修饰符的顺序如何影响结果。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clooepjs2000iia74fvtv2h39" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中Link组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:40:26.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Link组件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>Link</code> 是一个用于创建可导航的超链接的视图。它可以让你在应用内打开一个网页链接，或者在支持深度链接的应用之间进行跳转。</p>
-<p>以下是 <code>Link</code> 的几种基本用法：</p>
-<h3 id="打开网页链接"><a href="#打开网页链接" class="headerlink" title="打开网页链接"></a>打开网页链接</h3><p>使用 <code>Link</code>，你可以打开一个 URL。以下是一个简单的例子，展示了如何使用 <code>Link</code> 来打开一个网页：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Link</span>(<span class="string">&quot;Visit OpenAI&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;https://www.openai.com&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，点击文本 “Visit OpenAI” 会尝试在默认浏览器中打开链接。</p>
-<h3 id="自定义链接外观"><a href="#自定义链接外观" class="headerlink" title="自定义链接外观"></a>自定义链接外观</h3><p>你可以自定义 <code>Link</code> 的外观，将它包装在其它视图中。例如，你可以使用一个按钮样式的链接：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Link</span>(destination: <span class="type">URL</span>(string: <span class="string">&quot;https://www.openai.com&quot;</span>)<span class="operator">!</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Visit OpenAI&quot;</span>)</span><br><span class="line">                .padding()</span><br><span class="line">                .background(<span class="type">Color</span>.blue)</span><br><span class="line">                .foregroundColor(.white)</span><br><span class="line">                .cornerRadius(<span class="number">10</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，链接看起来更像是一个按钮，带有蓝色背景和圆角。</p>
-<h3 id="在列表中使用链接"><a href="#在列表中使用链接" class="headerlink" title="在列表中使用链接"></a>在列表中使用链接</h3><p><code>Link</code> 可以和列表结合使用，作为列表项的一部分，提供导航功能。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">List</span> &#123;</span><br><span class="line">                <span class="type">Link</span>(<span class="string">&quot;OpenAI Website&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;https://www.openai.com&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">                <span class="type">Link</span>(<span class="string">&quot;OpenAI Twitter&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;https://twitter.com/openai&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            .navigationTitle(<span class="string">&quot;OpenAI Links&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个例子创建了一个包含两个链接的列表。点击这些链接会打开相应的网页。</p>
-<h3 id="使用深度链接在应用间导航"><a href="#使用深度链接在应用间导航" class="headerlink" title="使用深度链接在应用间导航"></a>使用深度链接在应用间导航</h3><p>如果其他应用支持 URL Scheme，你可以使用 <code>Link</code> 进行应用间的深度链接导航。例如，以下代码尝试打开 Twitter 应用的 OpenAI 页面（如果用户安装了支持的应用）：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Link</span>(<span class="string">&quot;Open OpenAI Twitter in App&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;twitter://user?screen_name=openai&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在使用 <code>Link</code> 时，请确保提供有效的 URL，并在可能的情况下处理无法打开链接的情况（例如，用户设备上没有安装相应的应用）。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjs00006ia745cgn28wq" data-title="SwiftUI中Link组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中ProgressView的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:12:20.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ProgressView的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><code>ProgressView</code> 在 SwiftUI 中被用来表示一个任务的进度。它可以展示为一个旋转的指示器，用来表示正在进行的工作，但具体的进度未知，也可以显示为一个水平的进度条，用来表示可确定进度的任务。</p>
-<p>以下是 <code>ProgressView</code> 的几种用法：</p>
-<h3 id="不确定进度的指示器"><a href="#不确定进度的指示器" class="headerlink" title="不确定进度的指示器"></a>不确定进度的指示器</h3><p>当你没有具体进度值时，可以使用不带参数的 <code>ProgressView</code>，它会显示为一个旋转的活动指示器。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ProgressView</span>()</span><br><span class="line">            .progressViewStyle(<span class="type">CircularProgressViewStyle</span>()) <span class="comment">// 在iOS上默认样式，可省略</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="确定进度的进度条"><a href="#确定进度的进度条" class="headerlink" title="确定进度的进度条"></a>确定进度的进度条</h3><p>如果你有具体的进度值，你可以通过设置一个 <code>0.0</code> 到 <code>1.0</code> 之间的值来创建一个进度条。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> progress <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ProgressView</span>(value: progress, total: <span class="number">1.0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>你可以通过定时器或者其他事件更新进度值，进度条会反映这些变化。</p>
-<h3 id="带有标签和描述的进度条"><a href="#带有标签和描述的进度条" class="headerlink" title="带有标签和描述的进度条"></a>带有标签和描述的进度条</h3><p><code>ProgressView</code> 还可以提供更多的上下文信息，比如一个标签或者一个描述性文本。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> progress <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">ProgressView</span>(<span class="string">&quot;Downloading...&quot;</span>, value: progress, total: <span class="number">1.0</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 或者使用标签和系统图标</span></span><br><span class="line">            <span class="type">ProgressView</span>(value: progress) &#123;</span><br><span class="line">                <span class="type">Label</span>(<span class="string">&quot;Downloading&quot;</span>, systemImage: <span class="string">&quot;arrow.down.doc&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 添加描述性文本</span></span><br><span class="line">            .progressViewStyle(<span class="type">LinearProgressViewStyle</span>()) <span class="comment">// 水平进度条</span></span><br><span class="line">            .accessibilityValue(<span class="string">&quot;<span class="subst">\(Int(progress <span class="operator">*</span> <span class="number">100</span>))</span> percent&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义进度条样式"><a href="#自定义进度条样式" class="headerlink" title="自定义进度条样式"></a>自定义进度条样式</h3><p>你可以通过 <code>progressViewStyle</code> 修饰符来自定义进度条的样式。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> progress <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ProgressView</span>(value: progress)</span><br><span class="line">            .progressViewStyle(<span class="type">LinearProgressViewStyle</span>(tint: .blue)) <span class="comment">// 自定义颜色</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>ProgressView</code> 的时候要注意，它需要在应用的适当位置显示，以避免阻碍用户操作，尤其是当使用不确定进度的指示器时。确保当任务完成或不再相关时，从界面上移除进度指示器。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjs00009ia7449aj3d26" data-title="SwiftUI中ProgressView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中的模态视图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:09:46.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/">SwiftUI中的模态视图</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，通常我们提到“模态”时，指的是一个全屏或部分屏幕的视图，它会暂时中断用户的当前工作流程以获取用户的注意和交互。在 SwiftUI 中，没有直接命名为 <code>Modal</code> 的控件，但模态行为可以通过多种方式实现，如 <code>sheet</code>、<code>fullScreenCover</code> 以及 <code>popover</code>（在 iPad 上）。下面将介绍如何实现模态行为的几种方法。</p>
-<h3 id="使用-sheet-展示模态视图"><a href="#使用-sheet-展示模态视图" class="headerlink" title="使用 sheet 展示模态视图"></a>使用 <code>sheet</code> 展示模态视图</h3><p><code>sheet</code> 修饰符可以用来展示一个模态视图，这个视图会覆盖在当前视图的上方，并带有一个背景遮罩。用户必须明确地关闭模态视图才能返回到原始视图。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingSheet <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Sheet&quot;</span>) &#123;</span><br><span class="line">            showingSheet <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">            <span class="comment">// Sheet的内容</span></span><br><span class="line">            <span class="type">ModalContentView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ModalContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;This is a modal view.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-fullScreenCover-展示模态视图"><a href="#使用-fullScreenCover-展示模态视图" class="headerlink" title="使用 fullScreenCover 展示模态视图"></a>使用 <code>fullScreenCover</code> 展示模态视图</h3><p><code>fullScreenCover</code> 类似于 <code>sheet</code>，但是会覆盖整个屏幕，为模态视图提供了更多的空间。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingFullScreenModal <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Full-Screen Modal&quot;</span>) &#123;</span><br><span class="line">            showingFullScreenModal <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .fullScreenCover(isPresented: <span class="variable">$showingFullScreenModal</span>) &#123;</span><br><span class="line">            <span class="type">FullScreenModalView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">FullScreenModalView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@Environment</span>(\.presentationMode) <span class="keyword">var</span> presentationMode</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Dismiss&quot;</span>) &#123;</span><br><span class="line">            presentationMode.wrappedValue.dismiss()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-popover-展示模态视图（仅限-iPad）"><a href="#使用-popover-展示模态视图（仅限-iPad）" class="headerlink" title="使用 popover 展示模态视图（仅限 iPad）"></a>使用 <code>popover</code> 展示模态视图（仅限 iPad）</h3><p>Popover 在 iPad 上提供了另一种模态体验，它显示一个浮动的视图，不会覆盖整个屏幕，允许用户在不完全离开当前上下文的情况下与 popover 互动。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingPopover <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Popover&quot;</span>) &#123;</span><br><span class="line">            showingPopover <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Popover content here&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-NavigationLink-或-State-和-Binding-触发模态视图"><a href="#使用-NavigationLink-或-State-和-Binding-触发模态视图" class="headerlink" title="使用 NavigationLink 或 @State 和 @Binding 触发模态视图"></a>使用 <code>NavigationLink</code> 或 <code>@State</code> 和 <code>@Binding</code> 触发模态视图</h3><p>在某些情况下，你可能需要通过更传统的方式来显示一个模态视图，例如使用 <code>NavigationLink</code> 或通过程序化地控制视图的显示。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isModalPresented <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            isModalPresented <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Show Modal&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        .background(</span><br><span class="line">            <span class="type">NavigationLink</span>(destination: <span class="type">ModalView</span>(), isActive: <span class="variable">$isModalPresented</span>) &#123;</span><br><span class="line">                <span class="type">EmptyView</span>()</span><br><span class="line">            &#125;</span><br><span class="line">            .hidden()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ModalView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;This is a modal view presented via NavigationLink.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 SwiftUI 中，这些模态呈现方法都是通过声明式的 API 来控制，使状态变化与视图更新之间保持同步。你需要根据你的应用设计需求来选择使用哪种模态展示方式。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="clooepjs3000nia744kpifooq" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中Popover控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:06:54.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Popover控件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，Popover 是一种用于临时显示浮动内容的组件。它通常被用来提供额外的信息或选项，而不必将用户带离他们当前的上下文。Popover 在 iPad 上特别有用，因为它可以利用更大的屏幕尺寸来展示额外内容而不覆盖整个屏幕。</p>
-<h3 id="Popover-的基本用法"><a href="#Popover-的基本用法" class="headerlink" title="Popover 的基本用法"></a>Popover 的基本用法</h3><p>要在 SwiftUI 中创建一个 popover，你可以使用 <code>.popover</code> 修饰符。这需要一个绑定的布尔值，当该值为真时，会显示 popover。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingPopover <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Popover&quot;</span>) &#123;</span><br><span class="line">            showingPopover <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Here&#x27;s the content of the Popover.&quot;</span>)</span><br><span class="line">                .font(.headline)</span><br><span class="line">                .padding()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，当用户点击按钮时，<code>showingPopover</code> 变为 <code>true</code>，这会触发 popover 的展示。</p>
-<h3 id="Popover-的附加配置"><a href="#Popover-的附加配置" class="headerlink" title="Popover 的附加配置"></a>Popover 的附加配置</h3><p>Popover 支持使用 <code>attachmentAnchor</code> 和 <code>arrowEdge</code> 参数来进一步配置其位置和箭头的朝向。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.popover(isPresented: <span class="variable">$showingPopover</span>, attachmentAnchor: .point(.bottom), arrowEdge: .top) &#123;</span><br><span class="line">    <span class="comment">// Popover 的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Popover-用于显示动态内容"><a href="#Popover-用于显示动态内容" class="headerlink" title="Popover 用于显示动态内容"></a>Popover 用于显示动态内容</h3><p>Popover 也可以用来显示动态内容，这意味着你可以根据某些状态或者条件来决定展示什么内容。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> someCondition &#123;</span><br><span class="line">        <span class="type">SomeView</span>()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">AnotherView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Popover-与-item-绑定"><a href="#Popover-与-item-绑定" class="headerlink" title="Popover 与 item 绑定"></a>Popover 与 <code>item</code> 绑定</h3><p>除了使用布尔值，popover 还可以通过绑定到一个可选项上来展示，这可以使你基于选择的特定对象显示不同的 popover。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedPerson: <span class="type">Person</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(people) &#123; person <span class="keyword">in</span></span><br><span class="line">            <span class="type">Text</span>(person.name)</span><br><span class="line">                .onTapGesture &#123;</span><br><span class="line">                    <span class="keyword">self</span>.selectedPerson <span class="operator">=</span> person</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        .popover(item: <span class="variable">$selectedPerson</span>) &#123; person <span class="keyword">in</span></span><br><span class="line">            <span class="type">PersonDetailView</span>(person: person)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">UUID</span></span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在上面的例子中，每个人的名字是一个列表项。当点击名字时，<code>selectedPerson</code> 被设置为该 <code>Person</code> 实例，并且展示了一个 popover 来显示更多关于这个人的详情。</p>
-<h3 id="在不同设备上的表现"><a href="#在不同设备上的表现" class="headerlink" title="在不同设备上的表现"></a>在不同设备上的表现</h3><p>Popover 在 iPadOS 上以浮动视图的形式展现，在 iPhone 上则会占据整个屏幕，类似于 modal presentation。因此，设计你的 popover 内容时，要考虑它在不同设备上的表现。</p>
-<p>Popover 通常用于临时任务或补充内容的场景，它的优点在于能够保持用户在当前的上下文中，同时提供额外的交互或信息。与其它模态视图一样，它们应该被谨慎使用，以免打断用户的工作流程。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clooepjrz0004ia74eq8ff5q6" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbe000hl374eysgd0x2" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -695,23 +1494,23 @@
       <ul>
         
           <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ScrollView的用法</a>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/">SwiftUI核心技术第7章导航与呈现</a>
           </li>
         
           <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中List的用法</a>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/">SwiftUI核心技术第6章数据流与绑定</a>
           </li>
         
           <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ZStack的用法</a>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/">SwiftUI核心技术第5章布局管理</a>
           </li>
         
           <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中VStack的用法</a>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/">SwiftUI核心技术4章视图与控件</a>
           </li>
         
           <li>
-            <a href="/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中HStack的用法</a>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">SwiftUI核心技术第3章环境搭建</a>
           </li>
         
       </ul>
