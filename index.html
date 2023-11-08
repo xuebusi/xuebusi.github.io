@@ -73,6 +73,172 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI核心技术第8章动画与转场" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T01:13:02.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/">SwiftUI核心技术第8章动画与转场</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第8章：动画与转场</strong></p>
+<p><strong>第1小节：基础动画</strong></p>
+<p>在SwiftUI中，动画是用来增强用户体验的一种手段，它可以提供平滑的视觉过渡和引人注目的交互。通过使用SwiftUI强大的动画API，你可以轻松地为界面元素添加动画效果。</p>
+<p><strong>动画的类型</strong></p>
+<p>在SwiftUI中，动画主要可以分为隐式动画和显式动画两大类。</p>
+<ol>
+<li><strong>隐式动画</strong>：最简单的动画形式，仅需要使用<code>.animation()</code>修饰符，并为其提供一个动画样式。</li>
+<li><strong>显式动画</strong>：使用<code>withAnimation</code>函数来明确开始动画的时间点，并提供一个动画样式。</li>
+</ol>
+<p><strong>创建一个简单的隐式动画</strong></p>
+<p>你可以通过在视图的某个状态改变时附加<code>.animation()</code>修饰符，让这个状态改变带有动画效果。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">SimpleAnimationView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> scale: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Circle</span>()</span><br><span class="line">            .scaleEffect(scale)</span><br><span class="line">            .animation(.easeInOut, value: scale)</span><br><span class="line">            .onTapGesture &#123;</span><br><span class="line">                scale <span class="operator">+=</span> <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，每当用户点击圆形，<code>scale</code>状态变量就会增加，而圆形的尺寸变化将以渐进渐出的方式动画显示。</p>
+<p><strong>使用<code>withAnimation</code>进行显式动画</strong></p>
+<p>如果你想控制动画的触发时机，而不是依赖于状态的改变，你可以使用<code>withAnimation</code>来显式地执行动画。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Tap Me&quot;</span>) &#123;</span><br><span class="line">    withAnimation(.spring(response: <span class="number">0.5</span>, dampingFraction: <span class="number">0.5</span>, blendDuration: <span class="number">1</span>)) &#123;</span><br><span class="line">        scale <span class="operator">+=</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当按钮被点击时，不管<code>scale</code>的值如何变化，动画都会被执行。</p>
+<p><strong>动画的组合</strong></p>
+<p>你可以将不同的动画效果组合在一起，创建复杂的动画序列。这通过在<code>.animation()</code>修饰符中使用<code>Animation</code>的静态方法来实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.animation(</span><br><span class="line">    <span class="type">Animation</span>.easeInOut(duration: <span class="number">2</span>).repeatForever(autoreverses: <span class="literal">true</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>此代码会创建一个无限重复并自动反向的渐进渐出动画。</p>
+<p><strong>动画参数</strong></p>
+<p>SwiftUI提供了许多可以调整动画行为的参数：</p>
+<ul>
+<li><code>duration</code>：动画的时长。</li>
+<li><code>delay</code>：动画开始前的等待时间。</li>
+<li><code>repeatCount</code>：动画重复的次数。</li>
+<li><code>autoreverses</code>：动画是否在完成后自动反向。</li>
+</ul>
+<p><strong>小结</strong></p>
+<p>基础动画是SwiftUI中最容易实现的动画类型，它们可以快速为你的应用添加视觉吸引力和反馈。通过使用隐式动画或显式动画，你可以控制动画的触发方式和行为。此外，SwiftUI的动画系统是高度可组合的，允许你通过组合和定制动画参数来创建复杂的动画效果。</p>
+<p>在本书的后续章节中，我们将深入探讨如何使用SwiftUI的高级动画功能，比如路径动画、自定义时间曲线以及动画的联动效果，来创建更具表现力和创造力的用户界面。</p>
+<p><strong>第2小节：自定义动画</strong></p>
+<p>在SwiftUI中，除了内置的动画类型，开发者还可以通过自定义动画来进一步个性化UI交互。自定义动画允许开发者控制动画的具体行为和时间曲线，实现独特的动态效果。</p>
+<p><strong>动画时间曲线</strong></p>
+<p>时间曲线描述了动画状态值随时间的变化方式。SwiftUI提供了几种内置的时间曲线，例如<code>easeIn</code>、<code>easeOut</code>和<code>easeInOut</code>。要自定义这些曲线，你可以使用<code>timingCurve(_:_:_:_:)</code>方法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.animation(.timingCurve(<span class="number">0.2</span>, <span class="number">0.8</span>, <span class="number">0.2</span>, <span class="number">1</span>, duration: <span class="number">0.5</span>))</span><br></pre></td></tr></table></figure>
+
+<p>这个方法接受四个表示贝塞尔曲线控制点的参数，可以非常精细地控制动画的加速和减速过程。</p>
+<p><strong>使用<code>interpolatingSpring</code>自定义弹簧动画</strong></p>
+<p>如果你需要一个物理弹性效果，可以使用<code>interpolatingSpring(stiffness:damping:)</code>函数来自定义一个弹簧动画。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.animation(.interpolatingSpring(stiffness: <span class="number">50</span>, damping: <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+
+<p>调整<code>stiffness</code>（刚度）和<code>damping</code>（阻尼）参数可以模拟不同的弹簧物理特性。</p>
+<p><strong>使用<code>Animation</code>的<code>delay(_: )</code>和<code>speed(_: )</code>自定义动画速度和延迟</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.animation(.easeInOut(duration: <span class="number">2</span>).delay(<span class="number">0.5</span>).speed(<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+<p>这里，动画会在半秒延迟后开始，并且以原始时长的两倍速度播放。</p>
+<p><strong>自定义动画路径</strong></p>
+<p>SwiftUI动画不仅限于简单的开始和结束状态之间的过渡。使用<code>GeometryEffect</code>，你可以创建完全自定义的动画路径。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomAnimationView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isAnimated <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Circle</span>()</span><br><span class="line">            .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">            .modifier(<span class="type">CustomPathModifier</span>(isAnimated: <span class="variable">$isAnimated</span>))</span><br><span class="line">            .onTapGesture &#123;</span><br><span class="line">                withAnimation &#123;</span><br><span class="line">                    isAnimated.toggle()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CustomPathModifier</span>: <span class="title class_">GeometryEffect</span> &#123;</span><br><span class="line">    <span class="meta">@Binding</span> <span class="keyword">var</span> isAnimated: <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">effectValue</span>(<span class="params">size</span>: <span class="type">CGSize</span>) -&gt; <span class="type">ProjectionTransform</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> path <span class="operator">=</span> <span class="type">UIBezierPath</span>()</span><br><span class="line">        path.move(to: <span class="type">CGPoint</span>(x: <span class="number">0</span>, y: isAnimated <span class="operator">?</span> size.height : <span class="number">0</span>))</span><br><span class="line">        <span class="comment">// Your custom path here</span></span><br><span class="line">        <span class="keyword">return</span> <span class="type">ProjectionTransform</span>(<span class="type">CGAffineTransform</span>(translationX: path.currentPoint.x, y: path.currentPoint.y))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过创建一个遵循<code>GeometryEffect</code>协议的自定义修饰符，你可以定义一个复杂的动画路径，这个路径由一个点沿着给定路径移动的动画组成。</p>
+<p><strong>自定义动画的应用场景</strong></p>
+<ul>
+<li>当内置动画不能满足你的设计需求时。</li>
+<li>当你想要创建一个与众不同的动态交互体验。</li>
+<li>在需要精确控制动画行为，如游戏或特定动画教程中。</li>
+</ul>
+<p><strong>小结</strong></p>
+<p>自定义动画是SwiftUI动画功能的深入使用。通过控制时间曲线、弹簧动画参数和自定义动画路径，你可以创造出个性化和专业级别的动态效果。自定义动画能提升应用的专业感和用户的交互体验，使你的应用在众多相似应用中脱颖而出。</p>
+<p>接下来，我们将探讨转场动画，它们可以为视图的呈现和消失提供引人注目的视觉效果。</p>
+<p><strong>第3小节：交互式和响应式动画</strong></p>
+<p>在构建现代的用户界面时，我们不仅希望动画能够提供视觉上的引导和反馈，还希望它们能够与用户的交互紧密结合，创造流畅的体验。这就是交互式和响应式动画发挥作用的地方。在SwiftUI中，你可以根据用户的输入或其他事件，实时地调整动画，从而创建出高度交互的UI元素。</p>
+<p><strong>交互式动画</strong></p>
+<p>交互式动画是指随着用户的操作实时变化的动画。例如，拖动滑块时的动态变化或者通过手势控制的动画。</p>
+<p><strong>实现交互式动画的方法</strong></p>
+<p>你可以通过以下方式为你的应用添加交互式动画：</p>
+<ol>
+<li><p><strong>使用Gesture</strong></p>
+<p>绑定手势到视图，然后在手势变化时更新视图的状态。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">InteractiveView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@GestureState</span> <span class="keyword">private</span> <span class="keyword">var</span> dragState <span class="operator">=</span> <span class="type">CGSize</span>.zero</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Rectangle</span>()</span><br><span class="line">            .fill(<span class="type">Color</span>.blue)</span><br><span class="line">            .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">            .offset(dragState)</span><br><span class="line">            .gesture(</span><br><span class="line">                <span class="type">DragGesture</span>()</span><br><span class="line">                    .updating(<span class="variable">$dragState</span>) &#123; value, state, <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">                        state <span class="operator">=</span> value.translation</span><br><span class="line">                    &#125;</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>DragGesture</code>跟踪手指的拖动，并实时更新<code>Rectangle</code>的偏移。</p>
+</li>
+<li><p><strong>与动画状态链接</strong></p>
+<p>将动画和状态变量结合起来，实现随状态改变而动画的效果。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ResponsiveView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> position <span class="operator">=</span> <span class="type">CGPoint</span>.zero</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Circle</span>()</span><br><span class="line">            .position(position)</span><br><span class="line">            .onTapGesture &#123;</span><br><span class="line">                withAnimation &#123;</span><br><span class="line">                    position <span class="operator">=</span> <span class="type">CGPoint</span>(x: position.x <span class="operator">+</span> <span class="number">100</span>, y: position.y <span class="operator">+</span> <span class="number">100</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，每次点击都会使圆形移动，并伴随平滑的过渡动画。</p>
+</li>
+</ol>
+<p><strong>响应式动画</strong></p>
+<p>响应式动画则是指根据外部事件或数据的变化而自动触发的动画。例如，当接收到新消息时，提示符以动画的形式出现。</p>
+<p><strong>实现响应式动画的方法</strong></p>
+<ol>
+<li><p><strong>数据绑定</strong></p>
+<p>通过观察对象中的<code>@Published</code>属性变化来驱动动画。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AnimationViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> isLoading <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">LoadingView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">AnimationViewModel</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Circle</span>()</span><br><span class="line">            .frame(width: <span class="number">50</span>, height: <span class="number">50</span>)</span><br><span class="line">            .rotationEffect(<span class="type">Angle</span>(degrees: viewModel.isLoading <span class="operator">?</span> <span class="number">360</span> : <span class="number">0</span>))</span><br><span class="line">            .animation(<span class="type">Animation</span>.linear(duration: <span class="number">1</span>).repeatForever(autoreverses: <span class="literal">false</span>), value: viewModel.isLoading)</span><br><span class="line">            .onAppear &#123;</span><br><span class="line">                viewModel.isLoading <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当<code>isLoading</code>变为<code>true</code>时，圆形会开始无限旋转，模拟加载指示器的效果。</p>
+</li>
+<li><p><strong>环境变量</strong></p>
+<p>利用<code>@EnvironmentObject</code>或其他环境属性，在多个视图之间共享动画状态。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@EnvironmentObject</span> <span class="keyword">var</span> userSettings: <span class="type">UserSettings</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(userSettings.username)</span><br><span class="line">            .scaleEffect(userSettings.isLoggedOut <span class="operator">?</span> <span class="number">0</span> : <span class="number">1</span>)</span><br><span class="line">            .animation(.spring(), value: userSettings.isLoggedOut)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当用户注销时，用户名的文本会通过缩放动画消失。</p>
+</li>
+</ol>
+<p><strong>小结</strong></p>
+<p>交互式和响应式动画在提高应用的用户体验方面起着至关重要的作用。在SwiftUI中，你可以轻松地将动画与用户的交互以及应用的数据状态相结合。</p>
+<p><strong>第4小节：转场动画</strong></p>
+<p>转场动画是用户界面的一部分，它们在视图的呈现和消失时创造连贯的视觉效果。在SwiftUI中，转场是以声明的方式定义的，允许开发者指定添加或删除视图时的动画类型。利用转场，开发者可以提供一种流畅的视觉体验，减少用户界面变化对用户认知的干扰。</p>
+<p><strong>基础转场</strong></p>
+<p>SwiftUI提供了几种内置的转场类型，例如<code>.opacity</code>、<code>.slide</code>和<code>.scale</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isPresented <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> isPresented &#123;</span><br><span class="line">                <span class="type">Text</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">                    .transition(.slide)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;Toggle View&quot;</span>) &#123;</span><br><span class="line">                withAnimation &#123;</span><br><span class="line">                    isPresented.toggle()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，当<code>isPresented</code>状态变化时，<code>Text</code>视图会滑入或滑出。</p>
+<p><strong>组合转场</strong></p>
+<p>你还可以组合多个转场来创建独特的效果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.transition(.asymmetric(insertion: .scale, removal: .opacity))</span><br></pre></td></tr></table></figure>
+
+<p>在这里，视图出现时使用缩放效果，消失时使用渐隐效果。</p>
+<p><strong>自定义转场</strong></p>
+<p>SwiftUI还允许创建自定义转场。这通常是通过定义视图的两种状态并描述它们之间的动画过渡来实现的。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extension</span> <span class="title class_">AnyTransition</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> pivot: <span class="type">AnyTransition</span> &#123;</span><br><span class="line">        .modifier(</span><br><span class="line">            active: <span class="type">CornerRotateModifier</span>(amount: <span class="operator">-</span><span class="number">90</span>),</span><br><span class="line">            identity: <span class="type">CornerRotateModifier</span>(amount: <span class="number">0</span>)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CornerRotateModifier</span>: <span class="title class_">ViewModifier</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> amount: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">body</span>(<span class="params">content</span>: <span class="type">Content</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        content.rotationEffect(<span class="type">Angle</span>(degrees: amount), anchor: .topLeading)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个自定义转场中，<code>pivot</code>通过旋转视图的顶部锚点实现转动效果。</p>
+<p><strong>使用转场动画</strong></p>
+<p>转场可以与<code>withAnimation</code>闭包结合使用，来实现视图状态变化时的平滑过渡。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Toggle View&quot;</span>) &#123;</span><br><span class="line">    withAnimation(.spring()) &#123;</span><br><span class="line">        isPresented.toggle()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将创建一个在点击按钮时视图呈现和消失时有弹簧动效的交互。</p>
+<p><strong>小结</strong></p>
+<p>转场动画在SwiftUI中为开发者提供了一个高效的方法来处理视图的呈现和消失，使用户界面更加生动和有趣。内置的转场类型适用于多数情况，而自定义转场则为特殊需求提供了无限的可能性。通过恰当使用转场，可以大大提升应用的质感和用户满意度。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" data-id="clop2ix78000umq74635k2ogl" data-title="SwiftUI核心技术第8章动画与转场" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI核心技术第7章导航与呈现" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" class="article-date">
@@ -197,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop2dwbf000pl3742ct7fqva" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop2ix78000tmq745ntdbnxs" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -325,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop2dwbg000sl3743c1la00q" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop2ix78000smq74ghqn5k58" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -456,7 +622,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" data-id="clop2dwbf000rl374b6lv1xeh" data-title="SwiftUI核心技术第5章布局管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" data-id="clop2ix78000rmq7410422j59" data-title="SwiftUI核心技术第5章布局管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -627,7 +793,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop2dwbf000ol3749wto0uut" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop2ix78000pmq746szp2r0v" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -832,7 +998,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop2dwbf000ql374dbacazy0" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop2ix78000qmq74gqw16aif" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1206,7 +1372,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop2dwbf000nl37487sk3vjy" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop2ix77000omq7490pegmuk" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1260,7 +1426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbb0006l3741kcxaozp" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix75000bmq742tww2eh5" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1318,7 +1484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwba0004l374duzd1ptj" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix730004mq744umd2nhg" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1378,75 +1544,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbd000dl374d5ta17gn" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中VStack的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:54:54.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中VStack的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>VStack</code> 是一个容器视图，它在垂直方向上排列其子视图。这是组织多个子视图，使其在单列中自上而下排列的一种简单有效的方式。</p>
-<p>以下是 <code>VStack</code> 的基本和高级用法：</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;First Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Second Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Third Line&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这将会把三行文本垂直排列。</p>
-<h3 id="调整间距"><a href="#调整间距" class="headerlink" title="调整间距"></a>调整间距</h3><p>通过间距参数可以调整子视图之间的距离。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(spacing: <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;First Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Second Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Third Line&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样设置会在每行文本之间添加10点的空间。</p>
-<h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p><code>VStack</code> 默认在水平方向上是居中对齐的，但可以改变这个对齐方式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Aligned to&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;the leading edge&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样会将文本对齐到 VStack 的前缘（左边）。</p>
-<h3 id="使用-Spacer"><a href="#使用-Spacer" class="headerlink" title="使用 Spacer"></a>使用 Spacer</h3><p><code>Spacer</code> 可以用来推动子视图，让它们靠近容器的边缘或者分散对齐。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Top&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 推动所有内容到顶部和底部</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Bottom&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里的 <code>Spacer</code> 会尝试占据所有可用的垂直空间，推动“Top”到顶部，将“Bottom”推到底部。</p>
-<h3 id="嵌套使用"><a href="#嵌套使用" class="headerlink" title="嵌套使用"></a>嵌套使用</h3><p>可以在 <code>VStack</code> 中嵌套其他 <code>HStack</code> 或 <code>VStack</code> 来创建复杂的布局结构。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Left&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Right&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Left&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Right&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这将创建一个两行的布局，每行都有左右两个文本视图。</p>
-<h3 id="结合-Frame-和-Alignment-使用"><a href="#结合-Frame-和-Alignment-使用" class="headerlink" title="结合 Frame 和 Alignment 使用"></a>结合 Frame 和 Alignment 使用</h3><p>你可以为 <code>VStack</code> 或其子视图指定大小和对齐方式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .trailing) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Line 1&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">200</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Line 2 is longer&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">150</span>, alignment: .trailing)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样会使 <code>VStack</code> 的文本对齐到右边，尽管子视图的宽度不同。</p>
-<h3 id="在实际应用中"><a href="#在实际应用中" class="headerlink" title="在实际应用中"></a>在实际应用中</h3><p><code>VStack</code> 经常被用来组织表单、列表的单个项、或者任何需要垂直排列的内容。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;photo&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Welcome to SwiftUI&quot;</span>)</span><br><span class="line">        .font(.title)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Let&#x27;s build some UIs!&quot;</span>)</span><br><span class="line">        .font(.subheadline)</span><br><span class="line">&#125;</span><br><span class="line">.padding()</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，图像位于顶部，紧接着是标题和副标题，所有内容都在 <code>VStack</code> 中垂直排列，并且使用 <code>.padding</code> 修饰符在周围添加空间。</p>
-<p><code>VStack</code> 是实现 SwiftUI 应用程序中垂直布局的基石，与 <code>HStack</code>、<code>ZStack</code> 和其他容器视图一起，可以构建出几乎任何布局结构。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbe000hl374eysgd0x2" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix75000dmq749gn80wd3" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1494,6 +1592,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/">SwiftUI核心技术第8章动画与转场</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/">SwiftUI核心技术第7章导航与呈现</a>
           </li>
         
@@ -1507,10 +1609,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/">SwiftUI核心技术4章视图与控件</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">SwiftUI核心技术第3章环境搭建</a>
           </li>
         
       </ul>

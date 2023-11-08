@@ -73,6 +73,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中Slider组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:50:43.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Slider组件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Slider</code> 是一个控件，允许用户从一个连续或者离散的值范围内选择一个值。它通常用来表示设置项中的数值，比如音量控制或者屏幕亮度调整。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>基础的 <code>Slider</code> 需要与 <code>@State</code> 绑定，来跟踪滑块的当前值。例如，创建一个调节音量的滑块：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> volume: <span class="type">Double</span> <span class="operator">=</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>volume</code> 变量将会跟踪滑块的当前位置，并且滑块的取值范围被设置在 0 到 100 之间。</p>
+<h3 id="步长"><a href="#步长" class="headerlink" title="步长"></a>步长</h3><p>你可以指定 <code>Slider</code> 的 <code>step</code> 参数来更改滑块的步长：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, step: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，滑块的值将以 5 的倍数变化。</p>
+<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p><code>Slider</code> 提供了多个修饰符来自定义外观：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    .accentColor(.green) <span class="comment">// 改变滑块的颜色</span></span><br><span class="line">    .trackColor(.blue, minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>), maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>)) <span class="comment">// 自iOS 16起可用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h3><p>为了增加无障碍性，你可以为 <code>Slider</code> 添加一个标签，这样辅助技术如 VoiceOver 可以读取这个标签：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.accessibilityValue(<span class="type">Text</span>(<span class="string">&quot;<span class="subst">\(Int(volume))</span>&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="实时预览"><a href="#实时预览" class="headerlink" title="实时预览"></a>实时预览</h3><p>如果你想在用户拖动滑块时实时获得更新，可以添加 <code>onEditingChanged</code> 回调：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> <span class="operator">!</span>editing &#123;</span><br><span class="line">        <span class="comment">// 用户停止拖动滑块时的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="范围选择"><a href="#范围选择" class="headerlink" title="范围选择"></a>范围选择</h3><p><code>SwiftUI</code> 也支持范围选择器，从 <code>iOS 14</code> 开始可以使用 <code>RangeSlider</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> priceRange: <span class="type">ClosedRange</span>&lt;<span class="type">Double</span>&gt; <span class="operator">=</span> <span class="number">10</span><span class="operator">...</span><span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="type">RangeSlider</span>(values: <span class="variable">$priceRange</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>priceRange</code> 会跟踪一个范围值，用户可以选择从最低到最高价之间的任何价格区间。</p>
+<h3 id="使用-Slider-配置"><a href="#使用-Slider-配置" class="headerlink" title="使用 Slider 配置"></a>使用 <code>Slider</code> 配置</h3><p>对于更复杂的配置，你可以使用 <code>Slider</code> 初始化器的更多参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(</span><br><span class="line">    value: <span class="variable">$volume</span>,</span><br><span class="line">    in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>,</span><br><span class="line">    step: <span class="number">1</span>,</span><br><span class="line">    onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 用户拖动滑块时的操作</span></span><br><span class="line">    &#125;,</span><br><span class="line">    minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>),</span><br><span class="line">    maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>),</span><br><span class="line">    label: &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>以上是 <code>Slider</code> 的一些常用用法和配置选项。通过合理利用，你可以在 SwiftUI 应用中提供丰富的交互式元素。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix740008mq740r3aai0k" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中Picker的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -128,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbb0005l374asat6c4z" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix730005mq74dor60gou" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -195,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwba0002l37477m6atxj" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix720002mq74cflih3rq" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -250,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbb0008l374gc534zsb" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix740009mq748mi2gugp" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -305,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clop2dwbg000vl3746h2o380f" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clop2ix79000xmq748u0nghdu" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -364,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbd000el3746yzacwfb" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix76000emq74dgwr4m3m" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -426,7 +490,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbe000il3747vxs1w5p" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix76000gmq74522fa5zf" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -491,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbd000cl374a1o5az9g" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix75000cmq742pwmec67" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -579,7 +643,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbg000ul374ehf44mou" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix76000jmq747uq3cq5j" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -675,68 +739,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbe000jl374hxf0he57" data-title="SwiftUI中的文本控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-我现在要开发一个iOS上的APP，我应该使用SwiftUI还是UIKit呢？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/%E6%88%91%E7%8E%B0%E5%9C%A8%E8%A6%81%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAiOS%E4%B8%8A%E7%9A%84APP%EF%BC%8C%E6%88%91%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8SwiftUI%E8%BF%98%E6%98%AFUIKit%E5%91%A2%EF%BC%9F/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T09:54:58.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/%E6%88%91%E7%8E%B0%E5%9C%A8%E8%A6%81%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAiOS%E4%B8%8A%E7%9A%84APP%EF%BC%8C%E6%88%91%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8SwiftUI%E8%BF%98%E6%98%AFUIKit%E5%91%A2%EF%BC%9F/">我现在要开发一个iOS上的APP，我应该使用SwiftUI还是UIKit呢？</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>选择SwiftUI还是UIKit主要取决于几个关键因素，包括项目的需求、目标用户群、开发团队的熟悉程度以及对某些特定API的需求。以下是一些选择SwiftUI或UIKit的考量因素：</p>
-<h3 id="使用SwiftUI的理由："><a href="#使用SwiftUI的理由：" class="headerlink" title="使用SwiftUI的理由："></a>使用SwiftUI的理由：</h3><ol>
-<li><strong>最新技术</strong>：SwiftUI是苹果的最新UI框架，它使用了现代的Swift语言特性，能够提供更好的开发体验。</li>
-<li><strong>跨平台开发</strong>：SwiftUI被设计成可以一次编写，跨平台部署（iOS、macOS、watchOS和tvOS）。</li>
-<li><strong>简洁的代码</strong>：声明式的语法使得编写UI代码更简洁、更容易阅读和维护。</li>
-<li><strong>动态UI和动画</strong>：SwiftUI使得创建复杂的动画和动态UI变得更为容易。</li>
-<li><strong>实时预览</strong>：Xcode集成了SwiftUI的实时预览功能，可以加速设计和开发过程。</li>
-<li><strong>自动适配</strong>：SwiftUI为自适应布局和暗黑模式提供了内建支持，减少了为不同设备适配的工作量。</li>
-</ol>
-<h3 id="使用UIKit的理由："><a href="#使用UIKit的理由：" class="headerlink" title="使用UIKit的理由："></a>使用UIKit的理由：</h3><ol>
-<li><strong>成熟稳定</strong>：UIKit自2007年以来一直在使用，是一个成熟稳定的框架。</li>
-<li><strong>更全面的API</strong>：UIKit具有更广泛的API和组件集，可以实现一些SwiftUI目前无法实现的功能。</li>
-<li><strong>复杂界面和控制</strong>：对于高度自定义和动态变化的界面，UIKit可能提供更精确的控制。</li>
-<li><strong>更广泛的资源</strong>：历史上的教程、解决方案和第三方库大多是基于UIKit的。</li>
-<li><strong>向下兼容性</strong>：如果需要支持较旧版本的iOS（如iOS 12及以下），UIKit是唯一的选择。</li>
-</ol>
-<h3 id="建议："><a href="#建议：" class="headerlink" title="建议："></a>建议：</h3><ul>
-<li><strong>新项目 &amp; 快速开发</strong>：如果你是从头开始一个新项目，特别是当项目不需要向下兼容到较旧的iOS版本时，SwiftUI是一个很好的选择。它能够提供更快的开发速度和未来的兼容性。</li>
-<li><strong>现有项目 &amp; 维护</strong>：如果你正在维护或扩展一个现有的UIKit项目，那么继续使用UIKit可能更有意义，特别是如果你的团队已经对它非常熟悉。</li>
-<li><strong>特定API或复杂UI</strong>：如果应用程序需要访问那些SwiftUI尚未覆盖的特定API，或者需要创建极其复杂和高度定制的UI，那么UIKit可能是更好的选择。</li>
-<li><strong>混合使用</strong>：你也可以选择两者混合使用。SwiftUI可以在UIKit应用中用作某些视图或功能，反之亦然。这样可以充分利用两个框架的优势。</li>
-</ul>
-<p>最终，这个决定应该基于你的项目需求、团队技能和项目时间线。如果可能的话，建议创建一个小的原型或者尝试用两种框架实现一些核心功能，以更好地理解它们在实践中的差异。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E6%88%91%E7%8E%B0%E5%9C%A8%E8%A6%81%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAiOS%E4%B8%8A%E7%9A%84APP%EF%BC%8C%E6%88%91%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8SwiftUI%E8%BF%98%E6%98%AFUIKit%E5%91%A2%EF%BC%9F/" data-id="clop2dwbh000zl3745ot9bxdg" data-title="我现在要开发一个iOS上的APP，我应该使用SwiftUI还是UIKit呢？" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%96%87%E6%9C%AC%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix76000hmq74eigf7hr0" data-title="SwiftUI中的文本控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -784,6 +787,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/">SwiftUI核心技术第8章动画与转场</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/">SwiftUI核心技术第7章导航与呈现</a>
           </li>
         
@@ -797,10 +804,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/">SwiftUI核心技术4章视图与控件</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">SwiftUI核心技术第3章环境搭建</a>
           </li>
         
       </ul>

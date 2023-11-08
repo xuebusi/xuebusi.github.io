@@ -73,6 +73,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中VStack的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:54:54.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中VStack的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>VStack</code> 是一个容器视图，它在垂直方向上排列其子视图。这是组织多个子视图，使其在单列中自上而下排列的一种简单有效的方式。</p>
+<p>以下是 <code>VStack</code> 的基本和高级用法：</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;First Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Second Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Third Line&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将会把三行文本垂直排列。</p>
+<h3 id="调整间距"><a href="#调整间距" class="headerlink" title="调整间距"></a>调整间距</h3><p>通过间距参数可以调整子视图之间的距离。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(spacing: <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;First Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Second Line&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Third Line&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样设置会在每行文本之间添加10点的空间。</p>
+<h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p><code>VStack</code> 默认在水平方向上是居中对齐的，但可以改变这个对齐方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Aligned to&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;the leading edge&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样会将文本对齐到 VStack 的前缘（左边）。</p>
+<h3 id="使用-Spacer"><a href="#使用-Spacer" class="headerlink" title="使用 Spacer"></a>使用 Spacer</h3><p><code>Spacer</code> 可以用来推动子视图，让它们靠近容器的边缘或者分散对齐。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Top&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 推动所有内容到顶部和底部</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Bottom&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>Spacer</code> 会尝试占据所有可用的垂直空间，推动“Top”到顶部，将“Bottom”推到底部。</p>
+<h3 id="嵌套使用"><a href="#嵌套使用" class="headerlink" title="嵌套使用"></a>嵌套使用</h3><p>可以在 <code>VStack</code> 中嵌套其他 <code>HStack</code> 或 <code>VStack</code> 来创建复杂的布局结构。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Left&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Right&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Left&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Right&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将创建一个两行的布局，每行都有左右两个文本视图。</p>
+<h3 id="结合-Frame-和-Alignment-使用"><a href="#结合-Frame-和-Alignment-使用" class="headerlink" title="结合 Frame 和 Alignment 使用"></a>结合 Frame 和 Alignment 使用</h3><p>你可以为 <code>VStack</code> 或其子视图指定大小和对齐方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .trailing) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Line 1&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">200</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Line 2 is longer&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">150</span>, alignment: .trailing)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样会使 <code>VStack</code> 的文本对齐到右边，尽管子视图的宽度不同。</p>
+<h3 id="在实际应用中"><a href="#在实际应用中" class="headerlink" title="在实际应用中"></a>在实际应用中</h3><p><code>VStack</code> 经常被用来组织表单、列表的单个项、或者任何需要垂直排列的内容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;photo&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Welcome to SwiftUI&quot;</span>)</span><br><span class="line">        .font(.title)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Let&#x27;s build some UIs!&quot;</span>)</span><br><span class="line">        .font(.subheadline)</span><br><span class="line">&#125;</span><br><span class="line">.padding()</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，图像位于顶部，紧接着是标题和副标题，所有内容都在 <code>VStack</code> 中垂直排列，并且使用 <code>.padding</code> 修饰符在周围添加空间。</p>
+<p><code>VStack</code> 是实现 SwiftUI 应用程序中垂直布局的基石，与 <code>HStack</code>、<code>ZStack</code> 和其他容器视图一起，可以构建出几乎任何布局结构。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix77000mmq7428936il9" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中HStack的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -117,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwb90001l3747h8nd1a5" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix710001mq749c978929" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -190,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clop2dwbd000fl3742ks92yye" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clop2ix76000fmq748pjs542r" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -246,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwba0003l37476jp3tal" data-title="SwiftUI中Link组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix720003mq7449n4eqmv" data-title="SwiftUI中Link组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -300,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbb0007l374fqp56kf7" data-title="SwiftUI中ProgressView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix740007mq746q8vg3u1" data-title="SwiftUI中ProgressView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -352,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="clop2dwbd000gl374gj6efmoq" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="clop2ix76000imq74gf13hxq0" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -407,7 +475,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbc0009l3747rd556iv" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix730006mq745wcvcawf" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -464,7 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbc000bl374d1ijdufi" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix77000kmq74g60y2lrp" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -519,7 +587,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwb60000l3743aec2olr" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix6z0000mq74608scb6m" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -586,71 +654,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbe000ll3745p3a4eid" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中Slider组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:50:43.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Slider组件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>Slider</code> 是一个控件，允许用户从一个连续或者离散的值范围内选择一个值。它通常用来表示设置项中的数值，比如音量控制或者屏幕亮度调整。</p>
-<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>基础的 <code>Slider</code> 需要与 <code>@State</code> 绑定，来跟踪滑块的当前值。例如，创建一个调节音量的滑块：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> volume: <span class="type">Double</span> <span class="operator">=</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，<code>volume</code> 变量将会跟踪滑块的当前位置，并且滑块的取值范围被设置在 0 到 100 之间。</p>
-<h3 id="步长"><a href="#步长" class="headerlink" title="步长"></a>步长</h3><p>你可以指定 <code>Slider</code> 的 <code>step</code> 参数来更改滑块的步长：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, step: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，滑块的值将以 5 的倍数变化。</p>
-<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p><code>Slider</code> 提供了多个修饰符来自定义外观：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    .accentColor(.green) <span class="comment">// 改变滑块的颜色</span></span><br><span class="line">    .trackColor(.blue, minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>), maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>)) <span class="comment">// 自iOS 16起可用</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h3><p>为了增加无障碍性，你可以为 <code>Slider</code> 添加一个标签，这样辅助技术如 VoiceOver 可以读取这个标签：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.accessibilityValue(<span class="type">Text</span>(<span class="string">&quot;<span class="subst">\(Int(volume))</span>&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="实时预览"><a href="#实时预览" class="headerlink" title="实时预览"></a>实时预览</h3><p>如果你想在用户拖动滑块时实时获得更新，可以添加 <code>onEditingChanged</code> 回调：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> <span class="operator">!</span>editing &#123;</span><br><span class="line">        <span class="comment">// 用户停止拖动滑块时的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="范围选择"><a href="#范围选择" class="headerlink" title="范围选择"></a>范围选择</h3><p><code>SwiftUI</code> 也支持范围选择器，从 <code>iOS 14</code> 开始可以使用 <code>RangeSlider</code>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> priceRange: <span class="type">ClosedRange</span>&lt;<span class="type">Double</span>&gt; <span class="operator">=</span> <span class="number">10</span><span class="operator">...</span><span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="type">RangeSlider</span>(values: <span class="variable">$priceRange</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，<code>priceRange</code> 会跟踪一个范围值，用户可以选择从最低到最高价之间的任何价格区间。</p>
-<h3 id="使用-Slider-配置"><a href="#使用-Slider-配置" class="headerlink" title="使用 Slider 配置"></a>使用 <code>Slider</code> 配置</h3><p>对于更复杂的配置，你可以使用 <code>Slider</code> 初始化器的更多参数：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(</span><br><span class="line">    value: <span class="variable">$volume</span>,</span><br><span class="line">    in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>,</span><br><span class="line">    step: <span class="number">1</span>,</span><br><span class="line">    onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 用户拖动滑块时的操作</span></span><br><span class="line">    &#125;,</span><br><span class="line">    minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>),</span><br><span class="line">    maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>),</span><br><span class="line">    label: &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>以上是 <code>Slider</code> 的一些常用用法和配置选项。通过合理利用，你可以在 SwiftUI 应用中提供丰富的交互式元素。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2dwbc000al3748xhpc382" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2ix75000amq74g7a0h5q7" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -698,6 +702,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/">SwiftUI核心技术第8章动画与转场</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/">SwiftUI核心技术第7章导航与呈现</a>
           </li>
         
@@ -711,10 +719,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/">SwiftUI核心技术4章视图与控件</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">SwiftUI核心技术第3章环境搭建</a>
           </li>
         
       </ul>
