@@ -73,6 +73,137 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI核心技术第5章布局管理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T00:47:49.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/">SwiftUI核心技术第5章布局管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第5章：布局管理</strong></p>
+<p><strong>1. 堆（Stacks）</strong></p>
+<p>在SwiftUI中，布局是通过组合不同的视图和使用布局容器来实现的，其中最基础和最常用的布局容器是堆（Stack）。Stacks在SwiftUI中主要有三种类型：<code>HStack</code>、<code>VStack</code>和<code>ZStack</code>，它们分别代表水平堆、垂直堆和覆盖堆。通过这三种Stack，可以构建出复杂的布局结构。</p>
+<p><strong>理解堆的工作方式</strong></p>
+<ul>
+<li><code>HStack</code>（水平堆）将其子视图沿着水平轴排列。</li>
+<li><code>VStack</code>（垂直堆）将子视图沿着垂直轴排列。</li>
+<li><code>ZStack</code>（覆盖堆）则将子视图按照代码中的顺序覆盖排列，即先声明的视图会被后声明的视图覆盖。</li>
+</ul>
+<p><strong>使用HStack和VStack管理布局</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span>(alignment: .leading, spacing: <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第一行&quot;</span>)</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;左侧&quot;</span>)</span><br><span class="line">        <span class="type">Spacer</span>() <span class="comment">// Spacer会推动旁边的视图尽可能远的距离</span></span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;右侧&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第二行&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.padding() <span class="comment">// 对VStack添加内边距</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码示例中，我们首先创建了一个<code>VStack</code>，其子视图之间有10点的间距，并且它们在水平方向上左对齐。在这个垂直堆中，我们有两行文本和一个<code>HStack</code>。在<code>HStack</code>中，两个文本视图被一个<code>Spacer</code>隔开，这会推动这些文本视图到<code>HStack</code>的两侧。</p>
+<p><strong>ZStack的层叠效果</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ZStack</span> &#123;</span><br><span class="line">    <span class="type">Image</span>(<span class="string">&quot;background&quot;</span>)</span><br><span class="line">        .resizable()</span><br><span class="line">        .aspectRatio(contentMode: .fill)</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;层叠的顶部文本&quot;</span>)</span><br><span class="line">            .font(.largeTitle)</span><br><span class="line">            .foregroundColor(.white)</span><br><span class="line">        <span class="type">Spacer</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.frame(height: <span class="number">300</span>) <span class="comment">// 设置ZStack的高度</span></span><br><span class="line">.clipped() <span class="comment">// 保证图片不会超出ZStack的边界</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>ZStack</code>用于创建层叠效果。它首先放置了一张背景图片，然后在图片上层放置了一个<code>VStack</code>，其中包含了一行文本。</p>
+<p><strong>使用堆的布局行为</strong></p>
+<ul>
+<li><code>Stacks</code>默认会尽可能地占据父视图提供的空间，除非使用<code>frame</code>、<code>edgesIgnoringSafeArea</code>、<code>fixedSize</code>等修饰符进行限制。</li>
+<li><code>alignment</code>参数控制子视图在交叉轴上的对齐方式（对于<code>HStack</code>是垂直对齐，对于<code>VStack</code>是水平对齐）。</li>
+<li><code>spacing</code>参数决定子视图之间的间距。</li>
+</ul>
+<p><strong>对齐和分布</strong></p>
+<p>Stacks的另一个关键特性是对齐。开发者可以非常细致地控制如何对齐子视图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .top) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;顶部对齐&quot;</span>)</span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;还是顶部对齐&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个<code>HStack</code>中，所有的子视图都会在顶部对齐，即使它们的高度不同。</p>
+<p><strong>总结</strong></p>
+<p>通过理解和利用Stacks，你可以构建出直观且灵活的布局。Stacks的简单性和强大的组合能力，使得它们成为SwiftUI布局的核心工具。它们可以嵌套使用，也可以与其他布局视图和控件配合，以创建出复杂且响应式的用户界面。随着你</p>
+<p>对这些基础布局工具的熟悉和运用，你将能够更加精准地操控空间，为你的应用提供坚实的视觉基础。</p>
+<p><strong>2. 对齐与帧（Alignment and Frames）</strong></p>
+<p>布局的精髓在于如何控制视图的大小和位置。在SwiftUI中，<code>对齐</code>和<code>帧</code>是两个基本但强大的概念，它们定义了视图在父视图中的具体摆放方式。</p>
+<p><strong>理解对齐</strong></p>
+<p>对齐在SwiftUI中是通过对齐指南来实现的，它定义了视图如何根据父视图或兄弟视图的对齐线来定位自己。例如，在一个<code>VStack</code>中，你可以通过<code>alignment</code>参数设置子视图在水平方向上的对齐方式，而在<code>HStack</code>中，这会影响子视图在垂直方向上的对齐。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .bottom) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;底部对齐&quot;</span>)</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;star&quot;</span>)</span><br><span class="line">        .alignmentGuide(.bottom) &#123; d <span class="keyword">in</span> d[.top] &#125;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;这个星星将对齐顶部&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们通过<code>.alignmentGuide</code>修饰符来改变图像视图的默认对齐行为，使其按照顶部对齐而不是底部。</p>
+<p><strong>使用帧控制视图大小</strong></p>
+<p>帧（frame）允许你为视图设置一个明确的大小或者提供一个理想的大小范围。<code>frame</code>修饰符可以指定宽度（<code>width</code>）、高度（<code>height</code>）、最小宽度（<code>minWidth</code>）、最大宽度（<code>maxWidth</code>）、最小高度（<code>minHeight</code>）、和最大高度（<code>maxHeight</code>）。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;固定大小的文本框&quot;</span>)</span><br><span class="line">    .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">    .border(<span class="type">Color</span>.red)</span><br></pre></td></tr></table></figure>
+
+<p>上述代码将文本框的宽度和高度都固定在了100点，无论内容大小如何，文本框都不会改变尺寸。</p>
+<p><strong>对齐和帧的组合使用</strong></p>
+<p>对齐和帧可以组合使用，以创建更复杂的布局效果。例如，你可能想要创建一个宽度固定，但高度根据内容动态调整的文本视图，同时在其内部文本垂直居中对齐。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;垂直居中的文本&quot;</span>)</span><br><span class="line">    .frame(minHeight: <span class="number">0</span>, maxHeight: .infinity)</span><br><span class="line">    .frame(width: <span class="number">200</span>)</span><br><span class="line">    .background(<span class="type">Color</span>.gray)</span><br><span class="line">    .alignmentGuide(.vertical) &#123; d <span class="keyword">in</span></span><br><span class="line">        d[<span class="type">VerticalAlignment</span>.center]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们使用了两个<code>frame</code>修饰符：第一个<code>frame</code>确保文本在垂直方向上可以扩展到可用的全部空间，第二个<code>frame</code>则设置了文本的固定宽度。通过<code>alignmentGuide</code>，文本在其框架内垂直居中。</p>
+<p><strong>总结</strong></p>
+<p>对齐和帧是布局时的两个非常重要的概念。通过精确的对齐控制，你可以确保界面元素以一种一致和预期的方式排列。同时，使用帧可以限制和指定视图的大小，无论是固定的还是灵活的。掌握了这些工具，你将能够设计出外观精确且布局合理的界面，即便是面对各种屏幕尺寸和设备方向，你的应用界面也能保持其应有的布局和结构。</p>
+<p><strong>3. Spacer和Divider</strong></p>
+<p>在构建用户界面时，除了直接操纵视图的尺寸和对齐，SwiftUI还提供了用于控制视图间隔的工具：Spacer和Divider。这些工具在进行视图布局时是不可或缺的，它们可以帮助我们创建出更为优雅和灵活的用户界面。</p>
+<p><strong>Spacer: 创建灵活的空间</strong></p>
+<p>Spacer是一个会尽可能占用多余空间的视图。在一个Stack中，Spacer可以推动相邻的视图，使其与Stack的边缘或其他视图保持距离。Spacer本身没有可见的内容，但它可以控制布局的间距。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;左边&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 占据所有可用空间</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;右边&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述例子中，Spacer位于两个文本视图之间，并推动它们分别靠近水平Stack的左右边缘。</p>
+<p>Spacer的另一个常用场景是在其前后添加修饰符，以控制其最小空间尺寸。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;左边&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>()</span><br><span class="line">        .frame(minWidth: <span class="number">20</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;右边&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时，Spacer至少会创建20点的空间，即使在更大的容器中，它也会扩展以填满额外的空间。</p>
+<p><strong>Divider: 分隔视图</strong></p>
+<p>Divider是一个用于分隔内容的细线，通常在视觉上表示不同部分的内容。它可以在列表、VStack或HStack中作为清晰分界线使用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第一部分&quot;</span>)</span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;第二部分&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Divider会自动采用垂直或水平方向，取决于它所在的Stack类型。在VStack中，它是水平的；而在HStack中，则是垂直的。</p>
+<p><strong>自定义Spacer和Divider</strong></p>
+<p>虽然Spacer和Divider是很好的布局工具，但有时你可能需要更多的自定义。例如，你可以使用背景和框架修饰符来自定义Divider的样式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Divider</span>()</span><br><span class="line">    .background(<span class="type">Color</span>.blue)</span><br><span class="line">    .frame(height: <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们自定义了Divider的颜色和高度，创建了一个蓝色的分隔线。</p>
+<p>同样，你也可以对Spacer进行类似的自定义。</p>
+<p><strong>总结</strong></p>
+<p>Spacer和Divider是在SwiftUI中创建和维护视图间隙的简单而强大的工具。它们支持布局的灵活性，同时为内容的视觉分隔提供方便。在理解了如何利用Spacer来控制视图的扩展和收缩，以及如何使用Divider来清晰地区分内容之后，你将能够创建出既美观又实用的布局设计。</p>
+<p><strong>4. 布局优先级</strong></p>
+<p>当我们在SwiftUI中构建复杂的界面时，经常会遇到多个视图争抢空间的情况。布局优先级（Layout Priority）是一个高级的概念，它允许我们微调视图如何在父视图中分配额外的空间。理解并正确使用布局优先级，可以帮助我们创建更加精确和高度定制的用户界面。</p>
+<p><strong>基本概念</strong></p>
+<p>在SwiftUI中，所有视图默认具有相同的布局优先级，值为0。当空间不足以满足所有子视图的理想尺寸时，系统会根据布局优先级来决定哪个视图可以首先满足其尺寸需求。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;非常非常长的文本&quot;</span>).layoutPriority(<span class="number">1</span>)</span><br><span class="line">    <span class="type">Spacer</span>()</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;短文本&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，第一个<code>Text</code>视图的布局优先级被设置为1，这意味着它在空间分配时会被优先考虑。即使在有限的空间中，它也会尽可能地显示完整的内容，而<code>Spacer</code>和第二个<code>Text</code>视图会相应地压缩。</p>
+<p><strong>布局优先级的使用</strong></p>
+<p>布局优先级的值可以是任意的正浮点数。数值越大，获取额外空间的优先级就越高。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;需要更多空间的文本&quot;</span>).layoutPriority(<span class="number">2</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;不那么重要的文本&quot;</span>).layoutPriority(<span class="number">1</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;普通文本&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，第一个文本视图被赋予了最高的优先级（2），其次是第二个文本视图（1），最后是没有显式设置优先级的文本视图（默认为0）。因此，当空间有限时，第一个文本视图会尽量显示更多的内容。</p>
+<p><strong>布局优先级的策略</strong></p>
+<p>布局优先级通常用于解决视图间的竞争关系，但是它并不是解决所有布局问题的万能钥匙。合理使用布局优先级需要策略，过度依赖可能会导致布局变得难以预测和管理。在设置优先级时，你应当始终考虑内容的重要性以及用户体验。</p>
+<p>一个良好的策略是尽量保持简单，只在确实需要时调整布局优先级。并且，始终牢记布局的整体目标是创造既满足设计需求又对用户友好的界面。</p>
+<p><strong>结合其他布局工具</strong></p>
+<p>布局优先级并不孤立工作，它应该与其他布局工具一起使用，例如<code>frame</code>、<code>alignment</code>、<code>Spacer</code>等。在实际开发中，你会发现布局优先级是与其他布局概念协同工作的，比如使用<code>fixedSize</code>来防止视图被压缩，或者与<code>flexible</code>结合来调整视图的压缩和扩展行为。</p>
+<p><strong>总结</strong></p>
+<p>掌握了布局优先级的概念和使用方法后，我们就能更加精细地控制SwiftUI布局的行为。正确的布局优先级设置能够确保重要的内容得到展示，辅助视图适应剩余空间，从而创造出既直观又富有层次的用户界面。在设计复杂的布局时，优先级的细微调整可以带来显著的视觉和体验改善。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" data-id="clop425ie000x0q7462sn87h9" data-title="SwiftUI核心技术第5章布局管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI核心技术4章视图与控件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" class="article-date">
@@ -232,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop3c0g5000puv74chfycr29" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop425ic000p0q74f0al74xt" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -437,7 +568,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop3c0g6000tuv748z914ko2" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop425ie000w0q742s9ie4ax" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -811,7 +942,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop3c0g5000ouv74fnim0be8" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop425ic000o0q74h6bg4dt2" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -865,7 +996,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0g10006uv7449n4ci2v" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop425i900080q743wue5i04" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -923,7 +1054,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0fz0001uv74285t42wp" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADList%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop425i700030q746y1xe2v4" data-title="SwiftUI中List的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -983,7 +1114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0g4000huv74fbiraug9" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop425ib000e0q747ig08ei9" data-title="SwiftUI中ZStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1051,7 +1182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0g3000cuv74bwb90beq" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop425ia000d0q74fzzj6iht" data-title="SwiftUI中VStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1107,7 +1238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0fw0000uv748j934s4r" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop425i400000q74bc4v9vb2" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1180,63 +1311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clop3c0g3000fuv74cirv4yi0" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中Link组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:40:26.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Link组件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>Link</code> 是一个用于创建可导航的超链接的视图。它可以让你在应用内打开一个网页链接，或者在支持深度链接的应用之间进行跳转。</p>
-<p>以下是 <code>Link</code> 的几种基本用法：</p>
-<h3 id="打开网页链接"><a href="#打开网页链接" class="headerlink" title="打开网页链接"></a>打开网页链接</h3><p>使用 <code>Link</code>，你可以打开一个 URL。以下是一个简单的例子，展示了如何使用 <code>Link</code> 来打开一个网页：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Link</span>(<span class="string">&quot;Visit OpenAI&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;https://www.openai.com&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，点击文本 “Visit OpenAI” 会尝试在默认浏览器中打开链接。</p>
-<h3 id="自定义链接外观"><a href="#自定义链接外观" class="headerlink" title="自定义链接外观"></a>自定义链接外观</h3><p>你可以自定义 <code>Link</code> 的外观，将它包装在其它视图中。例如，你可以使用一个按钮样式的链接：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Link</span>(destination: <span class="type">URL</span>(string: <span class="string">&quot;https://www.openai.com&quot;</span>)<span class="operator">!</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Visit OpenAI&quot;</span>)</span><br><span class="line">                .padding()</span><br><span class="line">                .background(<span class="type">Color</span>.blue)</span><br><span class="line">                .foregroundColor(.white)</span><br><span class="line">                .cornerRadius(<span class="number">10</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，链接看起来更像是一个按钮，带有蓝色背景和圆角。</p>
-<h3 id="在列表中使用链接"><a href="#在列表中使用链接" class="headerlink" title="在列表中使用链接"></a>在列表中使用链接</h3><p><code>Link</code> 可以和列表结合使用，作为列表项的一部分，提供导航功能。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">List</span> &#123;</span><br><span class="line">                <span class="type">Link</span>(<span class="string">&quot;OpenAI Website&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;https://www.openai.com&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">                <span class="type">Link</span>(<span class="string">&quot;OpenAI Twitter&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;https://twitter.com/openai&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            .navigationTitle(<span class="string">&quot;OpenAI Links&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个例子创建了一个包含两个链接的列表。点击这些链接会打开相应的网页。</p>
-<h3 id="使用深度链接在应用间导航"><a href="#使用深度链接在应用间导航" class="headerlink" title="使用深度链接在应用间导航"></a>使用深度链接在应用间导航</h3><p>如果其他应用支持 URL Scheme，你可以使用 <code>Link</code> 进行应用间的深度链接导航。例如，以下代码尝试打开 Twitter 应用的 OpenAI 页面（如果用户安装了支持的应用）：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Link</span>(<span class="string">&quot;Open OpenAI Twitter in App&quot;</span>, destination: <span class="type">URL</span>(string: <span class="string">&quot;twitter://user?screen_name=openai&quot;</span>)<span class="operator">!</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在使用 <code>Link</code> 时，请确保提供有效的 URL，并在可能的情况下处理无法打开链接的情况（例如，用户设备上没有安装相应的应用）。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLink%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0g3000duv74472nfibc" data-title="SwiftUI中Link组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" data-id="clop425ib000h0q7440vj0ln2" data-title="SwiftUI中的布局" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1284,6 +1359,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84%E8%81%8A%E5%A4%A9%E5%BA%94%E7%94%A8/">SwiftUI核心技术第15章构建一个完整的聊天应用</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/">SwiftUI核心技术第14章测试与调试</a>
           </li>
         
@@ -1297,10 +1376,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/">SwiftUI核心技术第11章适配多平台</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/">SwiftUI核心技术第10章集成Core Data和CloudKit</a>
           </li>
         
       </ul>
