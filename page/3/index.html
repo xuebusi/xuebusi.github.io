@@ -73,6 +73,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中ProgressView的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:12:20.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ProgressView的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><code>ProgressView</code> 在 SwiftUI 中被用来表示一个任务的进度。它可以展示为一个旋转的指示器，用来表示正在进行的工作，但具体的进度未知，也可以显示为一个水平的进度条，用来表示可确定进度的任务。</p>
+<p>以下是 <code>ProgressView</code> 的几种用法：</p>
+<h3 id="不确定进度的指示器"><a href="#不确定进度的指示器" class="headerlink" title="不确定进度的指示器"></a>不确定进度的指示器</h3><p>当你没有具体进度值时，可以使用不带参数的 <code>ProgressView</code>，它会显示为一个旋转的活动指示器。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ProgressView</span>()</span><br><span class="line">            .progressViewStyle(<span class="type">CircularProgressViewStyle</span>()) <span class="comment">// 在iOS上默认样式，可省略</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="确定进度的进度条"><a href="#确定进度的进度条" class="headerlink" title="确定进度的进度条"></a>确定进度的进度条</h3><p>如果你有具体的进度值，你可以通过设置一个 <code>0.0</code> 到 <code>1.0</code> 之间的值来创建一个进度条。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> progress <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ProgressView</span>(value: progress, total: <span class="number">1.0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以通过定时器或者其他事件更新进度值，进度条会反映这些变化。</p>
+<h3 id="带有标签和描述的进度条"><a href="#带有标签和描述的进度条" class="headerlink" title="带有标签和描述的进度条"></a>带有标签和描述的进度条</h3><p><code>ProgressView</code> 还可以提供更多的上下文信息，比如一个标签或者一个描述性文本。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> progress <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">ProgressView</span>(<span class="string">&quot;Downloading...&quot;</span>, value: progress, total: <span class="number">1.0</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 或者使用标签和系统图标</span></span><br><span class="line">            <span class="type">ProgressView</span>(value: progress) &#123;</span><br><span class="line">                <span class="type">Label</span>(<span class="string">&quot;Downloading&quot;</span>, systemImage: <span class="string">&quot;arrow.down.doc&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 添加描述性文本</span></span><br><span class="line">            .progressViewStyle(<span class="type">LinearProgressViewStyle</span>()) <span class="comment">// 水平进度条</span></span><br><span class="line">            .accessibilityValue(<span class="string">&quot;<span class="subst">\(Int(progress <span class="operator">*</span> <span class="number">100</span>))</span> percent&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义进度条样式"><a href="#自定义进度条样式" class="headerlink" title="自定义进度条样式"></a>自定义进度条样式</h3><p>你可以通过 <code>progressViewStyle</code> 修饰符来自定义进度条的样式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> progress <span class="operator">=</span> <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ProgressView</span>(value: progress)</span><br><span class="line">            .progressViewStyle(<span class="type">LinearProgressViewStyle</span>(tint: .blue)) <span class="comment">// 自定义颜色</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>ProgressView</code> 的时候要注意，它需要在应用的适当位置显示，以避免阻碍用户操作，尤其是当使用不确定进度的指示器时。确保当任务完成或不再相关时，从界面上移除进度指示器。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADProgressView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop3c0g10005uv741xrk55vu" data-title="SwiftUI中ProgressView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中的模态视图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" class="article-date">
@@ -612,61 +666,6 @@
 
 
   
-    <article id="post-使用TextField开发一个记事本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:30:16.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/">使用TextField开发一个记事本</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>要使用 SwiftUI 创建一个简单的记事本应用，你可以按照以下步骤操作：</p>
-<ol>
-<li>创建一个用于存储用户输入文本的状态变量。</li>
-<li>使用 <code>TextField</code> 为用户提供文本输入的地方。</li>
-<li>将输入的文本存储起来，并显示在界面上。</li>
-<li>提供一个方法来保存和加载这些文本。</li>
-</ol>
-<p>下面是一个简单记事本应用的基本代码框架：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> noteText: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> savedNotes: [<span class="type">String</span>] <span class="operator">=</span> []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">VStack</span> &#123;</span><br><span class="line">                <span class="type">TextField</span>(<span class="string">&quot;Write your note here...&quot;</span>, text: <span class="variable">$noteText</span>)</span><br><span class="line">                    .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">                    .padding()</span><br><span class="line"></span><br><span class="line">                <span class="type">Button</span>(<span class="string">&quot;Save Note&quot;</span>) &#123;</span><br><span class="line">                    saveNote()</span><br><span class="line">                    noteText <span class="operator">=</span> <span class="string">&quot;&quot;</span> <span class="comment">// Clear the TextField after saving</span></span><br><span class="line">                &#125;</span><br><span class="line">                .padding()</span><br><span class="line">                .disabled(noteText.isEmpty) <span class="comment">// Disable the button if there is no text</span></span><br><span class="line"></span><br><span class="line">                <span class="type">List</span>(savedNotes, id: \.<span class="keyword">self</span>) &#123; note <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(note)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            .navigationTitle(<span class="string">&quot;My Notes&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">saveNote</span>() &#123;</span><br><span class="line">        savedNotes.append(noteText) <span class="comment">// Adds the current note text to the saved notes array</span></span><br><span class="line">        <span class="comment">// Here, you might also write the notes to persistent storage</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ContentView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上述代码创建了一个简单的记事本界面。用户可以在 <code>TextField</code> 中输入文本，点击 “Save Note” 按钮后，文本会被添加到 <code>savedNotes</code> 数组中，并且显示在下面的列表中。</p>
-<h3 id="进阶："><a href="#进阶：" class="headerlink" title="进阶："></a>进阶：</h3><ul>
-<li>你可能希望将这些笔记保存到持久存储中，例如使用 <code>UserDefaults</code> 或文件系统，这样即使应用关闭，数据也不会丢失。</li>
-<li>可以考虑使用 <code>ForEach</code> 而不是直接在 <code>List</code> 中使用数组，以便于处理删除操作等。</li>
-<li>对 <code>List</code> 使用 <code>.onDelete(perform:)</code> 方法可以让用户删除条目。</li>
-</ul>
-<p>这个代码示例仅是一个起点，根据你的需求，你可以添加更多的功能，比如编辑已保存的笔记、按日期排序笔记、将笔记分组等。记事本应用可以根据个人需求有很多复杂的变体，上面的示例为你提供了一个构建更复杂应用的基础。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clop3c0g70011uv742goyhyfl" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -703,6 +702,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/">SwiftUI核心技术第14章测试与调试</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SwiftUI核心技术第13章性能优化</a>
           </li>
         
@@ -716,10 +719,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/">SwiftUI核心技术第10章集成Core Data和CloudKit</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/">SwiftUI核心技术第9章复合视图与可复用性</a>
           </li>
         
       </ul>

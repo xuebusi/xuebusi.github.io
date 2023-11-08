@@ -73,6 +73,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-用SwiftUI编写一个Hello-World！" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/%E7%94%A8SwiftUI%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHello-World%EF%BC%81/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T07:26:48.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/%E7%94%A8SwiftUI%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHello-World%EF%BC%81/">用SwiftUI编写一个Hello World！</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在SwiftUI中编写一个显示”Hello, World!”的界面非常简单。下面是基本的步骤和代码示例：</p>
+<ol>
+<li>打开Xcode并创建一个新的SwiftUI项目。</li>
+<li>在项目模板创建后，Xcode 会自动生成一个 <code>ContentView.swift</code> 文件，这是我们构建用户界面的地方。</li>
+<li>你可以使用以下代码替换 <code>ContentView</code> 结构体的实现：</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ContentView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码定义了一个遵循 <code>View</code> 协议的 <code>ContentView</code> 结构体。在其 <code>body</code> 属性中，我们声明了界面的内容，这里仅仅是一个 <code>Text</code> 视图，显示字符串 “Hello, World!”。</p>
+<p>当你在Xcode中打开画布(Canvas)，你应该能够看到 “Hello, World!” 文本的实时预览。你可以通过点击Xcode工具栏上的播放按钮来运行应用，在模拟器或者真实设备上看到你的第一个SwiftUI应用。</p>
+<p>SwiftUI的 <code>Text</code> 视图会默认居中于屏幕，除非你使用修饰符（modifiers）来改变它的布局或对齐方式。</p>
+<p>这是最简单的SwiftUI界面，但是 SwiftUI 强大之处在于可以轻松地为这个界面添加更多的功能和设计。例如，你可以添加按钮、图片、动画等等，并且利用声明式语法来定义这些元素之间的交互。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/%E7%94%A8SwiftUI%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHello-World%EF%BC%81/" data-id="clop3c0g80016uv74aex33ljq" data-title="用SwiftUI编写一个Hello World！" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-对于初学者，SwiftUI和UIKit到底先学哪个？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/%E5%AF%B9%E4%BA%8E%E5%88%9D%E5%AD%A6%E8%80%85%EF%BC%8CSwiftUI%E5%92%8CUIKit%E5%88%B0%E5%BA%95%E5%85%88%E5%AD%A6%E5%93%AA%E4%B8%AA%EF%BC%9F/" class="article-date">
@@ -355,6 +405,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/">SwiftUI核心技术第14章测试与调试</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SwiftUI核心技术第13章性能优化</a>
           </li>
         
@@ -368,10 +422,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/">SwiftUI核心技术第10章集成Core Data和CloudKit</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/">SwiftUI核心技术第9章复合视图与可复用性</a>
           </li>
         
       </ul>
