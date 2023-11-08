@@ -73,6 +73,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中Alert控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:58:19.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Alert控件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Alert</code> 控件用来向用户显示警告或者提示信息，并且可以提供一个或多个操作供用户选择。<code>Alert</code> 通常用于提示错误信息、确认重要操作或展示信息确认。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>使用 <code>Alert</code> 需要创建一个状态变量来控制它的显示与隐藏，并且在视图的某个事件中触发这个状态变量的变化。然后，你可以使用 <code>.alert</code> 修饰符来在视图层级中添加一个 <code>Alert</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当按钮被点击时，<code>showAlert</code> 状态变为 <code>true</code>，这会触发 <code>.alert</code> 修饰符显示一个带有 “OK” 按钮的警告框。</p>
+<h3 id="带有多个按钮的-Alert"><a href="#带有多个按钮的-Alert" class="headerlink" title="带有多个按钮的 Alert"></a>带有多个按钮的 Alert</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Cancel&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Delete&quot;</span>, role: .destructive) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Save&quot;</span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，除了取消按钮外，我们还添加了一个具有破坏性的删除操作和一个普通的保存操作。</p>
+<h3 id="Alert-的自定义内容"><a href="#Alert-的自定义内容" class="headerlink" title="Alert 的自定义内容"></a>Alert 的自定义内容</h3><p>你还可以自定义 <code>Alert</code> 的标题、消息和按钮。例如，下面的 <code>Alert</code> 有一个标题、消息和两个按钮：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.alert(isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Alert</span>(</span><br><span class="line">        title: <span class="type">Text</span>(<span class="string">&quot;Important message&quot;</span>),</span><br><span class="line">        message: <span class="type">Text</span>(<span class="string">&quot;Please read this.&quot;</span>),</span><br><span class="line">        primaryButton: .default(<span class="type">Text</span>(<span class="string">&quot;Got it!&quot;</span>)),</span><br><span class="line">        secondaryButton: .cancel()</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Alert-获取用户输入"><a href="#使用-Alert-获取用户输入" class="headerlink" title="使用 Alert 获取用户输入"></a>使用 <code>Alert</code> 获取用户输入</h3><p>在 SwiftUI 中，如果你想在 <code>Alert</code> 中获取用户的输入，你通常会使用其他视图，如 <code>sheet</code>，因为 <code>Alert</code> 本身并不支持文本输入。不过，你可以通过弹出一个带有文本字段的 <code>sheet</code> 或者使用自定义的对话框视图来模拟这个行为。</p>
+<h3 id="使用-Alert-与-ObservableObject"><a href="#使用-Alert-与-ObservableObject" class="headerlink" title="使用 Alert 与 ObservableObject"></a>使用 <code>Alert</code> 与 <code>ObservableObject</code></h3><p>当你的视图模型遵循 <code>ObservableObject</code> 并使用 <code>@Published</code> 属性来管理状态时，你可以这样使用 <code>Alert</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">MyViewModel</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            viewModel.triggerAlert()</span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$viewModel</span>.showAlert) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">triggerAlert</span>() &#123;</span><br><span class="line">        showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>MyViewModel</code> 控制 <code>showAlert</code> 的状态，当 <code>triggerAlert</code> 方法被调用时，会显示 <code>Alert</code>。</p>
+<p><code>Alert</code> 在 SwiftUI 中是模态的，这意味着当它出现时，用户必须进行选择才能继续与应用交互。它的设计旨在用于必须要立即解决的情况，因此在设计用户界面时应慎用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2p0000q3740qspeske" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中Stepper的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -128,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldu000doe74el4i9vi9" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2v000dq374c12u95oe" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -192,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldt000boe743n4m58io" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2v000bq374hsk53sj5" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -259,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldr0004oe740p0vaxz9" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2t0004q3749fzdcaii" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -326,7 +381,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldt0009oe744da46390" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2r0001q3746yh80ush" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -381,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2olds0008oe74eqqp9g8e" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2t0006q374649f95fc" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -436,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clop2oldz0012oe745me8c5f9" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="clop2uf30000zq374d3wi8fkk" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -495,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldu000eoe74dkf2a9x5" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2w000gq3742inw0ue2" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -557,7 +612,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldv000ioe7435d1c3zw" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2w000hq3743nlvh06y" data-title="SwiftUI中的开关组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -622,95 +677,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldu000foe74gqa78cb4" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中的按钮组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:12:22.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的按钮组件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>SwiftUI 中的 <code>Button</code> 组件用于执行用户点击时的操作。它可以容纳文本、图像或其他自定义视图，并且可以通过修饰符来自定义其外观和行为。</p>
-<p>下面是 <code>Button</code> 的一些基础用法：</p>
-<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>创建一个简单的按钮，并定义点击时执行的动作：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Click Me&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 在这里放置点击按钮后要执行的代码</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button was tapped&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p>可以通过链式调用修饰符来自定义按钮的外观：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Click Me&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button was tapped&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.foregroundColor(.white)</span><br><span class="line">.background(<span class="type">Color</span>.blue)</span><br><span class="line">.cornerRadius(<span class="number">10</span>)</span><br><span class="line">.padding()</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用图像"><a href="#使用图像" class="headerlink" title="使用图像"></a>使用图像</h3><p>你还可以使用 <code>Image</code> 视图创建一个图像按钮：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Image Button was tapped&quot;</span>)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;heart.fill&quot;</span>)</span><br><span class="line">        .foregroundColor(.red)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="组合文本和图像"><a href="#组合文本和图像" class="headerlink" title="组合文本和图像"></a>组合文本和图像</h3><p><code>Button</code> 可以容纳多个视图，例如文本和图像：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(systemName: <span class="string">&quot;heart.fill&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Like&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义按钮样式"><a href="#自定义按钮样式" class="headerlink" title="自定义按钮样式"></a>自定义按钮样式</h3><p>SwiftUI 允许你通过 <code>.buttonStyle()</code> 修饰符来应用自定义的按钮样式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Click Me&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;</span><br><span class="line">.buttonStyle(<span class="type">MyCustomButtonStyle</span>()) <span class="comment">// 应用自定义的按钮样式</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-Button-初始化器创建按钮"><a href="#使用-Button-初始化器创建按钮" class="headerlink" title="使用 Button 初始化器创建按钮"></a>使用 <code>Button</code> 初始化器创建按钮</h3><p>除了使用闭包，<code>Button</code> 还提供了使用 <code>label</code> 参数的初始化器，可以让你为按钮的内容提供一个视图构建器：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="comment">// 创建按钮内容</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Click Me&quot;</span>)</span><br><span class="line">        .fontWeight(.bold)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="按钮的禁用状态"><a href="#按钮的禁用状态" class="headerlink" title="按钮的禁用状态"></a>按钮的禁用状态</h3><p>你可以通过 <code>.disabled()</code> 修饰符来控制按钮的可点击状态：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Click Me&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;</span><br><span class="line">.disabled(isButtonDisabled) <span class="comment">// 根据某个条件禁用按钮</span></span><br></pre></td></tr></table></figure>
-
-<p>在 SwiftUI 中，<code>Button</code> 组件是可组合的，这意味着你可以通过修饰符、自定义样式和视图构建器，创建各种外观和行为的按钮，满足不同的设计需求。</p>
-<p>在SwiftUI中，<code>Button</code> 的高级用法可以包括自定义触摸行为、动画、无障碍功能和集成到复杂的用户界面模式中。以下是一些高级用法：</p>
-<h3 id="1-自定义点击动画"><a href="#1-自定义点击动画" class="headerlink" title="1. 自定义点击动画"></a>1. 自定义点击动画</h3><p>你可以在按钮上应用动画，以便在用户点击时提供视觉反馈：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    withAnimation &#123;</span><br><span class="line">        <span class="comment">// 执行动作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Click Me&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.scaleEffect(isPressed <span class="operator">?</span> <span class="number">1.2</span> : <span class="number">1.0</span>)</span><br><span class="line">.animation(.easeInOut(duration: <span class="number">0.2</span>), value: isPressed)</span><br><span class="line">.simultaneousGesture(<span class="type">DragGesture</span>(minimumDistance: <span class="number">0</span>).onChanged(&#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">self</span>.isPressed <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">&#125;).onEnded(&#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">self</span>.isPressed <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-创建自定义按钮样式"><a href="#2-创建自定义按钮样式" class="headerlink" title="2. 创建自定义按钮样式"></a>2. 创建自定义按钮样式</h3><p>在SwiftUI中，你可以通过实现<code>ButtonStyle</code>协议来创建复杂的按钮样式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">MyButtonStyle</span>: <span class="title class_">ButtonStyle</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">makeBody</span>(<span class="params">configuration</span>: <span class="keyword">Self</span>.<span class="type">Configuration</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        configuration.label</span><br><span class="line">            .background(configuration.isPressed <span class="operator">?</span> <span class="type">Color</span>.gray : <span class="type">Color</span>.blue)</span><br><span class="line">            .foregroundColor(.white)</span><br><span class="line">            .cornerRadius(<span class="number">10</span>)</span><br><span class="line">            .padding()</span><br><span class="line">            .scaleEffect(configuration.isPressed <span class="operator">?</span> <span class="number">0.95</span> : <span class="number">1</span>)</span><br><span class="line">            .animation(.spring(), value: configuration.isPressed)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用自定义样式</span></span><br><span class="line"><span class="type">Button</span>(<span class="string">&quot;Custom Style&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;.buttonStyle(<span class="type">MyButtonStyle</span>())</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-触摸手势集成"><a href="#3-触摸手势集成" class="headerlink" title="3. 触摸手势集成"></a>3. 触摸手势集成</h3><p>通过添加手势，可以对按钮的触摸事件进行更精细的控制：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Gesture Button&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.gesture(<span class="type">LongPressGesture</span>(minimumDuration: <span class="number">2</span>).onEnded &#123; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Long press!&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-无障碍功能的集成"><a href="#4-无障碍功能的集成" class="headerlink" title="4. 无障碍功能的集成"></a>4. 无障碍功能的集成</h3><p>确保按钮对于辅助技术是可访问的，例如屏幕阅读器：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;star&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.accessibilityLabel(<span class="type">Text</span>(<span class="string">&quot;Favorite&quot;</span>))</span><br><span class="line">.accessibilityHint(<span class="type">Text</span>(<span class="string">&quot;Double-tap to mark as favorite.&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-按钮与列表集成"><a href="#5-按钮与列表集成" class="headerlink" title="5. 按钮与列表集成"></a>5. 按钮与列表集成</h3><p>将按钮集成到列表或者表单中，并通过按钮改变列表内容：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span> &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Add Item&quot;</span>) &#123;</span><br><span class="line">        <span class="comment">// 向列表添加项</span></span><br><span class="line">        items.append(<span class="string">&quot;New Item&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ForEach</span>(items, id: \.<span class="keyword">self</span>) &#123; item <span class="keyword">in</span></span><br><span class="line">        <span class="type">Text</span>(item)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-条件禁用按钮"><a href="#6-条件禁用按钮" class="headerlink" title="6. 条件禁用按钮"></a>6. 条件禁用按钮</h3><p>基于特定逻辑禁用按钮：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(<span class="string">&quot;Submit&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 提交表单</span></span><br><span class="line">&#125;</span><br><span class="line">.disabled(<span class="operator">!</span>formIsValid)</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-按钮的多样化布局"><a href="#7-按钮的多样化布局" class="headerlink" title="7. 按钮的多样化布局"></a>7. 按钮的多样化布局</h3><p>结合<code>HStack</code>, <code>VStack</code>, <code>ZStack</code>以及<code>Spacer</code>等创建复杂布局：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span>(action: &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(systemName: <span class="string">&quot;star&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Favorites&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="8-利用视图修改器创建按钮样式"><a href="#8-利用视图修改器创建按钮样式" class="headerlink" title="8. 利用视图修改器创建按钮样式"></a>8. 利用视图修改器创建按钮样式</h3><p>创建一个可以重用的视图修改器，并在按钮上应用：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">OutlineStyle</span>: <span class="title class_">ViewModifier</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">body</span>(<span class="params">content</span>: <span class="type">Content</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        content</span><br><span class="line">            .padding()</span><br><span class="line">            .background(<span class="type">Color</span>.white)</span><br><span class="line">            .overlay(</span><br><span class="line">                <span class="type">RoundedRectangle</span>(cornerRadius: <span class="number">5</span>)</span><br><span class="line">                    .stroke(<span class="type">Color</span>.blue, lineWidth: <span class="number">1</span>)</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">Button</span>(<span class="string">&quot;Outlined Button&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// 执行动作</span></span><br><span class="line">&#125;</span><br><span class="line">.modifier(<span class="type">OutlineStyle</span>())</span><br></pre></td></tr></table></figure>
-
-<p>SwiftUI中的<code>Button</code>使用起来非常灵活，你可以利用多种方式来自定义行为和样式，以满足特定的用户界面和用户体验需求。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%8C%89%E9%92%AE%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2oldv000joe74bmma3zk2" data-title="SwiftUI中的按钮组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2w000fq374gm4761ah" data-title="SwiftUI中的Image组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -726,7 +693,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -758,6 +725,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/">SwiftUI核心技术第10章集成Core Data和CloudKit</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/">SwiftUI核心技术第9章复合视图与可复用性</a>
           </li>
         
@@ -771,10 +742,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/">SwiftUI核心技术第6章数据流与绑定</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/">SwiftUI核心技术第5章布局管理</a>
           </li>
         
       </ul>
