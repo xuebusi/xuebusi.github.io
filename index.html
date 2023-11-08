@@ -73,6 +73,119 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI核心技术第11章适配多平台" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T01:31:14.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/">SwiftUI核心技术第11章适配多平台</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第11章：适配多平台</strong></p>
+<p><strong>第1小节：Catalyst：从iOS到macOS</strong></p>
+<p>随着Apple推出Project Catalyst，现在开发者可以更加轻松地将iOS应用带到macOS平台。这一技术允许一个单一的代码库运行在iPad和Mac上，极大地简化了多平台支持的开发过程。在这一小节，我们将讨论如何使用Catalyst来适配你的iOS应用到macOS。</p>
+<h3 id="Catalyst基础"><a href="#Catalyst基础" class="headerlink" title="Catalyst基础"></a>Catalyst基础</h3><p>Catalyst是Apple提供的一套工具和API，使得开发者可以用几乎同样的代码在Mac上运行iPad应用。这不仅减少了开发和维护成本，同时也保持了用户在iOS和macOS平台间的一致体验。</p>
+<h3 id="启用Catalyst"><a href="#启用Catalyst" class="headerlink" title="启用Catalyst"></a>启用Catalyst</h3><p>在Xcode项目中启用Catalyst非常简单。首先打开你的项目设置，在Targets中选择你的iPad应用。然后，在General选项卡中，勾选“Mac”复选框来启用Mac支持。</p>
+<h3 id="调整界面和布局"><a href="#调整界面和布局" class="headerlink" title="调整界面和布局"></a>调整界面和布局</h3><p>macOS和iOS在用户界面和交互上有所不同。因此，即使是通过Catalyst运行在Mac上的iOS应用，也需要进行一些调整来优化用户体验。</p>
+<ul>
+<li><strong>窗口和视图尺寸</strong>：Mac应用通常拥有更大的窗口和可调整的大小，你需要确保你的界面能够灵活地适应不同尺寸。</li>
+<li><strong>菜单和快捷键</strong>：Mac用户习惯于使用顶部菜单栏和快捷键来执行操作。通过Catalyst，你可以为你的应用添加Mac风格的菜单和响应键盘快捷键。</li>
+<li><strong>交互方式</strong>：Mac应用通常使用鼠标或触控板，而不是触摸屏。你需要考虑这一点来调整你的应用交互方式。</li>
+</ul>
+<h3 id="优化代码和资源"><a href="#优化代码和资源" class="headerlink" title="优化代码和资源"></a>优化代码和资源</h3><p>为了在Mac上提供最佳体验，你可能需要根据平台调整代码和资源。</p>
+<ul>
+<li><strong>条件编译</strong>：使用<code>#if targetEnvironment(macCatalyst)</code>来条件性地编译只在Mac上运行的代码。</li>
+<li><strong>资源适配</strong>：可能需要提供更高分辨率的图片或者调整用户界面元素来适应Mac的显示器。</li>
+</ul>
+<h3 id="调试和测试"><a href="#调试和测试" class="headerlink" title="调试和测试"></a>调试和测试</h3><p>在将iOS应用转移到Mac时，详细的调试和测试是必不可少的。你需要确保应用在Mac上的表现同样稳定，并提供流畅的用户体验。</p>
+<ul>
+<li><strong>在Mac上运行和调试</strong>：就像在iOS设备上一样，在Xcode中选择Mac作为目标设备，运行和调试你的应用。</li>
+<li><strong>适配性测试</strong>：对于不同的窗口尺寸和屏幕分辨率进行测试，确保布局和界面元素都能正确显示和响应。</li>
+</ul>
+<h3 id="发布和分发"><a href="#发布和分发" class="headerlink" title="发布和分发"></a>发布和分发</h3><p>当你的应用通过Catalyst适配完成后，你可以通过Mac App Store将其发布给全球的用户。这一流程类似于iOS应用的发布，但需要注意的是，你可能需要提供额外的营销材料，如屏幕截图和描述，来适应Mac App Store的展示方式。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Catalyst提供了一个强大的桥梁，让开发者能够将iOS应用无缝迁移到Mac平台。这一过程需要细致的界面调整、代码优化以及充分的测试，但最终可以极大地拓宽你的应用市场，并为用户提供跨平台的统一体验。随着技术的发展，Catalyst将继续发展，为开发者和用户带来更多便利。</p>
+<p><strong>第2小节：watchOS特有的UI组件</strong></p>
+<p>watchOS为Apple Watch提供了一个独特的操作系统平台，它的设计重点在于快速查看信息和简洁交互。由于屏幕尺寸有限，watchOS提供了一些专门的UI组件，以满足特定的用户体验需求。在这一小节，我们将探讨watchOS的一些特有UI组件及其设计和实现。</p>
+<h3 id="WKInterfaceController"><a href="#WKInterfaceController" class="headerlink" title="WKInterfaceController"></a>WKInterfaceController</h3><p><code>WKInterfaceController</code>是watchOS app中视图控制器的基类，用于管理界面。与iOS的<code>UIViewController</code>不同，<code>WKInterfaceController</code>更加专注于内容展示和数据流，而非复杂的布局或动画。</p>
+<h3 id="Complications"><a href="#Complications" class="headerlink" title="Complications"></a>Complications</h3><p>复杂功能（Complications）允许用户在表盘上直接查看来自应用的关键信息。它们需要使用<code>CLKComplicationDataSource</code>协议来提供动态更新的数据。创建Complications需要细心设计图形和文本，以确保信息在极小的空间内清晰可见。</p>
+<h3 id="Notifications"><a href="#Notifications" class="headerlink" title="Notifications"></a>Notifications</h3><p>watchOS的通知设计用于迅速传递信息。使用<code>UNUserNotificationCenter</code>，开发者可以设计富媒体通知，甚至允许用户通过交互直接在Apple Watch上回应。</p>
+<h3 id="WKInterfaceTable"><a href="#WKInterfaceTable" class="headerlink" title="WKInterfaceTable"></a>WKInterfaceTable</h3><p><code>WKInterfaceTable</code>是watchOS用于显示列表数据的主要UI组件。与iOS的<code>UITableView</code>相比，<code>WKInterfaceTable</code>的设计更简洁，只支持静态单元格。开发者需要预先定义好所有可能的行类型。</p>
+<h3 id="Digital-Crown"><a href="#Digital-Crown" class="headerlink" title="Digital Crown"></a>Digital Crown</h3><p>Digital Crown是Apple Watch上的旋钮，允许用户进行精细的滚动和选择操作。通过<code>crownSequencer</code>，开发者可以检测和响应旋钮的旋转，从而提供一个独特的交互方式。</p>
+<h3 id="Force-Touch"><a href="#Force-Touch" class="headerlink" title="Force Touch"></a>Force Touch</h3><p>Force Touch允许watchOS检测屏幕上的压力级别。这可以用来显示上下文菜单或额外控件，为用户提供更多的操作选择。使用<code>WKInterfaceDevice</code>的<code>play(_:)</code>方法，还可以给予触觉反馈。</p>
+<h3 id="Interface-Objects"><a href="#Interface-Objects" class="headerlink" title="Interface Objects"></a>Interface Objects</h3><p>watchOS提供了一系列预定义的界面对象（如<code>WKInterfaceLabel</code>，<code>WKInterfaceImage</code>等），它们是优化过的，以确保在小屏幕上的最佳显示效果。</p>
+<h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><p>布局在watchOS中相对简单。所有元素都是垂直或水平排列的，没有自动布局系统。开发者通过设置组（Group）来组织界面，组可以嵌套，以创造更复杂的布局结构。</p>
+<h3 id="性能和电池寿命"><a href="#性能和电池寿命" class="headerlink" title="性能和电池寿命"></a>性能和电池寿命</h3><p>由于Apple Watch的硬件限制，性能优化和电池寿命考量至关重要。应用应当避免过多的背景活动，而且要智能地安排网络请求和数据更新。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>设计watchOS应用时，开发者必须考虑到平台的独特性，包括小屏幕尺寸和有限的交互方式。通过有效利用watchOS提供的特有UI组件，开发者可以创建出既美观又实用的Apple Watch应用。此外，性能和电池寿命的优化也是watchOS应用设计中不可忽视的一部分。通过精心设计和优化，你的应用将能在这个独特的平台上提供强大功能和良好体验。</p>
+<p><strong>第3小节：tvOS和大屏体验</strong></p>
+<p>tvOS是苹果为Apple TV设计的操作系统，它为大屏幕交互提供了特殊的用户体验和设计挑战。tvOS的应用开发不仅要考虑到大屏幕带来的视觉冲击，还要处理与iOS明显不同的用户输入方式。以下是tvOS应用开发的关键点。</p>
+<h3 id="界面设计"><a href="#界面设计" class="headerlink" title="界面设计"></a>界面设计</h3><ol>
+<li><p><strong>布局</strong> - 由于电视屏幕通常较大，你需要为元素间的距离和尺寸采取不同的考量。确保文字和图标在沙发观看距离仍然清晰可辨。</p>
+</li>
+<li><p><strong>焦点驱动的交互</strong> - 在tvOS中，用户通过遥控器的触摸板来控制界面上的焦点。应用需要处理焦点变化，并给予用户清晰的视觉反馈。</p>
+</li>
+<li><p><strong>全屏体验</strong> - 利用大屏幕的优势，提供全屏背景图像和视频，创造沉浸式体验。</p>
+</li>
+</ol>
+<h3 id="用户输入"><a href="#用户输入" class="headerlink" title="用户输入"></a>用户输入</h3><ol>
+<li><p><strong>远程控制</strong> - Apple TV Remote的触摸表面提供了基础的轻扫和点击输入，开发者需设计易于用遥控器导航的界面。</p>
+</li>
+<li><p><strong>游戏控制器</strong> - 对于游戏应用，Apple TV支持MFi游戏控制器，这为复杂交互提供了更多可能。</p>
+</li>
+<li><p><strong>语音输入</strong> - 利用Siri远程功能，可以为应用添加语音搜索和控制能力。</p>
+</li>
+</ol>
+<h3 id="图像和视频"><a href="#图像和视频" class="headerlink" title="图像和视频"></a>图像和视频</h3><ol>
+<li><p><strong>分辨率和图像优化</strong> - Apple TV支持高达4K的分辨率，要求图片和视频内容具有高质量，以适应高分辨率的显示需求。</p>
+</li>
+<li><p><strong>视频播放</strong> - tvOS对于媒体播放有优化，支持HDR和Dolby Vision。开发者应当使用AVKit来实现视频播放，以确保最佳体验。</p>
+</li>
+</ol>
+<h3 id="数据存储和缓存"><a href="#数据存储和缓存" class="headerlink" title="数据存储和缓存"></a>数据存储和缓存</h3><ol>
+<li><p><strong>本地存储限制</strong> - Apple TV对本地数据存储有限制，应用需要通过iCloud或网络来同步和存储大部分数据。</p>
+</li>
+<li><p><strong>缓存策略</strong> - 为了优化性能和减少加载时间，有效的数据缓存策略是必须的。</p>
+</li>
+</ol>
+<h3 id="性能和流畅性"><a href="#性能和流畅性" class="headerlink" title="性能和流畅性"></a>性能和流畅性</h3><ol>
+<li><p><strong>动画和过渡</strong> - 在大屏幕上，动画需要更加平滑和精细，以避免拖影和断续感。</p>
+</li>
+<li><p><strong>内存管理</strong> - Apple TV的内存资源比移动设备更丰富，但仍然需要高效的内存管理，尤其是在处理高分辨率媒体内容时。</p>
+</li>
+</ol>
+<h3 id="Accessibility"><a href="#Accessibility" class="headerlink" title="Accessibility"></a>Accessibility</h3><ol>
+<li><strong>无障碍功能</strong> - 提供声音指导和简化的控制方案，以确保所有用户都能愉快地使用你的应用。</li>
+</ol>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>tvOS应用开发是一个大屏幕交互设计和用户体验的全新领域。与手机和平板不同，它要求开发者从居家观看的角度出发，考虑到用户与屏幕之间的距离、环境亮度等因素，从而设计出易于使用、视觉效果出色的界面。此外，由于输入设备的限制和平台特性，tvOS应用需要特别关注焦点管理和用户输入的响应性。通过在设计上投入更多考虑和精心调优性能，你的应用将能在大屏幕上提供卓越的用户体验。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/" data-id="clop34voo000nru7485rfc75v" data-title="SwiftUI核心技术第11章适配多平台" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI核心技术第10章集成Core-Data和CloudKit" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/" class="article-date">
@@ -181,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/" data-id="clop2uf2z000xq3742quo2iip" data-title="SwiftUI核心技术第10章集成Core Data和CloudKit" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/" data-id="clop34vop000rru74g84l2knt" data-title="SwiftUI核心技术第10章集成Core Data和CloudKit" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -304,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/" data-id="clop2uf2z000vq374304n59mo" data-title="SwiftUI核心技术第9章复合视图与可复用性" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/" data-id="clop34voq000vru74emy0gq78" data-title="SwiftUI核心技术第9章复合视图与可复用性" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -470,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" data-id="clop2uf2z000uq37431nzdyy4" data-title="SwiftUI核心技术第8章动画与转场" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" data-id="clop34voq000wru747hlyab8s" data-title="SwiftUI核心技术第8章动画与转场" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -606,7 +719,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop2uf2y000pq3741qo60vci" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/" data-id="clop34vor0010ru74dy0q1v1y" data-title="SwiftUI核心技术第7章导航与呈现" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -734,7 +847,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop2uf2y000rq374b3v83k7a" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/" data-id="clop34voq000tru74g85x36ow" data-title="SwiftUI核心技术第6章数据流与绑定" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -865,7 +978,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" data-id="clop2uf2y000sq374fk7feobk" data-title="SwiftUI核心技术第5章布局管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/" data-id="clop34voq000uru74bol94jsq" data-title="SwiftUI核心技术第5章布局管理" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1036,7 +1149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop2uf2x000oq3748g7hft4q" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/" data-id="clop34vop000oru74e2ru9o6s" data-title="SwiftUI核心技术4章视图与控件" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1241,7 +1354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop2uf2y000tq3748tiq0hjj" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="clop34vop000sru745zh46isj" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1615,61 +1728,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop2uf2y000qq3746r6p7lhn" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SwiftUI中ScrollView的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T14:08:11.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中ScrollView的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>ScrollView</code> 是一个可以滚动显示其子视图的容器。使用 <code>ScrollView</code>，你可以创建一个可以纵向或横向滚动的区域，这对于构建超出屏幕限制的内容是非常有用的。</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>默认情况下，<code>ScrollView</code> 滚动方向是垂直的。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BasicScrollView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollView</span> &#123;</span><br><span class="line">            <span class="type">VStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">50</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(<span class="string">&quot;Row <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BasicScrollView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">BasicScrollView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="水平滚动"><a href="#水平滚动" class="headerlink" title="水平滚动"></a>水平滚动</h3><p>要创建一个水平滚动视图，需要设置 <code>ScrollView</code> 的 <code>axis</code> 参数。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">HorizontalScrollView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollView</span>(.horizontal, showsIndicators: <span class="literal">false</span>) &#123;</span><br><span class="line">            <span class="type">HStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">50</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(<span class="string">&quot;Column <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">                        .frame(width: <span class="number">200</span>, height: <span class="number">200</span>)</span><br><span class="line">                        .background(<span class="type">Color</span>.blue)</span><br><span class="line">                        .foregroundColor(.white)</span><br><span class="line">                        .cornerRadius(<span class="number">10</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">HorizontalScrollView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">HorizontalScrollView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="同时水平和垂直滚动"><a href="#同时水平和垂直滚动" class="headerlink" title="同时水平和垂直滚动"></a>同时水平和垂直滚动</h3><p>可以通过在 <code>ScrollView</code> 中嵌套另一个 <code>ScrollView</code> 来创建同时支持水平和垂直滚动的视图。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BothDirectionsScrollView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollView</span> &#123;</span><br><span class="line">            <span class="type">VStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">10</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                    <span class="type">ScrollView</span>(.horizontal, showsIndicators: <span class="literal">true</span>) &#123;</span><br><span class="line">                        <span class="type">HStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">                            <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">10</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                                <span class="type">Text</span>(<span class="string">&quot;Item <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">                                    .frame(width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line">                                    .background(<span class="type">Color</span>.green)</span><br><span class="line">                                    .cornerRadius(<span class="number">10</span>)</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    .frame(height: <span class="number">100</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">BothDirectionsScrollView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">BothDirectionsScrollView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="添加滚动条指示器"><a href="#添加滚动条指示器" class="headerlink" title="添加滚动条指示器"></a>添加滚动条指示器</h3><p><code>ScrollView</code> 的 <code>showsIndicators</code> 参数可以控制是否显示滚动条指示器。</p>
-<h3 id="响应滚动事件"><a href="#响应滚动事件" class="headerlink" title="响应滚动事件"></a>响应滚动事件</h3><p>SwiftUI <code>ScrollView</code> 没有像 UIKit 的 <code>UIScrollView</code> 那样直接提供滚动事件的回调。但是，你可以通过在 <code>ScrollView</code> 内部放置一个 <code>GeometryReader</code> 来读取滚动偏移量。</p>
-<h3 id="使用-ScrollViewReader"><a href="#使用-ScrollViewReader" class="headerlink" title="使用 ScrollViewReader"></a>使用 <code>ScrollViewReader</code></h3><p><code>ScrollViewReader</code> 可以用来在 <code>ScrollView</code> 内部进行编程式导航（比如滚动到特定的子视图）。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ScrollViewReaderExample</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollViewReader</span> &#123; proxy <span class="keyword">in</span></span><br><span class="line">            <span class="type">ScrollView</span> &#123;</span><br><span class="line">                <span class="type">VStack</span>(spacing: <span class="number">10</span>) &#123;</span><br><span class="line">                    <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">100</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                        <span class="type">Text</span>(<span class="string">&quot;Item <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">                            .id(index)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="type">Button</span>(<span class="string">&quot;Jump to Item 50&quot;</span>) &#123;</span><br><span class="line">                    withAnimation &#123;</span><br><span class="line">                        proxy.scrollTo(<span class="number">50</span>, anchor: .top)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ScrollViewReaderExample_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollViewReaderExample</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个例子中，点击按钮会自动滚动到第 50 个元素。<code>ScrollViewReader</code> 提供了一个 <code>proxy</code> 对象，它有一个 <code>scrollTo(_:anchor:)</code> 方法可以使用，其中 <code>id</code> 参数对应子视图的 <code>id</code>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADScrollView%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="clop2uf2u000aq374e0zjbkl6" data-title="SwiftUI中ScrollView的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" data-id="clop34vop000pru740rhv7t9q" data-title="SwiftUI核心技术" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -1717,6 +1776,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/">SwiftUI核心技术第11章适配多平台</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/">SwiftUI核心技术第10章集成Core Data和CloudKit</a>
           </li>
         
@@ -1730,10 +1793,6 @@
         
           <li>
             <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/">SwiftUI核心技术第7章导航与呈现</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/">SwiftUI核心技术第6章数据流与绑定</a>
           </li>
         
       </ul>
