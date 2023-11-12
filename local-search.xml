@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>在Mac上如何终止某个端口所在的进程？</title>
+    <link href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/"/>
+    <url>/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/</url>
+    
+    <content type="html"><![CDATA[<p>在Mac上终止占用特定端口的进程可以通过以下步骤来完成：</p><ol><li><p><strong>查找占用端口的进程</strong>：<br>打开终端（Terminal），然后使用<code>lsof</code>命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsof -i :8080<br></code></pre></td></tr></table></figure><p>这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。</p></li><li><p><strong>终止进程</strong>：<br>一旦你知道了进程ID，可以使用<code>kill</code>命令来终止该进程。例如，如果进程ID是1234，可以使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> 1234<br></code></pre></td></tr></table></figure><p>如果进程拒绝终止，你可以使用更强制的方式，比如<code>kill -9</code>命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -9 1234<br></code></pre></td></tr></table></figure><p>这将强制终止该进程。</p></li></ol><p>请注意，在使用这些命令时要小心，确保你终止的是正确的进程，因为错误地终止进程可能会影响系统的稳定性或其他应用的运行。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Mac</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Java实现两台计算机之间长连接通信</title>
     <link href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/"/>
     <url>/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/</url>

@@ -6,7 +6,7 @@
   <link href="http://xuebusi.github.io/atom.xml" rel="self"/>
   
   <link href="http://xuebusi.github.io/"/>
-  <updated>2023-11-09T12:55:57.056Z</updated>
+  <updated>2023-11-12T03:32:14.994Z</updated>
   <id>http://xuebusi.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在Mac上如何终止某个端口所在的进程？</title>
+    <link href="http://xuebusi.github.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/"/>
+    <id>http://xuebusi.github.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/</id>
+    <published>2023-11-12T03:31:14.000Z</published>
+    <updated>2023-11-12T03:32:14.994Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Mac上终止占用特定端口的进程可以通过以下步骤来完成：</p><ol><li><p><strong>查找占用端口的进程</strong>：<br>打开终端（Terminal），然后使用<code>lsof</code>命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsof -i :8080<br></code></pre></td></tr></table></figure><p>这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。</p></li><li><p><strong>终止进程</strong>：<br>一旦你知道了进程ID，可以使用<code>kill</code>命令来终止该进程。例如，如果进程ID是1234，可以使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> 1234<br></code></pre></td></tr></table></figure><p>如果进程拒绝终止，你可以使用更强制的方式，比如<code>kill -9</code>命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -9 1234<br></code></pre></td></tr></table></figure><p>这将强制终止该进程。</p></li></ol><p>请注意，在使用这些命令时要小心，确保你终止的是正确的进程，因为错误地终止进程可能会影响系统的稳定性或其他应用的运行。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在Mac上终止占用特定端口的进程可以通过以下步骤来完成：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;查找占用端口的进程&lt;/strong&gt;：&lt;br&gt;打开终端（Terminal），然后使用&lt;code&gt;lsof&lt;/code&gt;命令来查找占用特定端口的进程。例如，如果你想查找占</summary>
+      
+    
+    
+    
+    
+    <category term="Mac" scheme="http://xuebusi.github.io/tags/Mac/"/>
+    
+  </entry>
   
   <entry>
     <title>Java实现两台计算机之间长连接通信</title>
@@ -443,27 +467,6 @@
       
       
     <summary type="html">&lt;p&gt;在 SwiftUI 中，&lt;code&gt;List&lt;/code&gt; 是一个用来展示数据集合的滚动列表视图。它类似于 UIKit 中的 &lt;code&gt;UITableView&lt;/code&gt;，可以显示静态或动态的数据集合。&lt;code&gt;List&lt;/code&gt; 可以和 &lt;code&gt;ForEac</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SwiftUI中ZStack的用法</title>
-    <link href="http://xuebusi.github.io/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/"/>
-    <id>http://xuebusi.github.io/2023/11/07/SwiftUI%E4%B8%ADZStack%E7%9A%84%E7%94%A8%E6%B3%95/</id>
-    <published>2023-11-07T13:57:02.000Z</published>
-    <updated>2023-11-07T13:57:11.752Z</updated>
-    
-    <content type="html"><![CDATA[<p><code>ZStack</code> 在 SwiftUI 中是用来重叠视图的，它按照代码中的顺序堆叠视图，最先声明的视图会出现在底部，随后声明的视图则依次叠加在上面。这对于创建覆盖效果或者需要视图叠加的界面非常有用。</p><p>以下是 <code>ZStack</code> 的一些基本用法：</p><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">ZStack</span> &#123;<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Underneath&quot;</span>)<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;On top&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p>第二个 <code>Text</code> 视图将会覆盖在第一个 <code>Text</code> 视图上面。</p><h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p><code>ZStack</code> 默认会将所有子视图居中对齐，但可以指定一个不同的对齐方式。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">ZStack</span>(alignment: .topLeading) &#123;<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Aligned to the top leading corner&quot;</span>)<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Second view&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p>上面的代码会使所有子视图在 ZStack 的顶部左侧对齐。</p><h3 id="使用背景和覆盖"><a href="#使用背景和覆盖" class="headerlink" title="使用背景和覆盖"></a>使用背景和覆盖</h3><p><code>ZStack</code> 常用来给视图添加背景或者覆盖。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">ZStack</span> &#123;<br>    <span class="hljs-type">Image</span>(<span class="hljs-string">&quot;photo&quot;</span>)<br>        .resizable()<br>        .aspectRatio(contentMode: .fit)<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Over the Image&quot;</span>)<br>        .font(.caption)<br>        .foregroundColor(.white)<br>        .padding(<span class="hljs-number">5</span>)<br>        .background(<span class="hljs-type">Color</span>.black.opacity(<span class="hljs-number">0.7</span>))<br>        .cornerRadius(<span class="hljs-number">10</span>)<br>        .padding(<span class="hljs-number">10</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p>文本会作为覆盖层显示在图片上，并且带有半透明的黑色背景以确保文字的可读性。</p><h3 id="结合-Frame-和-Alignment-使用"><a href="#结合-Frame-和-Alignment-使用" class="headerlink" title="结合 Frame 和 Alignment 使用"></a>结合 Frame 和 Alignment 使用</h3><p>可以通过 <code>frame</code> 和 <code>alignment</code> 属性来控制子视图的大小和位置。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">ZStack</span> &#123;<br>    <span class="hljs-type">Color</span>.blue<br>    <span class="hljs-type">VStack</span> &#123;<br>        <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Hello&quot;</span>)<br>        <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;World&quot;</span>)<br>    &#125;<br>    .alignmentGuide(.top) &#123; d <span class="hljs-keyword">in</span> d[.top] &#125;<br>    .frame(width: <span class="hljs-number">200</span>, height: <span class="hljs-number">200</span>, alignment: .top)<br>&#125;<br></code></pre></td></tr></table></figure><p>在这个例子中，<code>VStack</code> 被设定在蓝色背景的上方，并且它的大小被限制为 200x200。</p><h3 id="在实际应用中"><a href="#在实际应用中" class="headerlink" title="在实际应用中"></a>在实际应用中</h3><p><code>ZStack</code> 可以创建自定义的复杂视图，如下面的代码片段中，一个定制按钮的视觉效果就是通过 <code>ZStack</code> 实现的：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">ZStack</span> &#123;<br>    <span class="hljs-type">Circle</span>()<br>        .fill(<span class="hljs-type">Color</span>.blue)<br>        .frame(width: <span class="hljs-number">100</span>, height: <span class="hljs-number">100</span>)<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Click Me&quot;</span>)<br>        .font(.title)<br>        .foregroundColor(.white)<br>&#125;<br></code></pre></td></tr></table></figure><p>这会创建一个带有文本的圆形按钮视图。</p><p><code>ZStack</code> 是一个非常强大的工具，允许开发者在 SwiftUI 中以创造性的方式构建复杂且富有层次感的用户界面。通过合理地堆叠和对齐视图，可以实现各种自定义设计。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;code&gt;ZStack&lt;/code&gt; 在 SwiftUI 中是用来重叠视图的，它按照代码中的顺序堆叠视图，最先声明的视图会出现在底部，随后声明的视图则依次叠加在上面。这对于创建覆盖效果或者需要视图叠加的界面非常有用。&lt;/p&gt;
-&lt;p&gt;以下是 &lt;code&gt;ZStack&lt;/co</summary>
       
     
     

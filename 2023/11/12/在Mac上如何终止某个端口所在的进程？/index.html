@@ -16,26 +16,22 @@
   <meta name="author" content="林克">
   <meta name="keywords" content="">
   
-    <meta name="description" content="要实现客户端和服务器端的长连接，即一直保持连接直到程序显式关闭，你可以在客户端和服务器端都使用循环来持续地发送和接收消息。下面是相应的代码示例： 服务器端（B计算机）服务器端持续监听客户端发送的消息。使用while(true)确保服务器始终在运行，等待和处理客户端的消息。 1234567891011121314151617181920212223import java.net.*;import j">
+    <meta name="description" content="在Mac上终止占用特定端口的进程可以通过以下步骤来完成：  查找占用端口的进程：打开终端（Terminal），然后使用lsof命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令： 1lsof -i :8080  这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。  终止进程：一旦你知道了进程ID，可以使用kill命令来终止该">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java实现两台计算机之间长连接通信">
-<meta property="og:url" content="http://xuebusi.github.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:title" content="在Mac上如何终止某个端口所在的进程？">
+<meta property="og:url" content="http://xuebusi.github.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/index.html">
 <meta property="og:site_name" content="SwiftUI训练营">
-<meta property="og:description" content="要实现客户端和服务器端的长连接，即一直保持连接直到程序显式关闭，你可以在客户端和服务器端都使用循环来持续地发送和接收消息。下面是相应的代码示例： 服务器端（B计算机）服务器端持续监听客户端发送的消息。使用while(true)确保服务器始终在运行，等待和处理客户端的消息。 1234567891011121314151617181920212223import java.net.*;import j">
+<meta property="og:description" content="在Mac上终止占用特定端口的进程可以通过以下步骤来完成：  查找占用端口的进程：打开终端（Terminal），然后使用lsof命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令： 1lsof -i :8080  这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。  终止进程：一旦你知道了进程ID，可以使用kill命令来终止该">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-09T12:54:10.000Z">
-<meta property="article:modified_time" content="2023-11-09T12:55:57.056Z">
+<meta property="article:published_time" content="2023-11-12T03:31:14.000Z">
+<meta property="article:modified_time" content="2023-11-12T03:32:14.994Z">
 <meta property="article:author" content="林克">
-<meta property="article:tag" content="Socket">
-<meta property="article:tag" content="ServerSocket">
-<meta property="article:tag" content="BufferedReader">
-<meta property="article:tag" content="InputStreamReader">
-<meta property="article:tag" content="PrintWriter">
+<meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Java实现两台计算机之间长连接通信 - SwiftUI训练营</title>
+  <title>在Mac上如何终止某个端口所在的进程？ - SwiftUI训练营</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Java实现两台计算机之间长连接通信"></span>
+            <span id="subtitle" data-typed-text="在Mac上如何终止某个端口所在的进程？"></span>
           
         </div>
 
@@ -213,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-09 20:54" pubdate>
-          2023年11月9日 晚上
+        <time datetime="2023-11-12 11:31" pubdate>
+          2023年11月12日 中午
         </time>
       </span>
     
@@ -225,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          338 字
         
       </span>
     
@@ -236,7 +232,7 @@
         
         
         
-          12 分钟
+          3 分钟
         
       </span>
     
@@ -273,19 +269,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Java实现两台计算机之间长连接通信</h1>
+            <h1 id="seo-header">在Mac上如何终止某个端口所在的进程？</h1>
             
             
               <div class="markdown-body">
                 
-                <p>要实现客户端和服务器端的长连接，即一直保持连接直到程序显式关闭，你可以在客户端和服务器端都使用循环来持续地发送和接收消息。下面是相应的代码示例：</p>
-<h3 id="服务器端（B计算机）"><a href="#服务器端（B计算机）" class="headerlink" title="服务器端（B计算机）"></a>服务器端（B计算机）</h3><p>服务器端持续监听客户端发送的消息。使用<code>while(true)</code>确保服务器始终在运行，等待和处理客户端的消息。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Server</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">1234</span>;<br>        <span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(port);<br>        System.out.println(<span class="hljs-string">&quot;等待连接...&quot;</span>);<br>        <span class="hljs-type">Socket</span> <span class="hljs-variable">clientSocket</span> <span class="hljs-operator">=</span> serverSocket.accept();<br>        System.out.println(<span class="hljs-string">&quot;连接成功！&quot;</span>);<br><br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(clientSocket.getInputStream()));<br><br>        String inputLine;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123; <span class="hljs-comment">// 一直保持监听状态</span><br>            inputLine = in.readLine();<br>            <span class="hljs-keyword">if</span> (inputLine != <span class="hljs-literal">null</span>) &#123;<br>                System.out.println(<span class="hljs-string">&quot;收到: &quot;</span> + inputLine);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">// 注意：实际应用中需要添加适当的退出条件和异常处理</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <p>在Mac上终止占用特定端口的进程可以通过以下步骤来完成：</p>
+<ol>
+<li><p><strong>查找占用端口的进程</strong>：<br>打开终端（Terminal），然后使用<code>lsof</code>命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsof -i :8080<br></code></pre></td></tr></table></figure>
 
-<h3 id="客户端（A计算机）"><a href="#客户端（A计算机）" class="headerlink" title="客户端（A计算机）"></a>客户端（A计算机）</h3><p>客户端持续发送消息到服务器。在这个例子中，我们仅以发送时间作为消息的示例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><span class="hljs-keyword">import</span> java.util.Date;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Client</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, InterruptedException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">serverAddress</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;服务器的IP地址&quot;</span>; <span class="hljs-comment">// 替换为B计算机的IP地址</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">1234</span>;<br>        <span class="hljs-type">Socket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(serverAddress, port);<br><br>        <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(socket.getOutputStream(), <span class="hljs-literal">true</span>);<br>        <br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123; <span class="hljs-comment">// 一直发送消息</span><br>            out.println(<span class="hljs-string">&quot;当前时间: &quot;</span> + <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>());<br>            Thread.sleep(<span class="hljs-number">1000</span>); <span class="hljs-comment">// 每秒发送一次</span><br>        &#125;<br>        <span class="hljs-comment">// 注意：实际应用中需要添加适当的退出条件和异常处理</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。</p>
+</li>
+<li><p><strong>终止进程</strong>：<br>一旦你知道了进程ID，可以使用<code>kill</code>命令来终止该进程。例如，如果进程ID是1234，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> 1234<br></code></pre></td></tr></table></figure>
 
-<p>在这两个示例中，我没有添加退出条件和异常处理，但这在实际应用中是非常重要的。你需要确保代码能够优雅地处理网络异常、I&#x2F;O异常以及如何安全地关闭连接。记住，长时间保持连接会增加资源消耗，确保服务器有足够的资源来处理这些长连接。</p>
+<p>如果进程拒绝终止，你可以使用更强制的方式，比如<code>kill -9</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -9 1234<br></code></pre></td></tr></table></figure>
+
+<p>这将强制终止该进程。</p>
+</li>
+</ol>
+<p>请注意，在使用这些命令时要小心，确保你终止的是正确的进程，因为错误地终止进程可能会影响系统的稳定性或其他应用的运行。</p>
 
                 
               </div>
@@ -294,40 +299,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Socket/" class="print-no-link">#Socket</a>
-      
-        <a href="/tags/ServerSocket/" class="print-no-link">#ServerSocket</a>
-      
-        <a href="/tags/BufferedReader/" class="print-no-link">#BufferedReader</a>
-      
-        <a href="/tags/InputStreamReader/" class="print-no-link">#InputStreamReader</a>
-      
-        <a href="/tags/PrintWriter/" class="print-no-link">#PrintWriter</a>
+        <a href="/tags/Mac/" class="print-no-link">#Mac</a>
       
     </div>
   
@@ -339,8 +315,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Java实现两台计算机之间长连接通信</div>
-      <div>http://xuebusi.github.io/2023/11/09/Java实现两台计算机之间长连接通信/</div>
+      <div>在Mac上如何终止某个端口所在的进程？</div>
+      <div>http://xuebusi.github.io/2023/11/12/在Mac上如何终止某个端口所在的进程？/</div>
     </div>
     <div class="license-meta">
       
@@ -352,7 +328,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月9日</div>
+          <div>2023年11月12日</div>
         </div>
       
       
@@ -384,18 +360,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/" title="在Mac上如何终止某个端口所在的进程？">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在Mac上如何终止某个端口所在的进程？</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/" title="Java实现两台计算机之间的简单通信">
-                        <span class="hidden-mobile">Java实现两台计算机之间的简单通信</span>
+                      <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/" title="Java实现两台计算机之间长连接通信">
+                        <span class="hidden-mobile">Java实现两台计算机之间长连接通信</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
