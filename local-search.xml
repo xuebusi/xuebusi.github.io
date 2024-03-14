@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Docker部署xxl-job步骤</title>
+    <link href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/"/>
+    <url>/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/</url>
+    
+    <content type="html"><![CDATA[<h3 id="使用Docker命令创建自定义网络"><a href="#使用Docker命令创建自定义网络" class="headerlink" title="使用Docker命令创建自定义网络"></a>使用Docker命令创建自定义网络</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker network create hdzl_net<br></code></pre></td></tr></table></figure><h3 id="使用Docker命令启动MySQL容器"><a href="#使用Docker命令启动MySQL容器" class="headerlink" title="使用Docker命令启动MySQL容器"></a>使用Docker命令启动MySQL容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p 3306:3306 \<br>--name mysql \<br>-e MYSQL_ROOT_PASSWORD=qq490983587 \<br>--network hdzl_net \<br>-d mysql<br></code></pre></td></tr></table></figure><h3 id="在MySQL数据库中执行xxl-job数据库脚本"><a href="#在MySQL数据库中执行xxl-job数据库脚本" class="headerlink" title="在MySQL数据库中执行xxl-job数据库脚本"></a>在MySQL数据库中执行xxl-job数据库脚本</h3><p>在宿主机上使用连接mysql执行xxl-job-admin项目中提供的<code>tables_xxl_job.sql</code>脚本</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">主机地址：localhost<br>端口：3306<br>用户名：root<br>密码：qq490983587<br></code></pre></td></tr></table></figure><h3 id="使用Docker命令启动xxl-job-admin"><a href="#使用Docker命令启动xxl-job-admin" class="headerlink" title="使用Docker命令启动xxl-job-admin"></a>使用Docker命令启动xxl-job-admin</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>-e PARAMS=&quot;--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=qq490983587&quot; \<br>-p 8080:8080 \<br>-v /Users/shiyanjun/logs:/data/applogs \<br>--network=hdzl_net \<br>--name xxl-job-admin \<br>-d xuxueli/xxl-job-admin:2.4.0<br></code></pre></td></tr></table></figure><h3 id="浏览器访问xxl-job-admin"><a href="#浏览器访问xxl-job-admin" class="headerlink" title="浏览器访问xxl-job-admin"></a>浏览器访问xxl-job-admin</h3><p>打开浏览器访问：<a href="http://localhost:8080/xxl-job-admin/">http://localhost:8080/xxl-job-admin/</a><br>登录用户名：admin<br>登录密码：123456</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>在Mac上如何终止某个端口所在的进程？</title>
     <link href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/"/>
     <url>/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/</url>

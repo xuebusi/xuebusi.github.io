@@ -16,22 +16,21 @@
   <meta name="author" content="林克">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在Mac上终止占用特定端口的进程可以通过以下步骤来完成：  查找占用端口的进程：打开终端（Terminal），然后使用lsof命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令： 1lsof -i :8080  这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。  终止进程：一旦你知道了进程ID，可以使用kill命令来终止该">
+    <meta name="description" content="使用Docker命令创建自定义网络1docker network create hdzl_net  使用Docker命令启动MySQL容器12345docker run -p 3306:3306 \--name mysql \-e MYSQL_ROOT_PASSWORD&#x3D;qq490983587 \--network hdzl_net \-d mysql  在MySQL数据库中执行xxl-job数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Mac上如何终止某个端口所在的进程？">
-<meta property="og:url" content="http://xuebusi.github.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/index.html">
+<meta property="og:title" content="Docker部署xxl-job步骤">
+<meta property="og:url" content="http://xuebusi.github.io/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/index.html">
 <meta property="og:site_name" content="SwiftUI训练营">
-<meta property="og:description" content="在Mac上终止占用特定端口的进程可以通过以下步骤来完成：  查找占用端口的进程：打开终端（Terminal），然后使用lsof命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令： 1lsof -i :8080  这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。  终止进程：一旦你知道了进程ID，可以使用kill命令来终止该">
+<meta property="og:description" content="使用Docker命令创建自定义网络1docker network create hdzl_net  使用Docker命令启动MySQL容器12345docker run -p 3306:3306 \--name mysql \-e MYSQL_ROOT_PASSWORD&#x3D;qq490983587 \--network hdzl_net \-d mysql  在MySQL数据库中执行xxl-job数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-12T03:31:14.000Z">
-<meta property="article:modified_time" content="2023-11-12T03:32:14.994Z">
+<meta property="article:published_time" content="2024-03-14T05:09:17.000Z">
+<meta property="article:modified_time" content="2024-03-14T05:23:38.416Z">
 <meta property="article:author" content="林克">
-<meta property="article:tag" content="Mac">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>在Mac上如何终止某个端口所在的进程？ - SwiftUI训练营</title>
+  <title>Docker部署xxl-job步骤 - SwiftUI训练营</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="在Mac上如何终止某个端口所在的进程？"></span>
+            <span id="subtitle" data-typed-text="Docker部署xxl-job步骤"></span>
           
         </div>
 
@@ -209,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-12 11:31" pubdate>
-          2023年11月12日 中午
+        <time datetime="2024-03-14 13:09" pubdate>
+          2024年3月14日 下午
         </time>
       </span>
     
@@ -221,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          338 字
+          781 字
         
       </span>
     
@@ -232,7 +231,7 @@
         
         
         
-          3 分钟
+          7 分钟
         
       </span>
     
@@ -269,28 +268,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">在Mac上如何终止某个端口所在的进程？</h1>
+            <h1 id="seo-header">Docker部署xxl-job步骤</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在Mac上终止占用特定端口的进程可以通过以下步骤来完成：</p>
-<ol>
-<li><p><strong>查找占用端口的进程</strong>：<br>打开终端（Terminal），然后使用<code>lsof</code>命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsof -i :8080<br></code></pre></td></tr></table></figure>
+                <h3 id="使用Docker命令创建自定义网络"><a href="#使用Docker命令创建自定义网络" class="headerlink" title="使用Docker命令创建自定义网络"></a>使用Docker命令创建自定义网络</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker network create hdzl_net<br></code></pre></td></tr></table></figure>
 
-<p>这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。</p>
-</li>
-<li><p><strong>终止进程</strong>：<br>一旦你知道了进程ID，可以使用<code>kill</code>命令来终止该进程。例如，如果进程ID是1234，可以使用以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> 1234<br></code></pre></td></tr></table></figure>
+<h3 id="使用Docker命令启动MySQL容器"><a href="#使用Docker命令启动MySQL容器" class="headerlink" title="使用Docker命令启动MySQL容器"></a>使用Docker命令启动MySQL容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p 3306:3306 \<br>--name mysql \<br>-e MYSQL_ROOT_PASSWORD=qq490983587 \<br>--network hdzl_net \<br>-d mysql<br></code></pre></td></tr></table></figure>
 
-<p>如果进程拒绝终止，你可以使用更强制的方式，比如<code>kill -9</code>命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">kill</span> -9 1234<br></code></pre></td></tr></table></figure>
+<h3 id="在MySQL数据库中执行xxl-job数据库脚本"><a href="#在MySQL数据库中执行xxl-job数据库脚本" class="headerlink" title="在MySQL数据库中执行xxl-job数据库脚本"></a>在MySQL数据库中执行xxl-job数据库脚本</h3><p>在宿主机上使用连接mysql执行xxl-job-admin项目中提供的<code>tables_xxl_job.sql</code>脚本</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">主机地址：localhost<br>端口：3306<br>用户名：root<br>密码：qq490983587<br></code></pre></td></tr></table></figure>
 
-<p>这将强制终止该进程。</p>
-</li>
-</ol>
-<p>请注意，在使用这些命令时要小心，确保你终止的是正确的进程，因为错误地终止进程可能会影响系统的稳定性或其他应用的运行。</p>
+<h3 id="使用Docker命令启动xxl-job-admin"><a href="#使用Docker命令启动xxl-job-admin" class="headerlink" title="使用Docker命令启动xxl-job-admin"></a>使用Docker命令启动xxl-job-admin</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>-e PARAMS=&quot;--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=qq490983587&quot; \<br>-p 8080:8080 \<br>-v /Users/shiyanjun/logs:/data/applogs \<br>--network=hdzl_net \<br>--name xxl-job-admin \<br>-d xuxueli/xxl-job-admin:2.4.0<br></code></pre></td></tr></table></figure>
+
+<h3 id="浏览器访问xxl-job-admin"><a href="#浏览器访问xxl-job-admin" class="headerlink" title="浏览器访问xxl-job-admin"></a>浏览器访问xxl-job-admin</h3><p>打开浏览器访问：<a target="_blank" rel="noopener" href="http://localhost:8080/xxl-job-admin/">http://localhost:8080/xxl-job-admin/</a><br>登录用户名：admin<br>登录密码：123456</p>
 
                 
               </div>
@@ -300,13 +292,6 @@
               <div class="post-metas my-3">
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Mac/" class="print-no-link">#Mac</a>
-      
-    </div>
-  
 </div>
 
 
@@ -315,8 +300,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>在Mac上如何终止某个端口所在的进程？</div>
-      <div>http://xuebusi.github.io/2023/11/12/在Mac上如何终止某个端口所在的进程？/</div>
+      <div>Docker部署xxl-job步骤</div>
+      <div>http://xuebusi.github.io/2024/03/14/Docker部署xxl-job-admin步骤/</div>
     </div>
     <div class="license-meta">
       
@@ -328,7 +313,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月12日</div>
+          <div>2024年3月14日</div>
         </div>
       
       
@@ -360,18 +345,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/" title="Docker部署xxl-job步骤">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker部署xxl-job步骤</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/" title="Java实现两台计算机之间长连接通信">
-                        <span class="hidden-mobile">Java实现两台计算机之间长连接通信</span>
+                      <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/" title="在Mac上如何终止某个端口所在的进程？">
+                        <span class="hidden-mobile">在Mac上如何终止某个端口所在的进程？</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
