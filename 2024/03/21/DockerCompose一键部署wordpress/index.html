@@ -16,21 +16,21 @@
   <meta name="author" content="林克">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在 SwiftUI 中，Toggle 是一个用于切换布尔值的 UI 控件。这通常与应用的一些设置或状态开关对应。 基础用法你可以这样创建一个基础的 Toggle： 12345@State private var isOn &#x3D; falsevar body: some View &#123;    Toggle(&quot;Switch Label&quot;, isOn: $isOn)&#125;">
+    <meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738version: &quot;3&quot; # Defines which compose version to useservices:  # Services line define which Docker images to run. In this ca">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SwiftUI中的开关组件的用法">
-<meta property="og:url" content="http://xuebusi.github.io/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%BC%80%E5%85%B3%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:title" content="DockerCompose脚本一键部署wordpress">
+<meta property="og:url" content="http://xuebusi.github.io/2024/03/21/DockerCompose%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2wordpress/index.html">
 <meta property="og:site_name" content="SwiftUI训练营">
-<meta property="og:description" content="在 SwiftUI 中，Toggle 是一个用于切换布尔值的 UI 控件。这通常与应用的一些设置或状态开关对应。 基础用法你可以这样创建一个基础的 Toggle： 12345@State private var isOn &#x3D; falsevar body: some View &#123;    Toggle(&quot;Switch Label&quot;, isOn: $isOn)&#125;">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738version: &quot;3&quot; # Defines which compose version to useservices:  # Services line define which Docker images to run. In this ca">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-07T12:24:24.000Z">
-<meta property="article:modified_time" content="2024-03-17T06:12:25.015Z">
+<meta property="article:published_time" content="2024-03-21T07:57:06.000Z">
+<meta property="article:modified_time" content="2024-03-21T08:21:28.035Z">
 <meta property="article:author" content="林克">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>SwiftUI中的开关组件的用法 - SwiftUI训练营</title>
+  <title>DockerCompose脚本一键部署wordpress - SwiftUI训练营</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="SwiftUI中的开关组件的用法"></span>
+            <span id="subtitle" data-typed-text="DockerCompose脚本一键部署wordpress"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-07 20:24" pubdate>
-          2023年11月7日 晚上
+        <time datetime="2024-03-21 15:57" pubdate>
+          2024年3月21日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          13 分钟
+          12 分钟
         
       </span>
     
@@ -268,63 +268,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">SwiftUI中的开关组件的用法</h1>
+            <h1 id="seo-header">DockerCompose脚本一键部署wordpress</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在 SwiftUI 中，<code>Toggle</code> 是一个用于切换布尔值的 UI 控件。这通常与应用的一些设置或状态开关对应。</p>
-<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>你可以这样创建一个基础的 <code>Toggle</code>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-meta">@State</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> isOn <span class="hljs-operator">=</span> <span class="hljs-literal">false</span><br><br><span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>    <span class="hljs-type">Toggle</span>(<span class="hljs-string">&quot;Switch Label&quot;</span>, isOn: <span class="hljs-variable">$isOn</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>这里的 <code>$isOn</code> 是对 <code>isOn</code> 变量的一个绑定，它会在用户操作 <code>Toggle</code> 时自动更新。</p>
-<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p>SwiftUI 允许使用各种修饰符自定义 <code>Toggle</code> 的外观：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Toggle</span>(isOn: <span class="hljs-variable">$isOn</span>) &#123;<br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Switch Label&quot;</span>)<br>&#125;<br>.toggleStyle(<span class="hljs-type">SwitchToggleStyle</span>(tint: .green)) <span class="hljs-comment">// 自定义开关颜色</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="使用自定义图标"><a href="#使用自定义图标" class="headerlink" title="使用自定义图标"></a>使用自定义图标</h3><p>你也可以为 <code>Toggle</code> 的标签使用自定义图标：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Toggle</span>(isOn: <span class="hljs-variable">$isOn</span>) &#123;<br>    <span class="hljs-type">HStack</span> &#123;<br>        <span class="hljs-type">Image</span>(systemName: <span class="hljs-string">&quot;moon.stars.fill&quot;</span>)<br>        <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Dark Mode&quot;</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="与列表集成"><a href="#与列表集成" class="headerlink" title="与列表集成"></a>与列表集成</h3><p><code>Toggle</code> 经常和 <code>List</code> 结合使用，尤其是在设置界面：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">List</span> &#123;<br>    <span class="hljs-type">Toggle</span>(<span class="hljs-string">&quot;Wi-Fi&quot;</span>, isOn: <span class="hljs-variable">$isWifiEnabled</span>)<br>    <span class="hljs-type">Toggle</span>(<span class="hljs-string">&quot;Bluetooth&quot;</span>, isOn: <span class="hljs-variable">$isBluetoothEnabled</span>)<br>    <span class="hljs-comment">// ... 其他设置项</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="无文本标签"><a href="#无文本标签" class="headerlink" title="无文本标签"></a>无文本标签</h3><p>如果你不需要显示文本标签，可以使用空 <code>Text</code> 或直接省略标签参数：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Toggle</span>(<span class="hljs-string">&quot;&quot;</span>, isOn: <span class="hljs-variable">$isOn</span>)<br><span class="hljs-comment">// 或者</span><br><span class="hljs-type">Toggle</span>(isOn: <span class="hljs-variable">$isOn</span>) &#123;<br>    <span class="hljs-comment">// 省略标签</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="可访问性"><a href="#可访问性" class="headerlink" title="可访问性"></a>可访问性</h3><p>为了确保你的 <code>Toggle</code> 对于辅助功能用户来说是可访问的，你可以提供额外的信息：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Toggle</span>(<span class="hljs-string">&quot;Enable Notifications&quot;</span>, isOn: <span class="hljs-variable">$areNotificationsEnabled</span>)<br>    .accessibilityLabel(<span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Enable Notifications&quot;</span>))<br>    .accessibilityHint(<span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Toggles whether or not to receive notifications.&quot;</span>))<br></code></pre></td></tr></table></figure>
-
-<h3 id="响应状态变化"><a href="#响应状态变化" class="headerlink" title="响应状态变化"></a>响应状态变化</h3><p>如果你想要在 <code>Toggle</code> 状态改变时执行一些操作，你可以使用 <code>.onChange(of:)</code> 修饰符：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Toggle</span>(<span class="hljs-string">&quot;Enable Notifications&quot;</span>, isOn: <span class="hljs-variable">$areNotificationsEnabled</span>)<br>    .onChange(of: areNotificationsEnabled) &#123; newValue <span class="hljs-keyword">in</span><br>        <span class="hljs-comment">// 当 Toggle 状态变化时执行</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Notifications are now <span class="hljs-subst">\(newValue <span class="hljs-operator">?</span> <span class="hljs-string">&quot;enabled&quot;</span> : <span class="hljs-string">&quot;disabled&quot;</span>)</span>&quot;</span>)<br>    &#125;<br></code></pre></td></tr></table></figure>
-
-<p>使用 <code>Toggle</code> 组件可以很容易地为用户提供控制应用设置的方式，它是可声明式 UI 的一个例子，将状态的可视化与状态管理结合起来。通过在 SwiftUI 视图中声明状态和状态之间的绑定，<code>Toggle</code> 的状态改变可以传播到你的应用的其他部分，或者触发一些逻辑。</p>
-
+                <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><br><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3&quot;</span> <br><span class="hljs-comment"># Defines which compose version to use</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-comment"># Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.</span><br>  <span class="hljs-attr">docker-mysql:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:latest</span><br>    <span class="hljs-comment"># image: mysql:latest indicates the MySQL database container image from Docker Hub used in this installation.</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3306:3306&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      [<span class="hljs-string">&quot;./wordpress-mysql-data:/var/lib/mysql&quot;</span>]<br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-attr">MYSQL_DATABASE:</span> <span class="hljs-string">wordpress</span><br>      <span class="hljs-attr">MYSQL_USER:</span> <span class="hljs-string">your_db_user</span><br>      <span class="hljs-attr">MYSQL_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-comment"># Previous four lines define the main variables needed for the MySQL container to work: database, database username, database user password, and the MySQL root password.</span><br>  <span class="hljs-attr">wordpress:</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">docker-mysql</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wordpress:latest</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-comment"># Restart line controls the restart mode, meaning if the container stops running for any reason, it will restart the process immediately.</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8000:80&quot;</span><br>      <span class="hljs-comment"># The previous line defines the port that the WordPress container will use. After successful installation, the full path will look like this: http://localhost:8000</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">WORDPRESS_DB_HOST:</span> <span class="hljs-string">docker-mysql:3306</span><br>      <span class="hljs-attr">WORDPRESS_DB_USER:</span> <span class="hljs-string">your_db_user</span><br>      <span class="hljs-attr">WORDPRESS_DB_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-attr">WORDPRESS_DB_NAME:</span> <span class="hljs-string">wordpress</span><br><span class="hljs-comment"># Similar to MySQL image variables, the last four lines define the main variables needed for the WordPress container to work properly with the MySQL container.</span><br>    <span class="hljs-attr">volumes:</span><br>      [<span class="hljs-string">&quot;./wordpress-html:/var/www/html&quot;</span>]<br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">mysql:</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/SwiftUI/" class="category-chain-item">SwiftUI</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -335,8 +290,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SwiftUI中的开关组件的用法</div>
-      <div>http://xuebusi.github.io/2023/11/07/SwiftUI中的开关组件的用法/</div>
+      <div>DockerCompose脚本一键部署wordpress</div>
+      <div>http://xuebusi.github.io/2024/03/21/DockerCompose一键部署wordpress/</div>
     </div>
     <div class="license-meta">
       
@@ -348,7 +303,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月7日</div>
+          <div>2024年3月21日</div>
         </div>
       
       
@@ -380,18 +335,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" title="SwiftUI中的TextField组件的用法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SwiftUI中的TextField组件的用法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84Image%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" title="SwiftUI中的Image组件的用法">
-                        <span class="hidden-mobile">SwiftUI中的Image组件的用法</span>
+                      <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/" title="使用JavaNIO编写一个HelloWorld程序">
+                        <span class="hidden-mobile">使用JavaNIO编写一个HelloWorld程序</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
