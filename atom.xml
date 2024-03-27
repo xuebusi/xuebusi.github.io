@@ -3,11 +3,11 @@
   <title>SwiftUI训练营</title>
   
   
-  <link href="http://xuebusi.github.io/atom.xml" rel="self"/>
+  <link href="http://xuebusi.gitee.io/atom.xml" rel="self"/>
   
-  <link href="http://xuebusi.github.io/"/>
-  <updated>2024-03-21T08:21:28.035Z</updated>
-  <id>http://xuebusi.github.io/</id>
+  <link href="http://xuebusi.gitee.io/"/>
+  <updated>2024-03-27T12:21:47.697Z</updated>
+  <id>http://xuebusi.gitee.io/</id>
   
   <author>
     <name>林克</name>
@@ -17,13 +17,58 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>DockerCompose脚本一键部署wordpress</title>
-    <link href="http://xuebusi.github.io/2024/03/21/DockerCompose%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2wordpress/"/>
-    <id>http://xuebusi.github.io/2024/03/21/DockerCompose%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2wordpress/</id>
-    <published>2024-03-21T07:57:06.000Z</published>
-    <updated>2024-03-21T08:21:28.035Z</updated>
+    <title>Bootstrap入门-01-HelloWorld</title>
+    <link href="http://xuebusi.gitee.io/2024/03/27/Bootstrap%E5%85%A5%E9%97%A8-01-HelloWorld/"/>
+    <id>http://xuebusi.gitee.io/2024/03/27/Bootstrap%E5%85%A5%E9%97%A8-01-HelloWorld/</id>
+    <published>2024-03-27T11:51:13.000Z</published>
+    <updated>2024-03-27T12:21:47.697Z</updated>
     
-    <content type="html"><![CDATA[<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><br><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3&quot;</span> <br><span class="hljs-comment"># Defines which compose version to use</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-comment"># Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.</span><br>  <span class="hljs-attr">docker-mysql:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:latest</span><br>    <span class="hljs-comment"># image: mysql:latest indicates the MySQL database container image from Docker Hub used in this installation.</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3306:3306&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      [<span class="hljs-string">&quot;./wordpress-mysql-data:/var/lib/mysql&quot;</span>]<br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-attr">MYSQL_DATABASE:</span> <span class="hljs-string">wordpress</span><br>      <span class="hljs-attr">MYSQL_USER:</span> <span class="hljs-string">your_db_user</span><br>      <span class="hljs-attr">MYSQL_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-comment"># Previous four lines define the main variables needed for the MySQL container to work: database, database username, database user password, and the MySQL root password.</span><br>  <span class="hljs-attr">wordpress:</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">docker-mysql</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wordpress:latest</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-comment"># Restart line controls the restart mode, meaning if the container stops running for any reason, it will restart the process immediately.</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8000:80&quot;</span><br>      <span class="hljs-comment"># The previous line defines the port that the WordPress container will use. After successful installation, the full path will look like this: http://localhost:8000</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">WORDPRESS_DB_HOST:</span> <span class="hljs-string">docker-mysql:3306</span><br>      <span class="hljs-attr">WORDPRESS_DB_USER:</span> <span class="hljs-string">your_db_user</span><br>      <span class="hljs-attr">WORDPRESS_DB_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-attr">WORDPRESS_DB_NAME:</span> <span class="hljs-string">wordpress</span><br><span class="hljs-comment"># Similar to MySQL image variables, the last four lines define the main variables needed for the WordPress container to work properly with the MySQL container.</span><br>    <span class="hljs-attr">volumes:</span><br>      [<span class="hljs-string">&quot;./wordpress-html:/var/www/html&quot;</span>]<br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">mysql:</span> &#123;&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h3 id="当前版本"><a href="#当前版本" class="headerlink" title="当前版本"></a>当前版本</h3><p>v4.6.2</p><h3 id="官网地址"><a href="#官网地址" class="headerlink" title="官网地址"></a>官网地址</h3><p><a href="https://v4.bootcss.com/">查看中文文档</a></p><h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><p>在项目根目录中创建一个新的 <code>index.html</code> 文件。还包括 <code>&lt;meta name=&quot;viewport&quot;&gt;</code> 标记，以便在移动设备中实现正确的响应行为。</p><p>将 <code>&lt;link&gt;</code> 标签放在 <code>CSS</code> 的 <code>&lt;head&gt;</code> 中，并将 <code>JavaScript</code> 包的 <code>&lt;script&gt;</code> 标签（包括用于定位下拉菜单、弹出窗口和工具提示的 <code>Popper</code>）放在前面结束 <code>&lt;/body&gt;</code> 。</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!doctype <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Bootstrap demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;m-3&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span>&gt;</span>Secondary<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-success&quot;</span>&gt;</span>Success<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger&quot;</span>&gt;</span>Danger<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-warning&quot;</span>&gt;</span>Warning<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-info&quot;</span>&gt;</span>Info<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-light&quot;</span>&gt;</span>Light<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-dark&quot;</span>&gt;</span>Dark<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-/mhDoLbDldZc3qpsJHpLogda//BVZbgYuw6kof4u2FrCedxOtgRZDTHgHUhOCVim&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure><p>使用官方提供的模板代码我们在页面上放置了一组按钮，在浏览器中打开页面可以看到一些不同背景颜色的按钮。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;当前版本&quot;&gt;&lt;a href=&quot;#当前版本&quot; class=&quot;headerlink&quot; title=&quot;当前版本&quot;&gt;&lt;/a&gt;当前版本&lt;/h3&gt;&lt;p&gt;v4.6.2&lt;/p&gt;
+&lt;h3 id=&quot;官网地址&quot;&gt;&lt;a href=&quot;#官网地址&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>macOS查看环境变量</title>
+    <link href="http://xuebusi.gitee.io/2024/03/22/macOS%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/"/>
+    <id>http://xuebusi.gitee.io/2024/03/22/macOS%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/</id>
+    <published>2024-03-22T07:30:58.000Z</published>
+    <updated>2024-03-22T07:31:45.933Z</updated>
+    
+    <content type="html"><![CDATA[<p>在macOS中，您可以通过终端查看和设置环境变量。以下是查看环境变量的方法：</p><p>打开终端。</p><p>输入 echo $PATH 来查看PATH变量，它通常包含执行的程序的路径。</p><p>要查看所有环境变量，可以使用 env 命令。</p><p>如果您想查看特定的环境变量，可以直接输入变量名，例如 echo $HOME 将显示当前用户的主目录。</p><p>以下是实际的命令示例：</p><h1 id="查看PATH变量"><a href="#查看PATH变量" class="headerlink" title="查看PATH变量"></a>查看PATH变量</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo $PATH<br></code></pre></td></tr></table></figure><h1 id="查看所有环境变量"><a href="#查看所有环境变量" class="headerlink" title="查看所有环境变量"></a>查看所有环境变量</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">env<br></code></pre></td></tr></table></figure><h1 id="查看特定的环境变量，例如HOME目录"><a href="#查看特定的环境变量，例如HOME目录" class="headerlink" title="查看特定的环境变量，例如HOME目录"></a>查看特定的环境变量，例如HOME目录</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo $HOME<br></code></pre></td></tr></table></figure><p>这些命令将在终端中输出相应的环境变量信息。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在macOS中，您可以通过终端查看和设置环境变量。以下是查看环境变量的方法：&lt;/p&gt;
+&lt;p&gt;打开终端。&lt;/p&gt;
+&lt;p&gt;输入 echo $PATH 来查看PATH变量，它通常包含执行的程序的路径。&lt;/p&gt;
+&lt;p&gt;要查看所有环境变量，可以使用 env 命令。&lt;/p&gt;
+&lt;p&gt;如果</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>DockerCompose脚本一键部署wordpress</title>
+    <link href="http://xuebusi.gitee.io/2024/03/21/DockerCompose%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2wordpress/"/>
+    <id>http://xuebusi.gitee.io/2024/03/21/DockerCompose%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2wordpress/</id>
+    <published>2024-03-21T07:57:06.000Z</published>
+    <updated>2024-03-21T08:23:51.928Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3&quot;</span> <br><span class="hljs-comment"># Defines which compose version to use</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-comment"># Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.</span><br>  <span class="hljs-attr">docker-mysql:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql:latest</span><br>    <span class="hljs-comment"># image: mysql:latest indicates the MySQL database container image from Docker Hub used in this installation.</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3306:3306&quot;</span><br>    <span class="hljs-attr">volumes:</span><br>      [<span class="hljs-string">&quot;./wordpress-mysql-data:/var/lib/mysql&quot;</span>]<br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">MYSQL_ROOT_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-attr">MYSQL_DATABASE:</span> <span class="hljs-string">wordpress</span><br>      <span class="hljs-attr">MYSQL_USER:</span> <span class="hljs-string">your_db_user</span><br>      <span class="hljs-attr">MYSQL_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-comment"># Previous four lines define the main variables needed for the MySQL container to work: database, database username, database user password, and the MySQL root password.</span><br>  <span class="hljs-attr">wordpress:</span><br>    <span class="hljs-attr">depends_on:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">docker-mysql</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">wordpress:latest</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">always</span><br>    <span class="hljs-comment"># Restart line controls the restart mode, meaning if the container stops running for any reason, it will restart the process immediately.</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8000:80&quot;</span><br>      <span class="hljs-comment"># The previous line defines the port that the WordPress container will use. After successful installation, the full path will look like this: http://localhost:8000</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-attr">WORDPRESS_DB_HOST:</span> <span class="hljs-string">docker-mysql:3306</span><br>      <span class="hljs-attr">WORDPRESS_DB_USER:</span> <span class="hljs-string">your_db_user</span><br>      <span class="hljs-attr">WORDPRESS_DB_PASSWORD:</span> <span class="hljs-string">your_db_passwrod</span><br>      <span class="hljs-attr">WORDPRESS_DB_NAME:</span> <span class="hljs-string">wordpress</span><br><span class="hljs-comment"># Similar to MySQL image variables, the last four lines define the main variables needed for the WordPress container to work properly with the MySQL container.</span><br>    <span class="hljs-attr">volumes:</span><br>      [<span class="hljs-string">&quot;./wordpress-html:/var/www/html&quot;</span>]<br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">mysql:</span> &#123;&#125;<br></code></pre></td></tr></table></figure>]]></content>
     
     
       
@@ -38,8 +83,8 @@
   
   <entry>
     <title>使用JavaNIO编写一个HelloWorld程序</title>
-    <link href="http://xuebusi.github.io/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/"/>
-    <id>http://xuebusi.github.io/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/</id>
+    <link href="http://xuebusi.gitee.io/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/"/>
+    <id>http://xuebusi.gitee.io/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/</id>
     <published>2024-03-17T02:52:45.000Z</published>
     <updated>2024-03-17T02:53:00.142Z</updated>
     
@@ -60,10 +105,10 @@
   
   <entry>
     <title>Docker部署xxl-job步骤</title>
-    <link href="http://xuebusi.github.io/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/"/>
-    <id>http://xuebusi.github.io/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/</id>
+    <link href="http://xuebusi.gitee.io/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/"/>
+    <id>http://xuebusi.gitee.io/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/</id>
     <published>2024-03-14T05:09:17.000Z</published>
-    <updated>2024-03-14T05:23:38.416Z</updated>
+    <updated>2024-03-14T05:23:58.635Z</updated>
     
     <content type="html"><![CDATA[<h3 id="使用Docker命令创建自定义网络"><a href="#使用Docker命令创建自定义网络" class="headerlink" title="使用Docker命令创建自定义网络"></a>使用Docker命令创建自定义网络</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker network create hdzl_net<br></code></pre></td></tr></table></figure><h3 id="使用Docker命令启动MySQL容器"><a href="#使用Docker命令启动MySQL容器" class="headerlink" title="使用Docker命令启动MySQL容器"></a>使用Docker命令启动MySQL容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -p 3306:3306 \<br>--name mysql \<br>-e MYSQL_ROOT_PASSWORD=qq490983587 \<br>--network hdzl_net \<br>-d mysql<br></code></pre></td></tr></table></figure><h3 id="在MySQL数据库中执行xxl-job数据库脚本"><a href="#在MySQL数据库中执行xxl-job数据库脚本" class="headerlink" title="在MySQL数据库中执行xxl-job数据库脚本"></a>在MySQL数据库中执行xxl-job数据库脚本</h3><p>在宿主机上使用连接mysql执行xxl-job-admin项目中提供的<code>tables_xxl_job.sql</code>脚本</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">主机地址：localhost<br>端口：3306<br>用户名：root<br>密码：qq490983587<br></code></pre></td></tr></table></figure><h3 id="使用Docker命令启动xxl-job-admin"><a href="#使用Docker命令启动xxl-job-admin" class="headerlink" title="使用Docker命令启动xxl-job-admin"></a>使用Docker命令启动xxl-job-admin</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run \<br>-e PARAMS=&quot;--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=qq490983587&quot; \<br>-p 8080:8080 \<br>-v /Users/shiyanjun/logs:/data/applogs \<br>--network=hdzl_net \<br>--name xxl-job-admin \<br>-d xuxueli/xxl-job-admin:2.4.0<br></code></pre></td></tr></table></figure><h3 id="浏览器访问xxl-job-admin"><a href="#浏览器访问xxl-job-admin" class="headerlink" title="浏览器访问xxl-job-admin"></a>浏览器访问xxl-job-admin</h3><p>打开浏览器访问：<a href="http://localhost:8080/xxl-job-admin/">http://localhost:8080/xxl-job-admin/</a><br>登录用户名：admin<br>登录密码：123456</p>]]></content>
     
@@ -80,8 +125,8 @@
   
   <entry>
     <title>在Mac上如何终止某个端口所在的进程？</title>
-    <link href="http://xuebusi.github.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/"/>
-    <id>http://xuebusi.github.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/"/>
+    <id>http://xuebusi.gitee.io/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/</id>
     <published>2023-11-12T03:31:14.000Z</published>
     <updated>2023-11-12T03:32:14.994Z</updated>
     
@@ -98,14 +143,14 @@
     
     
     
-    <category term="Mac" scheme="http://xuebusi.github.io/tags/Mac/"/>
+    <category term="Mac" scheme="http://xuebusi.gitee.io/tags/Mac/"/>
     
   </entry>
   
   <entry>
     <title>Java实现两台计算机之间长连接通信</title>
-    <link href="http://xuebusi.github.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/"/>
-    <id>http://xuebusi.github.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/"/>
+    <id>http://xuebusi.gitee.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/</id>
     <published>2023-11-09T12:54:10.000Z</published>
     <updated>2023-11-09T12:55:57.056Z</updated>
     
@@ -120,25 +165,25 @@
     
     
     
-    <category term="Java" scheme="http://xuebusi.github.io/categories/Java/"/>
+    <category term="Java" scheme="http://xuebusi.gitee.io/categories/Java/"/>
     
     
-    <category term="Socket" scheme="http://xuebusi.github.io/tags/Socket/"/>
+    <category term="Socket" scheme="http://xuebusi.gitee.io/tags/Socket/"/>
     
-    <category term="ServerSocket" scheme="http://xuebusi.github.io/tags/ServerSocket/"/>
+    <category term="ServerSocket" scheme="http://xuebusi.gitee.io/tags/ServerSocket/"/>
     
-    <category term="BufferedReader" scheme="http://xuebusi.github.io/tags/BufferedReader/"/>
+    <category term="BufferedReader" scheme="http://xuebusi.gitee.io/tags/BufferedReader/"/>
     
-    <category term="InputStreamReader" scheme="http://xuebusi.github.io/tags/InputStreamReader/"/>
+    <category term="InputStreamReader" scheme="http://xuebusi.gitee.io/tags/InputStreamReader/"/>
     
-    <category term="PrintWriter" scheme="http://xuebusi.github.io/tags/PrintWriter/"/>
+    <category term="PrintWriter" scheme="http://xuebusi.gitee.io/tags/PrintWriter/"/>
     
   </entry>
   
   <entry>
     <title>Java实现两台计算机之间的简单通信</title>
-    <link href="http://xuebusi.github.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/"/>
-    <id>http://xuebusi.github.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/"/>
+    <id>http://xuebusi.gitee.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/</id>
     <published>2023-11-09T12:41:22.000Z</published>
     <updated>2023-11-09T12:43:07.664Z</updated>
     
@@ -153,19 +198,19 @@
     
     
     
-    <category term="Java" scheme="http://xuebusi.github.io/categories/Java/"/>
+    <category term="Java" scheme="http://xuebusi.gitee.io/categories/Java/"/>
     
     
-    <category term="Socket" scheme="http://xuebusi.github.io/tags/Socket/"/>
+    <category term="Socket" scheme="http://xuebusi.gitee.io/tags/Socket/"/>
     
-    <category term="ServerSocket" scheme="http://xuebusi.github.io/tags/ServerSocket/"/>
+    <category term="ServerSocket" scheme="http://xuebusi.gitee.io/tags/ServerSocket/"/>
     
   </entry>
   
   <entry>
     <title>使用Vapor编写用户信息CRUD的API接口</title>
-    <link href="http://xuebusi.github.io/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/"/>
-    <id>http://xuebusi.github.io/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/"/>
+    <id>http://xuebusi.gitee.io/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/</id>
     <published>2023-11-09T00:49:10.000Z</published>
     <updated>2023-11-09T00:49:57.368Z</updated>
     
@@ -185,8 +230,8 @@
   
   <entry>
     <title>SwiftUI核心技术第15章构建一个聊天APP</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/</id>
     <published>2023-11-08T02:24:42.000Z</published>
     <updated>2024-03-17T06:12:04.584Z</updated>
     
@@ -202,15 +247,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第14章测试与调试</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/</id>
     <published>2023-11-08T01:49:07.000Z</published>
     <updated>2024-03-17T06:12:01.380Z</updated>
     
@@ -225,15 +270,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第13章性能优化</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</id>
     <published>2023-11-08T01:43:56.000Z</published>
     <updated>2024-03-17T06:11:58.265Z</updated>
     
@@ -249,15 +294,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第12章Dark Mode和Accessibility</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC12%E7%AB%A0Dark-Mode%E5%92%8CAccessibility/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC12%E7%AB%A0Dark-Mode%E5%92%8CAccessibility/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC12%E7%AB%A0Dark-Mode%E5%92%8CAccessibility/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC12%E7%AB%A0Dark-Mode%E5%92%8CAccessibility/</id>
     <published>2023-11-08T01:33:25.000Z</published>
     <updated>2024-03-17T06:11:54.398Z</updated>
     
@@ -273,15 +318,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第11章适配多平台</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC11%E7%AB%A0%E9%80%82%E9%85%8D%E5%A4%9A%E5%B9%B3%E5%8F%B0/</id>
     <published>2023-11-08T01:31:14.000Z</published>
     <updated>2024-03-17T06:11:51.180Z</updated>
     
@@ -297,15 +342,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第10章集成Core Data和CloudKit</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/</id>
     <published>2023-11-08T01:20:39.000Z</published>
     <updated>2024-03-17T06:11:48.022Z</updated>
     
@@ -321,15 +366,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第9章复合视图与可复用性</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/</id>
     <published>2023-11-08T01:18:34.000Z</published>
     <updated>2024-03-17T06:11:44.777Z</updated>
     
@@ -345,15 +390,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第8章动画与转场</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/</id>
     <published>2023-11-08T01:13:02.000Z</published>
     <updated>2024-03-17T06:11:41.709Z</updated>
     
@@ -369,15 +414,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第7章导航与呈现</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC7%E7%AB%A0%E5%AF%BC%E8%88%AA%E4%B8%8E%E5%91%88%E7%8E%B0/</id>
     <published>2023-11-08T01:09:18.000Z</published>
     <updated>2024-03-17T06:11:38.648Z</updated>
     
@@ -393,15 +438,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第6章数据流与绑定</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC6%E7%AB%A0%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E7%BB%91%E5%AE%9A/</id>
     <published>2023-11-08T00:52:43.000Z</published>
     <updated>2024-03-17T06:11:34.626Z</updated>
     
@@ -417,15 +462,15 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>
   
   <entry>
     <title>SwiftUI核心技术第5章布局管理</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/</id>
+    <link href="http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/"/>
+    <id>http://xuebusi.gitee.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC5%E7%AB%A0%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86/</id>
     <published>2023-11-08T00:47:49.000Z</published>
     <updated>2024-03-17T06:11:17.149Z</updated>
     
@@ -441,55 +486,7 @@
     
     
     
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SwiftUI核心技术4章视图与控件</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF4%E7%AB%A0%E8%A7%86%E5%9B%BE%E4%B8%8E%E6%8E%A7%E4%BB%B6/</id>
-    <published>2023-11-07T16:35:47.000Z</published>
-    <updated>2024-03-17T06:11:08.769Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>第二部分：构建用户界面</strong></p><p><strong>第4章：视图与控件</strong></p><p><strong>1. Text和Image</strong></p><p>在SwiftUI中，用户界面是由各种视图组成的，其中最基本的两种视图是<code>Text</code>和<code>Image</code>。本节将详细探讨如何使用这两种视图来显示文本和图像。</p><p><strong>Text</strong></p><p><code>Text</code>视图用于在应用中显示一行或多行只读文本。它是最常见的视图之一，因为文本是用户交互的基本元素。</p><p><strong>基础用法</strong></p><p>创建一个<code>Text</code>视图非常简单，只需要传入一个字符串即可：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Hello, SwiftUI!&quot;</span>)<br></code></pre></td></tr></table></figure><p><strong>样式定制</strong></p><p><code>Text</code>视图提供了多种修饰符来定制文本的显示方式：</p><ul><li><code>.font(_:)</code>：设置字体样式。</li><li><code>.fontWeight(_:)</code>：设置字体的粗细。</li><li><code>.foregroundColor(_:)</code>：设置文本颜色。</li><li><code>.lineLimit(_:)</code>：设置最多显示行数。</li><li><code>.multilineTextAlignment(_:)</code>：设置多行文本的对齐方式。</li><li><code>.padding(_:)</code>：为文本周围添加填充。</li></ul><p>例如，要创建一个居中对齐、蓝色、加粗的文本，您可以这样写：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Welcome to SwiftUI&quot;</span>)<br>    .font(.headline)<br>    .fontWeight(.bold)<br>    .foregroundColor(.blue)<br>    .multilineTextAlignment(.center)<br>    .padding()<br></code></pre></td></tr></table></figure><p><strong>国际化和本地化</strong></p><p>SwiftUI还支持文本的国际化和本地化。使用<code>LocalizedStringKey</code>初始化<code>Text</code>视图，可以确保文本根据用户的设备语言环境显示正确：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Text</span>(<span class="hljs-type">LocalizedStringKey</span>(<span class="hljs-string">&quot;hello_message&quot;</span>))<br></code></pre></td></tr></table></figure><p><strong>Image</strong></p><p><code>Image</code>视图用于在应用中显示图像。您可以从应用的资产目录、文件系统或网络加载图像。</p><p><strong>从资产目录加载</strong></p><p>最常用的加载图像方式是从Xcode项目的Assets.xcassets目录：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Image</span>(<span class="hljs-string">&quot;myImage&quot;</span>)<br></code></pre></td></tr></table></figure><p><strong>图像修饰符</strong></p><p><code>Image</code>视图也可以使用多种修饰符来调整显示的图像：</p><ul><li><code>.resizable()</code>：允许图像根据视图的大小进行拉伸或压缩。</li><li><code>.aspectRatio(_:_:)</code>：设置图像的宽高比。</li><li><code>.clipShape(_:)</code>：剪切图像到特定的形状。</li><li><code>.shadow(_:)</code>：为图像添加阴影。</li></ul><p>例如，要创建一个圆形、有阴影的图像，您可以这样写：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Image</span>(<span class="hljs-string">&quot;profile_pic&quot;</span>)<br>    .resizable()<br>    .aspectRatio(contentMode: .fill)<br>    .frame(width: <span class="hljs-number">100</span>, height: <span class="hljs-number">100</span>)<br>    .clipShape(<span class="hljs-type">Circle</span>())<br>    .shadow(radius: <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure><p><strong>加载和显示网络图像</strong></p><p>要显示来自网络的图像，您通常需要使用SwiftUI的<code>AsyncImage</code>视图或结合URLSession自定义一个加载器。由于本节重点是<code>Image</code>视图，我们将在后续章节详细探讨如何加载网络图像。</p><p><strong>总结</strong></p><p><code>Text</code>和<code>Image</code>是构建SwiftUI应用界面时最基础的元素。它们不仅用法简单，而且通过修饰符提供了强大的样式定制能力。通过合理使用这两种视图，您可以快速构建出丰富多彩且吸引人的界面。接下来的小节，我们将进一步探索SwiftUI中其他重要的视图和控件。</p><p><strong>2. Buttons和Toggle</strong></p><p>在SwiftUI中，<code>Button</code>和<code>Toggle</code>是两种用于用户交互的基本控件。它们使应用可以响应用户的操作，执行任务或更改状态。</p><p><strong>Button</strong></p><p>按钮是用户界面的基本组件，用于响应用户的点击或触摸操作。</p><p><strong>创建按钮</strong></p><p>在SwiftUI中，创建一个按钮需要提供一个动作和一个如何显示的内容：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Button</span>(action: &#123;<br>    <span class="hljs-comment">// 在这里执行按钮的动作</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;按钮被点击&quot;</span>)<br>&#125;) &#123;<br>    <span class="hljs-comment">// 提供按钮的内容</span><br>    <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;点击我&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p><strong>按钮样式</strong></p><p>您可以使用修饰符来定制按钮的样式。例如，给按钮添加边框、背景色等：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Button</span>(<span class="hljs-string">&quot;点击我&quot;</span>) &#123;<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;按钮被点击&quot;</span>)<br>&#125;<br>.frame(width: <span class="hljs-number">200</span>, height: <span class="hljs-number">60</span>)<br>.background(<span class="hljs-type">Color</span>.blue)<br>.foregroundColor(.white)<br>.cornerRadius(<span class="hljs-number">10</span>)<br>.padding()<br></code></pre></td></tr></table></figure><p>SwiftUI还提供了<code>buttonStyle(_:)</code>修饰符来应用预定义的按钮样式。</p><p><strong>Toggle</strong></p><p><code>Toggle</code>是一个开关控件，用于表示和改变一个布尔值的状态。</p><p><strong>创建Toggle</strong></p><p>创建一个<code>Toggle</code>同样需要一个绑定的状态和一个显示的标签：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-meta">@State</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> isOn <span class="hljs-operator">=</span> <span class="hljs-literal">false</span><br><br><span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>    <span class="hljs-type">Toggle</span>(isOn: <span class="hljs-variable">$isOn</span>) &#123;<br>        <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;切换状态&quot;</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>在上面的代码中，<code>isOn</code>是一个<code>@State</code>属性，这意味着它是一个可变状态，当<code>Toggle</code>被切换时，视图会自动更新。</p><p><strong>定制Toggle</strong></p><p>可以使用<code>.toggleStyle(_:)</code>修饰符来定制<code>Toggle</code>的外观。SwiftUI提供了一些内建的样式，如<code>SwitchToggleStyle</code>和<code>CheckboxToggleStyle</code>（后者在macOS上可用）。</p><p><strong>绑定和控制</strong></p><p>按钮和开关的强大之处在于它们与SwiftUI的数据绑定系统的整合。当您使用<code>$</code>前缀创建绑定时，UI 控件将能够直接修改数据，反之亦然。这是SwiftUI声明式编程范式的核心。</p><p><strong>响应用户输入</strong></p><p>通常，按钮和开关会更改应用的状态或触发某个操作。例如，您可能会根据开关的状态显示或隐藏文本视图：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-meta">@State</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> isAccepted <span class="hljs-operator">=</span> <span class="hljs-literal">false</span><br><br><span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>    <span class="hljs-type">VStack</span> &#123;<br>        <span class="hljs-type">Toggle</span>(isOn: <span class="hljs-variable">$isAccepted</span>) &#123;<br>            <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;接受条款和条件&quot;</span>)<br>        &#125;<br><br>        <span class="hljs-type">Button</span>(<span class="hljs-string">&quot;继续&quot;</span>) &#123;<br>            <span class="hljs-comment">// 可以在这里校验开关状态，例如是否接受了条款和条件</span><br>            proceedWithAction()<br>        &#125;<br>        .disabled(<span class="hljs-operator">!</span>isAccepted) <span class="hljs-comment">// 当不接受条款时禁用按钮</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><strong>总结</strong></p><p>按钮和开关是任何交互式应用程序的基础，它们提供了一种简单有效的方式来收集用户输入并作出反应。SwiftUI的<code>Button</code>和<code>Toggle</code>视图配合数据绑定，使得创建动态和响应式的用户界面变得异常简单。它们的样式和行为可以通过一系列的修饰符进行定制，以适应您的设计需求。在接下来的小节中，我们将继续探讨如何使用SwiftUI构建更复杂的用户界面元素。</p><p><strong>3. TextField和Slider</strong></p><p>在SwiftUI中，创建交互式表单和控制元素是构建现代应用程序不可或缺的一部分。<code>TextField</code>和<code>Slider</code>是两种常用的控件，它们允许用户输入文本和选择值的范围。</p><p><strong>TextField</strong></p><p><code>TextField</code>是一个用于用户输入文本的控件，它可以接受键盘输入，并且可以对输入的文本进行格式化和校验。</p><p><strong>创建TextField</strong></p><p>创建一个<code>TextField</code>通常需要两个参数：一个标签和一个绑定到文本值的变量。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-meta">@State</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> username: <span class="hljs-type">String</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>    <span class="hljs-type">TextField</span>(<span class="hljs-string">&quot;用户名&quot;</span>, text: <span class="hljs-variable">$username</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p>在这个例子中，每当用户在文本字段中输入时，<code>username</code>变量都会更新。<code>@State</code>属性包装器用于在本地视图状态中存储可变数据。</p><p><strong>定制TextField</strong></p><p>您可以使用修饰符来定制<code>TextField</code>的外观和行为，例如设置字体、颜色、对齐方式、键盘类型等。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">TextField</span>(<span class="hljs-string">&quot;用户名&quot;</span>, text: <span class="hljs-variable">$username</span>)<br>    .textFieldStyle(<span class="hljs-type">RoundedBorderTextFieldStyle</span>())<br>    .padding()<br>    .keyboardType(.default)<br>    .autocapitalization(.none)<br>    .disableAutocorrection(<span class="hljs-literal">true</span>)<br></code></pre></td></tr></table></figure><p>在这个例子中，我们使用了<code>textFieldStyle(_:)</code>来为文本字段设置圆角边框样式，并进行了一些其他的配置。</p><p><strong>Slider</strong></p><p><code>Slider</code>允许用户从一个范围内选择一个值。它可以用于设置音量、选择亮度或应用任何其他需要用户选择一个数值的场景。</p><p><strong>创建Slider</strong></p><p>创建<code>Slider</code>至少需要一个绑定到数值的变量和一个值的范围。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-meta">@State</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">var</span> sliderValue: <span class="hljs-type">Double</span> <span class="hljs-operator">=</span> <span class="hljs-number">0.5</span><br><br><span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>    <span class="hljs-type">Slider</span>(value: <span class="hljs-variable">$sliderValue</span>, in: <span class="hljs-number">0</span><span class="hljs-operator">...</span><span class="hljs-number">1</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p>这个<code>Slider</code>允许用户在0到1之间选择一个值。</p><p><strong>定制Slider</strong></p><p><code>Slider</code>同样可以使用修饰符进行外观和功能的定制。您可以设置步长，决定滑块在变化时是否持续触发更新，以及添加标签。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-type">Slider</span>(<br>    value: <span class="hljs-variable">$sliderValue</span>,<br>    in: <span class="hljs-number">0</span><span class="hljs-operator">...</span><span class="hljs-number">1</span>,<br>    step: <span class="hljs-number">0.1</span>,<br>    onEditingChanged: &#123; editing <span class="hljs-keyword">in</span><br>        <span class="hljs-comment">// editing 是一个布尔值，表示是否正在编辑</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;当前滑块的值：<span class="hljs-subst">\(sliderValue)</span>&quot;</span>)<br>    &#125;<br>)<br>.accentColor(.green)<br></code></pre></td></tr></table></figure><p>在这个例子中，滑块的步长设置为0.1，且我们还指定了一个闭包，在用户编辑滑块值时触发。</p><p><strong>总结</strong></p><p><code>TextField</code>和<code>Slider</code>为SwiftUI应用提供了基本的用户输入功能。通过与<code>@State</code>或其他形式的状态管理相结合，它们为开发者提供了创建动态和响应式表单的能力。定制这些控件的外观和行为使它们能够匹配应用程序的设计语言，提供更好的用户体验。在接下来的章节中，我们将探索SwiftUI中的其他高级控件和视图，并学习如何将它们组合在一起以构建复杂和功能丰富的用户界面。</p><p><strong>4. 自定义视图和控件</strong></p><p>SwiftUI的真正魅力之一在于它为开发者提供了丰富的自定义视图和控件的能力。通过结合现有的视图和控件以及Swift语言的强大特性，我们可以创建完全定制的用户界面元素，以完美地适应我们的设计需求。</p><p><strong>理解视图的组合</strong></p><p>在SwiftUI中，最基本的自定义视图起始于现有的视图的组合。SwiftUI的视图是可组合的，意味着你可以将简单的视图组合成复杂的视图。比如，我们可以创建一个带有文本和图像的自定义按钮视图：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">CustomButton</span>: <span class="hljs-title class_">View</span> &#123;<br>    <span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>        <span class="hljs-type">HStack</span> &#123;<br>            <span class="hljs-type">Image</span>(systemName: <span class="hljs-string">&quot;star.fill&quot;</span>)<br>                .resizable()<br>                .frame(width: <span class="hljs-number">20</span>, height: <span class="hljs-number">20</span>)<br>            <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;收藏&quot;</span>)<br>        &#125;<br>        .padding()<br>        .background(<span class="hljs-type">Color</span>.blue)<br>        .foregroundColor(.white)<br>        .cornerRadius(<span class="hljs-number">10</span>)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>这个<code>CustomButton</code>就是一个自定义视图，它可以在任何其他的SwiftUI视图中使用。</p><p><strong>创建完全自定义的视图</strong></p><p>如果需要更高级的自定义，你可以从<code>View</code>协议开始，实现自己的<code>body</code>属性。这允许你控制视图的渲染方式，并响应用户的输入。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">CircularProgressView</span>: <span class="hljs-title class_">View</span> &#123;<br>    <span class="hljs-keyword">var</span> progress: <span class="hljs-type">Double</span> <span class="hljs-comment">// 从0.0到1.0</span><br>    <br>    <span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>        <span class="hljs-type">ZStack</span> &#123;<br>            <span class="hljs-type">Circle</span>()<br>                .stroke(lineWidth: <span class="hljs-number">20</span>)<br>                .opacity(<span class="hljs-number">0.3</span>)<br>                .foregroundColor(<span class="hljs-type">Color</span>.blue)<br>            <br>            <span class="hljs-type">Circle</span>()<br>                .trim(from: <span class="hljs-number">0.0</span>, to: <span class="hljs-type">CGFloat</span>(<span class="hljs-built_in">min</span>(<span class="hljs-keyword">self</span>.progress, <span class="hljs-number">1.0</span>)))<br>                .stroke(style: <span class="hljs-type">StrokeStyle</span>(lineWidth: <span class="hljs-number">20</span>, lineCap: .round, lineJoin: .round))<br>                .foregroundColor(<span class="hljs-type">Color</span>.blue)<br>                .rotationEffect(<span class="hljs-type">Angle</span>(degrees: <span class="hljs-number">270.0</span>))<br>                .animation(.linear)<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>在这个例子中，我们创建了一个显示进度的环形视图，它会根据<code>progress</code>属性显示不同的填充量。</p><p><strong>响应用户交互</strong></p><p>自定义视图可以通过各种手势识别器来响应用户的交互。例如，你可能会有一个自定义滑块控件，它通过拖动来改变值：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">CustomSlider</span>: <span class="hljs-title class_">View</span> &#123;<br>    <span class="hljs-meta">@Binding</span> <span class="hljs-keyword">var</span> value: <span class="hljs-type">Double</span> <span class="hljs-comment">// 绑定到外部状态</span><br>    <br>    <span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>        <span class="hljs-type">GeometryReader</span> &#123; geometry <span class="hljs-keyword">in</span><br>            <span class="hljs-type">Rectangle</span>()<br>                .foregroundColor(.gray)<br>                .frame(height: <span class="hljs-number">20</span>)<br>                .gesture(<br>                    <span class="hljs-type">DragGesture</span>(minimumDistance: <span class="hljs-number">0</span>)<br>                        .onChanged &#123; gesture <span class="hljs-keyword">in</span><br>                            <span class="hljs-keyword">self</span>.value <span class="hljs-operator">=</span> <span class="hljs-type">Double</span>(gesture.location.x <span class="hljs-operator">/</span> geometry.size.width)<br>                        &#125;<br>                )<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>在这个例子中，我们使用<code>GeometryReader</code>来获取视图的大小，并根据用户拖动的位置来更新<code>value</code>。</p><p><strong>保持性能</strong></p><p>在创建自定义视图和控件时，要记住保持它们的性能。这意味着：</p><ul><li>避免不必要的视图重绘和状态更新。</li><li>合理使用<code>.animation()</code>和<code>.transition()</code>修饰符来为视图变化提供流畅的过渡效果。</li><li>当视图层次变得复杂时，考虑使用<code>drawingGroup()</code>或<code>cache</code>等优化技术。</li></ul><p><strong>总结</strong></p><p>SwiftUI提供了强大的工具集，可以帮助开发者创建精美且功能丰富的自定义视图和控件。通过结合视图的组合、自定义绘制、响应用户输入等技术，你可以创建出完全符合你的设计和功能需求的用户界面元素。记住，自定义视图和控件不仅仅是关于创造外观，更重要的是它们提供了</p><p>与用户交互的新方式。随着你的SwiftUI技能的提高，你将能够更有效地利用这些工具，打造出既美观又高效的应用程序。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;strong&gt;第二部分：构建用户界面&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;第4章：视图与控件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. Text和Image&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在SwiftUI中，用户界面是由各种视图组成的，其中最基本</summary>
-      
-    
-    
-    
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SwiftUI核心技术第3章环境搭建</title>
-    <link href="http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    <id>http://xuebusi.github.io/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</id>
-    <published>2023-11-07T16:28:17.000Z</published>
-    <updated>2024-03-17T06:11:12.787Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>1. Xcode和SwiftUI</strong></p><p>为了开始使用SwiftUI，您需要安装Xcode，这是Apple提供的官方集成开发环境（IDE）。Xcode提供了构建iOS、iPadOS、macOS、watchOS和tvOS应用的所有工具和资源。SwiftUI是Xcode的一部分，是一个用于设计和开发用户界面的框架。在这一节中，我们将指导您如何设置Xcode和开始使用SwiftUI。</p><p><strong>安装Xcode</strong></p><ol><li><p><strong>从Mac App Store下载Xcode</strong></p><p>Xcode是免费的，可以直接从Mac App Store下载。确保您的Mac操作系统是最新的，因为新版本的Xcode通常只能在最新或次新的操作系统上运行。</p></li><li><p><strong>启动Xcode并安装额外组件</strong></p><p>当您第一次打开Xcode时，它可能会提示您安装额外的必需组件。按照提示进行安装。</p></li><li><p><strong>接受Xcode许可协议</strong></p><p>在安装组件之前，您可能需要接受Xcode的许可协议。您可以通过Xcode或使用终端命令行来完成这一步骤。</p></li></ol><p><strong>配置Xcode</strong></p><p>安装完成后，您可能需要进行一些基础配置：</p><ol><li><p><strong>设置开发者账户</strong></p><p>在Xcode的Preferences（偏好设置）中，您可以登录您的Apple开发者账户。如果您还没有账户，您需要注册一个。</p></li><li><p><strong>下载模拟器或配置开发设备</strong></p><p>如果您打算在真实设备上运行应用，需要在Xcode中配置您的iOS设备。否则，您可以下载并使用模拟器。</p></li></ol><p><strong>创建SwiftUI项目</strong></p><ol><li><p><strong>打开Xcode并创建一个新的项目</strong></p><p>选择“Create a new Xcode project”（创建一个新的Xcode项目）。</p></li><li><p><strong>选择项目模板</strong></p><p>在模板选择器中，选择“App”作为您的项目模板。</p></li><li><p><strong>配置项目设置</strong></p><p>您需要填写项目名称、团队、组织名称、组织标识符以及选择您想要支持的平台。</p></li><li><p><strong>选择SwiftUI作为界面</strong></p><p>在创建项目时，确保在“User Interface”选项中选择“SwiftUI”。</p></li></ol><p><strong>探索SwiftUI</strong></p><ol><li><p><strong>Canvas</strong></p><p>Xcode提供了一个实时预览界面（Canvas），您可以看到SwiftUI代码的实时渲染结果。通过点击Canvas右上角的“Resume”按钮，可以启动或刷新预览。</p></li><li><p><strong>Inspector</strong></p><p>Xcode的Inspector可以帮助您调整SwiftUI视图的属性，您可以直接通过图形界面来调整代码，而不需要编写任何代码。</p></li><li><p><strong>代码编辑器</strong></p><p>Xcode的代码编辑器是您编写Swift和SwiftUI代码的地方。它提供了代码高亮、自动完成等功能，这可以极大提升编码效率。</p></li></ol><p><strong>构建和运行</strong></p><ol><li><p><strong>选择目标</strong></p><p>在Xcode顶部的工具栏中，您可以选择要在哪个模拟器或真实设备上运行您的应用。</p></li><li><p><strong>构建并运行应用</strong></p><p>点击工具栏中的“Run”按钮（或使用快捷键<code>Command + R</code>）来构建并运行您的应用。如果一切设置正确，您应该能看到您的SwiftUI应用在模拟器或设备上运行。</p></li></ol><p><strong>总结</strong></p><p>设置Xcode并开始使用SwiftUI是开发现代iOS应用的第一步。通过Xcode，您可以使用SwiftUI框架来创建美观、响应迅速且易于维护的用户界面。本节提供了有关如何安装和配置Xcode、创建新的SwiftUI项目以及构建和运行应用的基本信息。掌握这些基础知识后，您将准备好深入探索SwiftUI的强大功能，并开始构建您自己的应用。</p><p><strong>2. Swift Package Manager</strong></p><p>Swift Package Manager（简称SPM）是Apple官方提供的一个用于自动化Swift代码的依赖管理和分发的工具。它与Xcode紧密集成，允许开发者方便地添加、更新和管理依赖库。</p><p><strong>SPM的概念</strong></p><ol><li><strong>包（Package）</strong>：是一个或多个库的集合，它们共享一个构建设置和版本号。</li><li><strong>库（Library）</strong>：是可复用代码的集合，用于构建程序或其他库。</li><li><strong>依赖（Dependency）</strong>：是您的项目需要的外部库或包。</li></ol><p><strong>使用Swift Package Manager</strong></p><ol><li><p><strong>创建Package.swift</strong></p><p>为了使用SPM，您的项目需要一个<code>Package.swift</code>文件，这是一个定义了包的名称、平台、Swift版本和依赖的清单文件。以下是一个基本的<code>Package.swift</code>示例：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-comment">// swift-tools-version:5.3</span><br><span class="hljs-keyword">import</span> PackageDescription<br><br><span class="hljs-keyword">let</span> package <span class="hljs-operator">=</span> <span class="hljs-type">Package</span>(<br>    name: <span class="hljs-string">&quot;MyLibrary&quot;</span>,<br>    platforms: [<br>       .macOS(.v10_15), .iOS(.v13)<br>    ],<br>    products: [<br>        .library(<br>            name: <span class="hljs-string">&quot;MyLibrary&quot;</span>,<br>            targets: [<span class="hljs-string">&quot;MyLibrary&quot;</span>]),<br>    ],<br>    dependencies: [<br>        .package(url: <span class="hljs-string">&quot;https://github.com/someone/Something.git&quot;</span>, from: <span class="hljs-string">&quot;1.0.0&quot;</span>),<br>    ],<br>    targets: [<br>        .target(<br>            name: <span class="hljs-string">&quot;MyLibrary&quot;</span>,<br>            dependencies: []),<br>        .testTarget(<br>            name: <span class="hljs-string">&quot;MyLibraryTests&quot;</span>,<br>            dependencies: [<span class="hljs-string">&quot;MyLibrary&quot;</span>]),<br>    ]<br>)<br></code></pre></td></tr></table></figure></li><li><p><strong>添加依赖</strong></p><p>在<code>Package.swift</code>文件中，您可以添加其他包作为依赖。SPM将自动下载和链接这些依赖。</p></li><li><p><strong>集成到Xcode项目</strong></p><p>您可以通过Xcode直接添加SPM依赖：</p><ul><li>打开Xcode项目或工作区。</li><li>选择“File” &gt; “Swift Packages” &gt; “Add Package Dependency…”。</li><li>输入包的Git存储库URL，然后选择一个版本号或分支。</li><li>选择要添加到哪个目标，然后完成集成流程。</li></ul></li><li><p><strong>使用命令行</strong></p><p>您也可以通过命令行界面使用SPM：</p><ul><li><code>swift build</code>：构建您的项目。</li><li><code>swift test</code>：测试您的项目。</li><li><code>swift run</code>：运行您的项目。</li><li><code>swift package update</code>：更新您的依赖。</li></ul></li></ol><p><strong>管理依赖版本</strong></p><p>SPM支持多种方式指定依赖版本：</p><ul><li>指定一个具体版本号。</li><li>指定一个版本范围。</li><li>使用分支名称或提交哈希。</li></ul><p>例如：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift">.package(url: <span class="hljs-string">&quot;https://github.com/someone/Something.git&quot;</span>, .exact(<span class="hljs-string">&quot;1.0.0&quot;</span>))<br>.package(url: <span class="hljs-string">&quot;https://github.com/someone/Something.git&quot;</span>, from: <span class="hljs-string">&quot;1.0.0&quot;</span>)<br>.package(url: <span class="hljs-string">&quot;https://github.com/someone/Something.git&quot;</span>, .branch(<span class="hljs-string">&quot;main&quot;</span>))<br></code></pre></td></tr></table></figure><p><strong>总结</strong></p><p>Swift Package Manager是一个强大的依赖管理工具，它简化了Swift项目中库和依赖的管理。通过声明式的<code>Package.swift</code>文件和Xcode的集成，SPM使得添加、更新和维护依赖变得既简单又可靠。了解SPM是现代Swift开发的重要组成部分，尤其是当您开始构建更大型且依赖多个第三方库的项目时。掌握SPM的使用将帮助您保持项目的清洁和组织，提高构建的可复用性和可维护性。</p><p><strong>3. 创建第一个SwiftUI应用</strong></p><p>进入到SwiftUI世界的第一步是创建您的第一个SwiftUI应用。本节将指导您完成创建和运行一个基本的SwiftUI应用程序的步骤，让您快速体验到SwiftUI开发的流畅和直观。</p><p><strong>设置项目</strong></p><ol><li><p><strong>启动Xcode</strong>：<br>打开Xcode。在欢迎屏幕上选择“Create a new Xcode project”或在菜单栏选择“File” &gt; “New” &gt; “Project”。</p></li><li><p><strong>选择模板</strong>：<br>在项目模板选择界面，选择“App”作为项目模板。这将创建一个包含所有必需文件的iOS应用程序项目。</p></li><li><p><strong>项目配置</strong>：<br>在“Choose options for your new project”界面，填写项目的详细信息：</p><ul><li><code>Product Name</code>：应用程序的名称。</li><li><code>Team</code>：如果您已注册Apple开发者计划并设置了Xcode，选择您的开发者团队。</li><li><code>Organization Identifier</code>：通常是您或您公司的域名反写（例如com.example）。</li><li><code>Interface</code>：确保选择“SwiftUI”。</li><li><code>Language</code>：选择“Swift”。</li><li><code>Lifecycle</code>：根据您的需求选择“SwiftUI App”。</li><li><code>Use Core Data</code>：如果不需要，保持未选中状态。</li><li><code>Include Tests</code>：如果您打算写测试，选择相应的测试复选框。</li></ul></li><li><p><strong>选择保存位置</strong>：<br>选择一个适合您项目的位置，并且如果您想使用版本控制（例如Git），确保选中“Create Git repository”。</p></li></ol><p><strong>探索SwiftUI工作区</strong></p><ol><li><p><strong>Project Navigator</strong>：<br>在Xcode左侧的侧边栏中，您可以看到Project Navigator，它展示了项目中所有的文件和资源。</p></li><li><p><strong>ContentView.swift</strong>：<br>这是您的SwiftUI视图代码所在的文件。Xcode默认为您提供了一个包含Text视图的简单SwiftUI视图。</p></li><li><p><strong>Preview</strong>：<br>Xcode支持SwiftUI的实时预览。如果Preview未自动显示，您可以点击代码编辑器顶部的“Resume”按钮来加载它。</p></li></ol><p><strong>编写SwiftUI代码</strong></p><ol><li><p><strong>修改ContentView</strong>：</p><ul><li><p>用以下代码替换<code>ContentView</code>结构体中的内容：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">ContentView</span>: <span class="hljs-title class_">View</span> &#123;<br>    <span class="hljs-keyword">var</span> body: <span class="hljs-keyword">some</span> <span class="hljs-type">View</span> &#123;<br>        <span class="hljs-type">Text</span>(<span class="hljs-string">&quot;Hello, SwiftUI!&quot;</span>)<br>            .padding()<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li></ul></li><li><p><strong>使用Preview</strong>：</p><ul><li>使用Preview功能，您可以实时看到代码更改的效果。如果预览未显示，点击“Resume”按钮。</li></ul></li></ol><p><strong>运行应用</strong></p><ol><li><p><strong>选择模拟器或设备</strong>：<br>在Xcode工具栏中，选择一个模拟器或连接的设备作为目标。</p></li><li><p><strong>构建并运行</strong>：<br>点击工具栏中的“Run”按钮或使用快捷键<code>Command + R</code>来编译并运行您的应用。</p></li><li><p><strong>查看结果</strong>：<br>您的应用程序将启动，并在所选模拟器或设备上显示“Hello, SwiftUI!”文本。</p></li></ol><p><strong>总结</strong></p><p>恭喜您！通过完成这些步骤，您已经成功创建并运行了您的第一个SwiftUI应用。这只是一个开始，SwiftUI有着非常丰富的视图和控件供您使用，通过学习和实验，您将能够构建出功能强大且界面美观的应用程序。接下来的章节中，我们将进一步深入探索SwiftUI提供的各种构建用户界面的工具和技术。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;strong&gt;1. Xcode和SwiftUI&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;为了开始使用SwiftUI，您需要安装Xcode，这是Apple提供的官方集成开发环境（IDE）。Xcode提供了构建iOS、iPadOS、macOS、watchOS和tvOS应用的所有工具和</summary>
-      
-    
-    
-    
-    <category term="SwiftUI" scheme="http://xuebusi.github.io/categories/SwiftUI/"/>
+    <category term="SwiftUI" scheme="http://xuebusi.gitee.io/categories/SwiftUI/"/>
     
     
   </entry>

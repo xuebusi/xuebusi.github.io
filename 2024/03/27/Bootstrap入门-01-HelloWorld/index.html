@@ -16,23 +16,21 @@
   <meta name="author" content="林克">
   <meta name="keywords" content="">
   
-    <meta name="description" content="要在Java中实现从一台计算机（A）向另一台计算机（B）发送数据，你可以使用Java的套接字编程。这通常涉及到创建服务器端和客户端程序。服务器在B计算机上运行，监听一个端口等待连接；客户端运行在A计算机上，连接到服务器并发送数据。 这里是一个简单的示例： 服务器端（在B计算机上运行） 创建ServerSocket对象并指定一个端口。 调用accept方法等待客户端连接。 通过建立的连接读取数据。">
+    <meta name="description" content="当前版本v4.6.2 官网地址查看中文文档 快速入门在项目根目录中创建一个新的 index.html 文件。还包括 &lt;meta name&#x3D;&quot;viewport&quot;&gt; 标记，以便在移动设备中实现正确的响应行为。 将 &lt;link&gt; 标签放在 CSS 的 &lt;head&gt; 中，并将 JavaScript 包的 &lt;script&gt; 标签（包括用于定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java实现两台计算机之间的简单通信">
-<meta property="og:url" content="http://xuebusi.gitee.io/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:title" content="Bootstrap入门-01-HelloWorld">
+<meta property="og:url" content="http://xuebusi.gitee.io/2024/03/27/Bootstrap%E5%85%A5%E9%97%A8-01-HelloWorld/index.html">
 <meta property="og:site_name" content="SwiftUI训练营">
-<meta property="og:description" content="要在Java中实现从一台计算机（A）向另一台计算机（B）发送数据，你可以使用Java的套接字编程。这通常涉及到创建服务器端和客户端程序。服务器在B计算机上运行，监听一个端口等待连接；客户端运行在A计算机上，连接到服务器并发送数据。 这里是一个简单的示例： 服务器端（在B计算机上运行） 创建ServerSocket对象并指定一个端口。 调用accept方法等待客户端连接。 通过建立的连接读取数据。">
+<meta property="og:description" content="当前版本v4.6.2 官网地址查看中文文档 快速入门在项目根目录中创建一个新的 index.html 文件。还包括 &lt;meta name&#x3D;&quot;viewport&quot;&gt; 标记，以便在移动设备中实现正确的响应行为。 将 &lt;link&gt; 标签放在 CSS 的 &lt;head&gt; 中，并将 JavaScript 包的 &lt;script&gt; 标签（包括用于定">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-11-09T12:41:22.000Z">
-<meta property="article:modified_time" content="2023-11-09T12:43:07.664Z">
+<meta property="article:published_time" content="2024-03-27T11:51:13.000Z">
+<meta property="article:modified_time" content="2024-03-27T12:21:47.697Z">
 <meta property="article:author" content="林克">
-<meta property="article:tag" content="Socket">
-<meta property="article:tag" content="ServerSocket">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Java实现两台计算机之间的简单通信 - SwiftUI训练营</title>
+  <title>Bootstrap入门-01-HelloWorld - SwiftUI训练营</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Java实现两台计算机之间的简单通信"></span>
+            <span id="subtitle" data-typed-text="Bootstrap入门-01-HelloWorld"></span>
           
         </div>
 
@@ -210,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-09 20:41" pubdate>
-          2023年11月9日 晚上
+        <time datetime="2024-03-27 19:51" pubdate>
+          2024年3月27日 晚上
         </time>
       </span>
     
@@ -222,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.9k 字
         
       </span>
     
@@ -233,7 +231,7 @@
         
         
         
-          12 分钟
+          16 分钟
         
       </span>
     
@@ -270,35 +268,17 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Java实现两台计算机之间的简单通信</h1>
+            <h1 id="seo-header">Bootstrap入门-01-HelloWorld</h1>
             
             
               <div class="markdown-body">
                 
-                <p>要在Java中实现从一台计算机（A）向另一台计算机（B）发送数据，你可以使用Java的套接字编程。这通常涉及到创建服务器端和客户端程序。服务器在B计算机上运行，监听一个端口等待连接；客户端运行在A计算机上，连接到服务器并发送数据。</p>
-<p>这里是一个简单的示例：</p>
-<h3 id="服务器端（在B计算机上运行）"><a href="#服务器端（在B计算机上运行）" class="headerlink" title="服务器端（在B计算机上运行）"></a>服务器端（在B计算机上运行）</h3><ol>
-<li>创建<code>ServerSocket</code>对象并指定一个端口。</li>
-<li>调用<code>accept</code>方法等待客户端连接。</li>
-<li>通过建立的连接读取数据。</li>
-<li>关闭连接。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Server</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">1234</span>; <span class="hljs-comment">// 选择一个端口</span><br>        <span class="hljs-type">ServerSocket</span> <span class="hljs-variable">serverSocket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ServerSocket</span>(port);<br><br>        System.out.println(<span class="hljs-string">&quot;等待连接...&quot;</span>);<br>        <span class="hljs-type">Socket</span> <span class="hljs-variable">clientSocket</span> <span class="hljs-operator">=</span> serverSocket.accept();<br>        System.out.println(<span class="hljs-string">&quot;连接成功！&quot;</span>);<br><br>        <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">InputStreamReader</span>(clientSocket.getInputStream()));<br>        String inputLine;<br>        <span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;收到: &quot;</span> + inputLine);<br>        &#125;<br><br>        in.close();<br>        clientSocket.close();<br>        serverSocket.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="客户端（在A计算机上运行）"><a href="#客户端（在A计算机上运行）" class="headerlink" title="客户端（在A计算机上运行）"></a>客户端（在A计算机上运行）</h3><ol>
-<li>创建<code>Socket</code>对象，指定服务器地址和端口。</li>
-<li>获取输出流并发送数据。</li>
-<li>关闭连接。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.net.*;<br><span class="hljs-keyword">import</span> java.io.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Client</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">serverAddress</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;服务器的IP地址&quot;</span>; <span class="hljs-comment">// 替换为B计算机的IP地址</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">1234</span>;<br>        <span class="hljs-type">Socket</span> <span class="hljs-variable">socket</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Socket</span>(serverAddress, port);<br><br>        <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PrintWriter</span>(socket.getOutputStream(), <span class="hljs-literal">true</span>);<br>        out.println(<span class="hljs-string">&quot;你好，服务器！&quot;</span>);<br><br>        out.close();<br>        socket.close();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>注意：</p>
-<ul>
-<li>请确保服务器和客户端使用相同的端口号。</li>
-<li>需要处理网络异常和I&#x2F;O异常。</li>
-<li>根据你的网络设置，你可能需要配置防火墙允许这些端口的通信。</li>
-<li>在实际应用中，还需要考虑安全性和效率等问题。</li>
-</ul>
+                <h3 id="当前版本"><a href="#当前版本" class="headerlink" title="当前版本"></a>当前版本</h3><p>v4.6.2</p>
+<h3 id="官网地址"><a href="#官网地址" class="headerlink" title="官网地址"></a>官网地址</h3><p><a target="_blank" rel="noopener" href="https://v4.bootcss.com/">查看中文文档</a></p>
+<h3 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h3><p>在项目根目录中创建一个新的 <code>index.html</code> 文件。还包括 <code>&lt;meta name=&quot;viewport&quot;&gt;</code> 标记，以便在移动设备中实现正确的响应行为。</p>
+<p>将 <code>&lt;link&gt;</code> 标签放在 <code>CSS</code> 的 <code>&lt;head&gt;</code> 中，并将 <code>JavaScript</code> 包的 <code>&lt;script&gt;</code> 标签（包括用于定位下拉菜单、弹出窗口和工具提示的 <code>Popper</code>）放在前面结束 <code>&lt;/body&gt;</code> 。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!doctype <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Bootstrap demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css&quot;</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD&quot;</span> <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;m-3&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-secondary&quot;</span>&gt;</span>Secondary<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-success&quot;</span>&gt;</span>Success<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-danger&quot;</span>&gt;</span>Danger<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-warning&quot;</span>&gt;</span>Warning<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-info&quot;</span>&gt;</span>Info<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-light&quot;</span>&gt;</span>Light<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-dark&quot;</span>&gt;</span>Dark<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">integrity</span>=<span class="hljs-string">&quot;sha384-/mhDoLbDldZc3qpsJHpLogda//BVZbgYuw6kof4u2FrCedxOtgRZDTHgHUhOCVim&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">crossorigin</span>=<span class="hljs-string">&quot;anonymous&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>使用官方提供的模板代码我们在页面上放置了一组按钮，在浏览器中打开页面可以看到一些不同背景颜色的按钮。</p>
 
                 
               </div>
@@ -307,36 +287,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Socket/" class="print-no-link">#Socket</a>
-      
-        <a href="/tags/ServerSocket/" class="print-no-link">#ServerSocket</a>
-      
-    </div>
   
 </div>
 
@@ -346,8 +296,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Java实现两台计算机之间的简单通信</div>
-      <div>http://xuebusi.gitee.io/2023/11/09/Java实现两台计算机之间的简单通信/</div>
+      <div>Bootstrap入门-01-HelloWorld</div>
+      <div>http://xuebusi.gitee.io/2024/03/27/Bootstrap入门-01-HelloWorld/</div>
     </div>
     <div class="license-meta">
       
@@ -359,7 +309,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年11月9日</div>
+          <div>2024年3月27日</div>
         </div>
       
       
@@ -391,18 +341,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/" title="Java实现两台计算机之间长连接通信">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java实现两台计算机之间长连接通信</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/" title="使用Vapor编写用户信息CRUD的API接口">
-                        <span class="hidden-mobile">使用Vapor编写用户信息CRUD的API接口</span>
+                      <a href="/2024/03/22/macOS%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" title="macOS查看环境变量">
+                        <span class="hidden-mobile">macOS查看环境变量</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
