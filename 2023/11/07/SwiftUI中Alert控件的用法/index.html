@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SwiftUI中Alert控件的用法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在 SwiftUI 中，Alert 控件用来向用户显示警告或者提示信息，并且可以提供一个或多个操作供用户选择。Alert 通常用于提示错误信息、确认重要操作或展示信息确认。 基础用法使用 Alert 需要创建一个状态变量来控制它的显示与隐藏，并且在视图的某个事件中触发这个状态变量的变化。然后，你可以使用 .alert 修饰符来在视图层级中添加一个 Alert。 123456789101112str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI中Alert控件的用法">
+<meta property="og:url" content="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在 SwiftUI 中，Alert 控件用来向用户显示警告或者提示信息，并且可以提供一个或多个操作供用户选择。Alert 通常用于提示错误信息、确认重要操作或展示信息确认。 基础用法使用 Alert 需要创建一个状态变量来控制它的显示与隐藏，并且在视图的某个事件中触发这个状态变量的变化。然后，你可以使用 .alert 修饰符来在视图层级中添加一个 Alert。 123456789101112str">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-07T12:58:19.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.440Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SwiftUI中Alert控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:58:19.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SwiftUI中Alert控件的用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Alert</code> 控件用来向用户显示警告或者提示信息，并且可以提供一个或多个操作供用户选择。<code>Alert</code> 通常用于提示错误信息、确认重要操作或展示信息确认。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>使用 <code>Alert</code> 需要创建一个状态变量来控制它的显示与隐藏，并且在视图的某个事件中触发这个状态变量的变化。然后，你可以使用 <code>.alert</code> 修饰符来在视图层级中添加一个 <code>Alert</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当按钮被点击时，<code>showAlert</code> 状态变为 <code>true</code>，这会触发 <code>.alert</code> 修饰符显示一个带有 “OK” 按钮的警告框。</p>
+<h3 id="带有多个按钮的-Alert"><a href="#带有多个按钮的-Alert" class="headerlink" title="带有多个按钮的 Alert"></a>带有多个按钮的 Alert</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Cancel&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Delete&quot;</span>, role: .destructive) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Save&quot;</span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，除了取消按钮外，我们还添加了一个具有破坏性的删除操作和一个普通的保存操作。</p>
+<h3 id="Alert-的自定义内容"><a href="#Alert-的自定义内容" class="headerlink" title="Alert 的自定义内容"></a>Alert 的自定义内容</h3><p>你还可以自定义 <code>Alert</code> 的标题、消息和按钮。例如，下面的 <code>Alert</code> 有一个标题、消息和两个按钮：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.alert(isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Alert</span>(</span><br><span class="line">        title: <span class="type">Text</span>(<span class="string">&quot;Important message&quot;</span>),</span><br><span class="line">        message: <span class="type">Text</span>(<span class="string">&quot;Please read this.&quot;</span>),</span><br><span class="line">        primaryButton: .default(<span class="type">Text</span>(<span class="string">&quot;Got it!&quot;</span>)),</span><br><span class="line">        secondaryButton: .cancel()</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Alert-获取用户输入"><a href="#使用-Alert-获取用户输入" class="headerlink" title="使用 Alert 获取用户输入"></a>使用 <code>Alert</code> 获取用户输入</h3><p>在 SwiftUI 中，如果你想在 <code>Alert</code> 中获取用户的输入，你通常会使用其他视图，如 <code>sheet</code>，因为 <code>Alert</code> 本身并不支持文本输入。不过，你可以通过弹出一个带有文本字段的 <code>sheet</code> 或者使用自定义的对话框视图来模拟这个行为。</p>
+<h3 id="使用-Alert-与-ObservableObject"><a href="#使用-Alert-与-ObservableObject" class="headerlink" title="使用 Alert 与 ObservableObject"></a>使用 <code>Alert</code> 与 <code>ObservableObject</code></h3><p>当你的视图模型遵循 <code>ObservableObject</code> 并使用 <code>@Published</code> 属性来管理状态时，你可以这样使用 <code>Alert</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">MyViewModel</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            viewModel.triggerAlert()</span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$viewModel</span>.showAlert) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">triggerAlert</span>() &#123;</span><br><span class="line">        showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>MyViewModel</code> 控制 <code>showAlert</code> 的状态，当 <code>triggerAlert</code> 方法被调用时，会显示 <code>Alert</code>。</p>
+<p><code>Alert</code> 在 SwiftUI 中是模态的，这意味着当它出现时，用户必须进行选择才能继续与应用交互。它的设计旨在用于必须要立即解决的情况，因此在设计用户界面时应慎用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xm0005go749yx2htdf" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SwiftUI中Sheet控件的用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI中Stepper的用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>使用JavaNIO编写一个HelloWorld程序 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="以下是一个简单的 Java NIO 客户端和服务端的 “Hello World” 程序： 服务端程序（Server.java）： 123456789101112131415161718192021222324252627282930313233343536373839import java.io.IOException;import java.net.InetSocketAddress;impor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用JavaNIO编写一个HelloWorld程序">
+<meta property="og:url" content="http://example.com/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="以下是一个简单的 Java NIO 客户端和服务端的 “Hello World” 程序： 服务端程序（Server.java）： 123456789101112131415161718192021222324252627282930313233343536373839import java.io.IOException;import java.net.InetSocketAddress;impor">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-03-17T02:52:45.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.449Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-使用JavaNIO编写一个HelloWorld程序" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/" class="article-date">
+  <time class="dt-published" datetime="2024-03-17T02:52:45.000Z" itemprop="datePublished">2024-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      使用JavaNIO编写一个HelloWorld程序
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个简单的 Java NIO 客户端和服务端的 “Hello World” 程序：</p>
+<p><strong>服务端程序（Server.java）：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.ServerSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建 ServerSocketChannel</span></span><br><span class="line">            <span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 绑定端口</span></span><br><span class="line">            serverSocketChannel.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">9999</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;Server started, listening on port 9999...&quot;</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="comment">// 接受客户端连接</span></span><br><span class="line">                <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> serverSocketChannel.accept();</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 读取数据</span></span><br><span class="line">                <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">                socketChannel.read(buffer);</span><br><span class="line">                buffer.flip();</span><br><span class="line">                System.out.println(<span class="string">&quot;Received message from client: &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(buffer.array()).trim());</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 发送响应</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">response</span> <span class="operator">=</span> <span class="string">&quot;Hello Client!&quot;</span>;</span><br><span class="line">                <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.wrap(response.getBytes());</span><br><span class="line">                socketChannel.write(responseBuffer);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 关闭连接</span></span><br><span class="line">                socketChannel.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>客户端程序（Client.java）：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建 SocketChannel</span></span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 连接到服务器</span></span><br><span class="line">            socketChannel.connect(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;Connected to server...&quot;</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 发送数据</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;Hello Server!&quot;</span>;</span><br><span class="line">            <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.wrap(message.getBytes());</span><br><span class="line">            socketChannel.write(buffer);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 接收响应</span></span><br><span class="line">            <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">            socketChannel.read(responseBuffer);</span><br><span class="line">            responseBuffer.flip();</span><br><span class="line">            System.out.println(<span class="string">&quot;Received response from server: &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(responseBuffer.array()).trim());</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 关闭连接</span></span><br><span class="line">            socketChannel.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个程序包括一个简单的客户端和服务器端。服务器监听端口9999，并在接收到客户端消息后，返回 “Hello Client!”。客户端连接到服务器，发送消息 “Hello Server!”，并打印出从服务器接收到的响应。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/" data-id="cltv9a4xw002qgo742d7fexwa" data-title="使用JavaNIO编写一个HelloWorld程序" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SwiftUI中的scrollTransition修饰符怎么使用？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用 Docker 部署 xxl-job 简明指南</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

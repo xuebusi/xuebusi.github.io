@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SwiftUI核心技术第9章复合视图与可复用性 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="第9章：复合视图与可复用性 第1小节：组合现有视图 在构建复杂的用户界面时，有效的视图复用和组合是提高代码可维护性和减少重复的关键。SwiftUI以其声明式语法和数据驱动的方法论，为视图的复合提供了极佳的支持。 视图复合的概念 视图复合是指将多个较小的视图组合成一个复杂的视图的过程。这是软件工程中“组合优于继承”原则的直接体现，允许开发者通过构建并组合简单的视图块来创建复杂的用户界面。 基本视图组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI核心技术第9章复合视图与可复用性">
+<meta property="og:url" content="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第9章：复合视图与可复用性 第1小节：组合现有视图 在构建复杂的用户界面时，有效的视图复用和组合是提高代码可维护性和减少重复的关键。SwiftUI以其声明式语法和数据驱动的方法论，为视图的复合提供了极佳的支持。 视图复合的概念 视图复合是指将多个较小的视图组合成一个复杂的视图的过程。这是软件工程中“组合优于继承”原则的直接体现，允许开发者通过构建并组合简单的视图块来创建复杂的用户界面。 基本视图组">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-08T01:18:34.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.448Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SwiftUI核心技术第9章复合视图与可复用性" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T01:18:34.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SwiftUI核心技术第9章复合视图与可复用性
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第9章：复合视图与可复用性</strong></p>
+<p><strong>第1小节：组合现有视图</strong></p>
+<p>在构建复杂的用户界面时，有效的视图复用和组合是提高代码可维护性和减少重复的关键。SwiftUI以其声明式语法和数据驱动的方法论，为视图的复合提供了极佳的支持。</p>
+<p><strong>视图复合的概念</strong></p>
+<p>视图复合是指将多个较小的视图组合成一个复杂的视图的过程。这是软件工程中“组合优于继承”原则的直接体现，允许开发者通过构建并组合简单的视图块来创建复杂的用户界面。</p>
+<p><strong>基本视图组合</strong></p>
+<p>在SwiftUI中，最基本的视图组合可以通过使用Stacks、Groups等容器视图来完成。例如，一个简单的登录表单可以通过组合TextFields和Button视图来创建：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">LoginForm</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> username: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> password: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">TextField</span>(<span class="string">&quot;Username&quot;</span>, text: <span class="variable">$username</span>)</span><br><span class="line">                .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">            <span class="type">SecureField</span>(<span class="string">&quot;Password&quot;</span>, text: <span class="variable">$password</span>)</span><br><span class="line">                .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;Log In&quot;</span>) &#123;</span><br><span class="line">                <span class="comment">// Handle login action</span></span><br><span class="line">            &#125;</span><br><span class="line">            .padding()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们创建了一个自定义的<code>LoginForm</code>视图，它将两个文本字段和一个按钮组合在一起。</p>
+<p><strong>视图抽象</strong></p>
+<p>SwiftUI的另一个强大功能是能够创建可复用的自定义视图。例如，如果我们发现在不同的地方多次使用相同的文本样式，可以将其抽象为一个可复用的视图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">TitleText</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> text: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(text)</span><br><span class="line">            .font(.largeTitle)</span><br><span class="line">            .foregroundColor(.blue)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>TitleText</code>视图可以确保文本样式的一致性，并且在更新样式时，只需修改<code>TitleText</code>视图的定义即可。</p>
+<p><strong>利用视图修饰符</strong></p>
+<p>除了创建完整的自定义视图外，开发者也可以定义视图修饰符来封装常用的修改器组合。这可以进一步简化视图定义并增强可读性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">CardStyle</span>: <span class="title class_">ViewModifier</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">body</span>(<span class="params">content</span>: <span class="type">Content</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        content</span><br><span class="line">            .padding()</span><br><span class="line">            .background(<span class="type">Color</span>.white)</span><br><span class="line">            .cornerRadius(<span class="number">10</span>)</span><br><span class="line">            .shadow(radius: <span class="number">5</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">cardStyle</span>() -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.modifier(<span class="type">CardStyle</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，任何视图都可以轻松地应用这个“卡片”样式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">    .cardStyle()</span><br></pre></td></tr></table></figure>
+
+<p><strong>小结</strong></p>
+<p>通过组合现有视图，开发者可以在SwiftUI中高效地构建复杂的用户界面。这种方法的核心优势是它提高了代码的可维护性、减少了重复，并且通过自定义视图和视图修饰符，能够轻松实现视图的一致性和可复用性。这种模块化的构建方式非常适合快速迭代和扩展，是构建复杂UI时的推荐方法。</p>
+<p><strong>第2小节：创建可复用的视图库</strong></p>
+<p>在构建复杂的SwiftUI应用时，开发者会逐渐积累起一组可复用的视图和视图修饰符。将这些元素组织成一个内部视图库，不仅可以提升开发效率，还可以确保UI的一致性。在这一节中，我们将探讨如何创建和维护一个可复用的视图库。</p>
+<p><strong>可复用视图库的优点</strong></p>
+<ol>
+<li><strong>一致性</strong>：统一的视图库可以确保整个应用的视觉元素保持一致。</li>
+<li><strong>效率</strong>：通过重用视图组件，可以避免重复劳动，加快开发速度。</li>
+<li><strong>可维护性</strong>：需要调整设计时，只需要更新视图库中的组件即可影响整个应用。</li>
+</ol>
+<p><strong>设计可复用视图</strong></p>
+<p>当设计一个可复用视图时，考虑以下几个方面：</p>
+<ul>
+<li><strong>通用性</strong>：视图应该足够通用，能够适应不同的使用场景。</li>
+<li><strong>可配置性</strong>：提供合理的接口来调整视图的外观和行为。</li>
+<li><strong>独立性</strong>：视图应该是自包含的，不依赖于外部状态。</li>
+</ul>
+<p><strong>视图库结构</strong></p>
+<p>一个好的视图库应该具有清晰的结构，通常包含以下几个层次：</p>
+<ol>
+<li><strong>基础视图</strong>：最基本的视图组件，如按钮、标签、输入框等。</li>
+<li><strong>视图修饰符</strong>：用于修饰视图的通用样式，如阴影、边框、字体样式等。</li>
+<li><strong>复合视图</strong>：由多个基础视图或其他复合视图组合而成的复杂视图。</li>
+<li><strong>布局</strong>：用于组织视图在容器中的位置和排列的布局组件。</li>
+</ol>
+<p><strong>实施示例</strong></p>
+<p>让我们来定义一个基础的可复用视图库的组件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基础视图</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">PrimaryButton</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> action: () -&gt; <span class="type">Void</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: action) &#123;</span><br><span class="line">            <span class="type">Text</span>(title)</span><br><span class="line">                .fontWeight(.bold)</span><br><span class="line">                .frame(minWidth: <span class="number">0</span>, maxWidth: .infinity)</span><br><span class="line">                .padding()</span><br><span class="line">                .background(<span class="type">Color</span>.blue)</span><br><span class="line">                .foregroundColor(.white)</span><br><span class="line">                .cornerRadius(<span class="number">10</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 视图修饰符</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ShadowModifier</span>: <span class="title class_">ViewModifier</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">body</span>(<span class="params">content</span>: <span class="type">Content</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        content</span><br><span class="line">            .shadow(color: .gray, radius: <span class="number">5</span>, x: <span class="number">0</span>, y: <span class="number">2</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">applyShadow</span>() -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        modifier(<span class="type">ShadowModifier</span>())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复合视图</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">UserInfoCard</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> username: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> email: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span>(alignment: .leading) &#123;</span><br><span class="line">            <span class="type">Text</span>(username)</span><br><span class="line">                .font(.headline)</span><br><span class="line">                .applyShadow()</span><br><span class="line">            <span class="type">Text</span>(email)</span><br><span class="line">                .font(.subheadline)</span><br><span class="line">        &#125;</span><br><span class="line">        .padding()</span><br><span class="line">        .background(<span class="type">Color</span>.white)</span><br><span class="line">        .cornerRadius(<span class="number">10</span>)</span><br><span class="line">        .applyShadow()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>视图库的维护</strong></p>
+<ul>
+<li><strong>文档</strong>：为每个组件编写详细的文档，说明其用法和配置选项。</li>
+<li><strong>示例应用</strong>：创建一个示例应用，演示视图库中每个组件的用法。</li>
+<li><strong>版本控制</strong>：当更新视图库时，使用版本控制来管理变更。</li>
+</ul>
+<p><strong>小结</strong></p>
+<p>创建和维护一个可复用的视图库是提高SwiftUI应用开发效率和质量的有效方法。通过精心设计和文档化，视图库不仅能够确保UI的一致性，还能极大地简化应用的迭代和扩展。</p>
+<p><strong>第3小节：自定义Modifier</strong></p>
+<p>在SwiftUI中，<code>Modifier</code>允许开发者封装一系列的视图修改操作，并可复用于不同的视图。通过创建自定义的<code>Modifier</code>，可以极大地提高代码的可维护性和清晰度，同时也使得UI组件的风格和布局保持一致。本小节将详细介绍如何定义和使用自定义Modifier。</p>
+<p><strong>理解Modifier</strong></p>
+<p>Modifier是一种遵循<code>ViewModifier</code>协议的结构体，它通过改变视图的渲染和布局属性来修改视图的外观和行为。每当对视图应用Modifier时，SwiftUI都会在背后创建一个新的视图结构，而不是修改旧的视图。这使得视图修改操作既安全又易于管理。</p>
+<p><strong>创建自定义Modifier</strong></p>
+<ol>
+<li><strong>定义Modifier结构体</strong>：首先，需要定义一个结构体并遵循<code>ViewModifier</code>协议。</li>
+<li><strong>实现<code>body</code>属性</strong>：在结构体中实现必需的<code>body</code>计算属性，它接收一个<code>Content</code>参数，并返回一个新的视图。</li>
+<li><strong>添加修改操作</strong>：在<code>body</code>属性中，对传入的<code>Content</code>进行修改，如添加边框、改变字体、设置背景等。</li>
+</ol>
+<p><strong>示例：自定义圆角和阴影Modifier</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">RoundedShadowModifier</span>: <span class="title class_">ViewModifier</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> radius: <span class="type">CGFloat</span></span><br><span class="line">    <span class="keyword">var</span> shadowRadius: <span class="type">CGFloat</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">body</span>(<span class="params">content</span>: <span class="type">Content</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        content</span><br><span class="line">            .cornerRadius(radius)</span><br><span class="line">            .shadow(radius: shadowRadius)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extension</span> <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">roundedShadow</span>(<span class="params">radius</span>: <span class="type">CGFloat</span>, <span class="params">shadowRadius</span>: <span class="type">CGFloat</span>) -&gt; <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        modifier(<span class="type">RoundedShadowModifier</span>(radius: radius, shadowRadius: shadowRadius))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述示例中，我们定义了一个名为<code>RoundedShadowModifier</code>的自定义Modifier，它将圆角和阴影效果应用于任何视图。通过<code>extension</code>扩展<code>View</code>，我们为所有视图添加了一个名为<code>roundedShadow</code>的新方法，它使得应用圆角和阴影更加便捷。</p>
+<p><strong>使用自定义Modifier</strong></p>
+<p>一旦定义了自定义Modifier，就可以在任何视图上像使用内置Modifier一样使用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Text</span>(<span class="string">&quot;Hello, SwiftUI!&quot;</span>)</span><br><span class="line">    .roundedShadow(radius: <span class="number">10</span>, shadowRadius: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>优化Modifier</strong></p>
+<ul>
+<li><strong>链式调用</strong>：Modifier可以链式调用，使得视图修改更加灵活。</li>
+<li><strong>条件修改</strong>：可以使用条件语句动态地应用Modifier。</li>
+<li><strong>性能考虑</strong>：尽量避免创建过于复杂的Modifier，以免影响性能。</li>
+</ul>
+<p><strong>总结</strong></p>
+<p>自定义Modifier在SwiftUI开发中是一项强大的工具，它不仅可以提高代码的复用性和清晰度，还可以帮助维护应用的视觉一致性。通过创建合适的自定义Modifier，可以简化视图的构建过程，并提升开发效率。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC9%E7%AB%A0%E5%A4%8D%E5%90%88%E8%A7%86%E5%9B%BE%E4%B8%8E%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%80%A7/" data-id="cltv9a4xw002ogo74d76986mg" data-title="SwiftUI核心技术第9章复合视图与可复用性" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC10%E7%AB%A0%E9%9B%86%E6%88%90Core-Data%E5%92%8CCloudKit/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SwiftUI核心技术第10章集成Core Data和CloudKit
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC8%E7%AB%A0%E5%8A%A8%E7%94%BB%E4%B8%8E%E8%BD%AC%E5%9C%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI核心技术第8章动画与转场</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

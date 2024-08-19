@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-SwiftUI中Popover控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:06:54.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Popover控件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，Popover 是一种用于临时显示浮动内容的组件。它通常被用来提供额外的信息或选项，而不必将用户带离他们当前的上下文。Popover 在 iPad 上特别有用，因为它可以利用更大的屏幕尺寸来展示额外内容而不覆盖整个屏幕。</p>
+<h3 id="Popover-的基本用法"><a href="#Popover-的基本用法" class="headerlink" title="Popover 的基本用法"></a>Popover 的基本用法</h3><p>要在 SwiftUI 中创建一个 popover，你可以使用 <code>.popover</code> 修饰符。这需要一个绑定的布尔值，当该值为真时，会显示 popover。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingPopover <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Popover&quot;</span>) &#123;</span><br><span class="line">            showingPopover <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Here&#x27;s the content of the Popover.&quot;</span>)</span><br><span class="line">                .font(.headline)</span><br><span class="line">                .padding()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当用户点击按钮时，<code>showingPopover</code> 变为 <code>true</code>，这会触发 popover 的展示。</p>
+<h3 id="Popover-的附加配置"><a href="#Popover-的附加配置" class="headerlink" title="Popover 的附加配置"></a>Popover 的附加配置</h3><p>Popover 支持使用 <code>attachmentAnchor</code> 和 <code>arrowEdge</code> 参数来进一步配置其位置和箭头的朝向。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.popover(isPresented: <span class="variable">$showingPopover</span>, attachmentAnchor: .point(.bottom), arrowEdge: .top) &#123;</span><br><span class="line">    <span class="comment">// Popover 的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Popover-用于显示动态内容"><a href="#Popover-用于显示动态内容" class="headerlink" title="Popover 用于显示动态内容"></a>Popover 用于显示动态内容</h3><p>Popover 也可以用来显示动态内容，这意味着你可以根据某些状态或者条件来决定展示什么内容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> someCondition &#123;</span><br><span class="line">        <span class="type">SomeView</span>()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">AnotherView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Popover-与-item-绑定"><a href="#Popover-与-item-绑定" class="headerlink" title="Popover 与 item 绑定"></a>Popover 与 <code>item</code> 绑定</h3><p>除了使用布尔值，popover 还可以通过绑定到一个可选项上来展示，这可以使你基于选择的特定对象显示不同的 popover。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedPerson: <span class="type">Person</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">List</span>(people) &#123; person <span class="keyword">in</span></span><br><span class="line">            <span class="type">Text</span>(person.name)</span><br><span class="line">                .onTapGesture &#123;</span><br><span class="line">                    <span class="keyword">self</span>.selectedPerson <span class="operator">=</span> person</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        .popover(item: <span class="variable">$selectedPerson</span>) &#123; person <span class="keyword">in</span></span><br><span class="line">            <span class="type">PersonDetailView</span>(person: person)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Person</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">UUID</span></span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，每个人的名字是一个列表项。当点击名字时，<code>selectedPerson</code> 被设置为该 <code>Person</code> 实例，并且展示了一个 popover 来显示更多关于这个人的详情。</p>
+<h3 id="在不同设备上的表现"><a href="#在不同设备上的表现" class="headerlink" title="在不同设备上的表现"></a>在不同设备上的表现</h3><p>Popover 在 iPadOS 上以浮动视图的形式展现，在 iPhone 上则会占据整个屏幕，类似于 modal presentation。因此，设计你的 popover 内容时，要考虑它在不同设备上的表现。</p>
+<p>Popover 通常用于临时任务或补充内容的场景，它的优点在于能够保持用户在当前的上下文中，同时提供额外的交互或信息。与其它模态视图一样，它们应该被谨慎使用，以免打断用户的工作流程。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xp000ggo747e70cl75" data-title="SwiftUI中Popover控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中Sheet控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:02:27.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Sheet控件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，sheet 是一种展示模态视图的方式。它通常用于显示一个临时的内容屏幕，例如表单、详情页或者是一个步骤的一部分。<code>sheet</code> 修饰符可以让你在当前视图上方展示一个新的视图，并提供内容和行为的自定义。</p>
+<h3 id="使用-sheet-修饰符展示模态视图"><a href="#使用-sheet-修饰符展示模态视图" class="headerlink" title="使用 sheet 修饰符展示模态视图"></a>使用 <code>sheet</code> 修饰符展示模态视图</h3><p>基本的 <code>sheet</code> 用法涉及一个绑定的布尔值，当这个布尔值为真时，sheet 会显示出来。这个布尔值通常用 <code>@State</code> 属性来管理。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingSheet <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Sheet&quot;</span>) &#123;</span><br><span class="line">            showingSheet <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">            <span class="comment">// Sheet 的内容</span></span><br><span class="line">            <span class="type">DetailView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，点击按钮会设置 <code>showingSheet</code> 为 true，从而触发 sheet 的显示。<code>DetailView()</code> 就是你想要作为 sheet 显示的视图。</p>
+<h3 id="使用-sheet-与-item-参数"><a href="#使用-sheet-与-item-参数" class="headerlink" title="使用 sheet 与 item 参数"></a>使用 <code>sheet</code> 与 <code>item</code> 参数</h3><p>当你要为每个不同的数据对象显示一个 sheet 时，你可以使用 <code>sheet(item:onDismiss:content:)</code> 修饰符。这个修饰符需要一个绑定到可选项的 <code>@State</code> 属性。当这个属性不是 <code>nil</code> 时，将会显示一个 sheet。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedUser: <span class="type">User</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="comment">// 假设你有一个用户列表</span></span><br><span class="line">        <span class="type">ForEach</span>(users) &#123; user <span class="keyword">in</span></span><br><span class="line">            <span class="type">Button</span>(user.name) &#123;</span><br><span class="line">                selectedUser <span class="operator">=</span> user</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        .sheet(item: <span class="variable">$selectedUser</span>) &#123; user <span class="keyword">in</span></span><br><span class="line">            <span class="comment">// 当 selectedUser 不是 nil 时，显示的视图</span></span><br><span class="line">            <span class="type">UserDetailView</span>(user: user)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">User</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id <span class="operator">=</span> <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当你点击一个用户的按钮时，<code>selectedUser</code> 被设置为那个用户的实例，触发对应用户详情的 sheet。</p>
+<h3 id="使用-sheet-的-onDismiss-参数"><a href="#使用-sheet-的-onDismiss-参数" class="headerlink" title="使用 sheet 的 onDismiss 参数"></a>使用 <code>sheet</code> 的 <code>onDismiss</code> 参数</h3><p>当你的 sheet 被关闭时，你可能想要执行一些代码。<code>onDismiss</code> 参数允许你添加一个闭包，当 sheet 消失时会被调用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.sheet(isPresented: <span class="variable">$showingSheet</span>, onDismiss: &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Sheet was dismissed.&quot;</span>)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">    <span class="type">DetailView</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态内容的-sheet"><a href="#动态内容的-sheet" class="headerlink" title="动态内容的 sheet"></a>动态内容的 sheet</h3><p>你还可以在 sheet 的闭包中直接构造视图，而不是传递一个预先定义的视图。这样，你可以基于当前状态动态地改变 sheet 的内容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> someCondition &#123;</span><br><span class="line">        <span class="type">SomeView</span>()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">AnotherView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="FullScreenCover"><a href="#FullScreenCover" class="headerlink" title="FullScreenCover"></a>FullScreenCover</h3><p>除了标准的 <code>sheet</code>，SwiftUI 还提供了 <code>fullScreenCover</code>，它以全屏模式显示内容，对于那些需要更多空间或需要从视觉上区分出来的情况非常有用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.fullScreenCover(isPresented: <span class="variable">$showingCover</span>) &#123;</span><br><span class="line">    <span class="type">FullScreenModalView</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>Sheet 控件在 SwiftUI 中为模态内容的展示提供了一种简洁而强大的方式。通过简单的状态绑定和自定义视图传递，你可以创建丰富的用户体验，并管理视图的呈现和隐藏。记得，模态视图是一个打断用户当前流程的操作，所以应该在需要的时候谨慎使用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSheet%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xp000kgo74clf2b0bm" data-title="SwiftUI中Sheet控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中Alert控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:58:19.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Alert控件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Alert</code> 控件用来向用户显示警告或者提示信息，并且可以提供一个或多个操作供用户选择。<code>Alert</code> 通常用于提示错误信息、确认重要操作或展示信息确认。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>使用 <code>Alert</code> 需要创建一个状态变量来控制它的显示与隐藏，并且在视图的某个事件中触发这个状态变量的变化。然后，你可以使用 <code>.alert</code> 修饰符来在视图层级中添加一个 <code>Alert</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，当按钮被点击时，<code>showAlert</code> 状态变为 <code>true</code>，这会触发 <code>.alert</code> 修饰符显示一个带有 “OK” 按钮的警告框。</p>
+<h3 id="带有多个按钮的-Alert"><a href="#带有多个按钮的-Alert" class="headerlink" title="带有多个按钮的 Alert"></a>带有多个按钮的 Alert</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Cancel&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Delete&quot;</span>, role: .destructive) &#123; &#125;</span><br><span class="line">    <span class="type">Button</span>(<span class="string">&quot;Save&quot;</span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，除了取消按钮外，我们还添加了一个具有破坏性的删除操作和一个普通的保存操作。</p>
+<h3 id="Alert-的自定义内容"><a href="#Alert-的自定义内容" class="headerlink" title="Alert 的自定义内容"></a>Alert 的自定义内容</h3><p>你还可以自定义 <code>Alert</code> 的标题、消息和按钮。例如，下面的 <code>Alert</code> 有一个标题、消息和两个按钮：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.alert(isPresented: <span class="variable">$showAlert</span>) &#123;</span><br><span class="line">    <span class="type">Alert</span>(</span><br><span class="line">        title: <span class="type">Text</span>(<span class="string">&quot;Important message&quot;</span>),</span><br><span class="line">        message: <span class="type">Text</span>(<span class="string">&quot;Please read this.&quot;</span>),</span><br><span class="line">        primaryButton: .default(<span class="type">Text</span>(<span class="string">&quot;Got it!&quot;</span>)),</span><br><span class="line">        secondaryButton: .cancel()</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Alert-获取用户输入"><a href="#使用-Alert-获取用户输入" class="headerlink" title="使用 Alert 获取用户输入"></a>使用 <code>Alert</code> 获取用户输入</h3><p>在 SwiftUI 中，如果你想在 <code>Alert</code> 中获取用户的输入，你通常会使用其他视图，如 <code>sheet</code>，因为 <code>Alert</code> 本身并不支持文本输入。不过，你可以通过弹出一个带有文本字段的 <code>sheet</code> 或者使用自定义的对话框视图来模拟这个行为。</p>
+<h3 id="使用-Alert-与-ObservableObject"><a href="#使用-Alert-与-ObservableObject" class="headerlink" title="使用 Alert 与 ObservableObject"></a>使用 <code>Alert</code> 与 <code>ObservableObject</code></h3><p>当你的视图模型遵循 <code>ObservableObject</code> 并使用 <code>@Published</code> 属性来管理状态时，你可以这样使用 <code>Alert</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@ObservedObject</span> <span class="keyword">var</span> viewModel <span class="operator">=</span> <span class="type">MyViewModel</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Alert&quot;</span>) &#123;</span><br><span class="line">            viewModel.triggerAlert()</span><br><span class="line">        &#125;</span><br><span class="line">        .alert(<span class="string">&quot;Important message&quot;</span>, isPresented: <span class="variable">$viewModel</span>.showAlert) &#123;</span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;OK&quot;</span>, role: .cancel) &#123; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyViewModel</span>: <span class="title class_">ObservableObject</span> &#123;</span><br><span class="line">    <span class="meta">@Published</span> <span class="keyword">var</span> showAlert <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">triggerAlert</span>() &#123;</span><br><span class="line">        showAlert <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，<code>MyViewModel</code> 控制 <code>showAlert</code> 的状态，当 <code>triggerAlert</code> 方法被调用时，会显示 <code>Alert</code>。</p>
+<p><code>Alert</code> 在 SwiftUI 中是模态的，这意味着当它出现时，用户必须进行选择才能继续与应用交互。它的设计旨在用于必须要立即解决的情况，因此在设计用户界面时应慎用。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADAlert%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xm0005go749yx2htdf" data-title="SwiftUI中Alert控件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中Stepper的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:55:21.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Stepper的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Stepper</code> 控件允许用户通过点击增加或减少按钮来增加或减少一个值。它通常用于输入数量或调整设置，例如设置闹钟的时间或者调整购物车内商品的数量。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>下面是一个基础的 <code>Stepper</code> 控件用法示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> quantity <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>quantity</code> 是一个 <code>@State</code> 属性，它与 <code>Stepper</code> 绑定，用户点击 <code>Stepper</code> 来增加或减少 <code>quantity</code> 的值。</p>
+<h3 id="设置范围"><a href="#设置范围" class="headerlink" title="设置范围"></a>设置范围</h3><p>你可以为 <code>Stepper</code> 设置一个具体的数值范围：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这样，<code>quantity</code> 的值将被限制在 0 到 10 之间。</p>
+<h3 id="指定步长"><a href="#指定步长" class="headerlink" title="指定步长"></a>指定步长</h3><p>通过指定 <code>step</code> 参数，你可以控制每次增加或减少的量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">10</span>, step: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里每次点击会增加或减少 2 的单位。</p>
+<h3 id="响应更改"><a href="#响应更改" class="headerlink" title="响应更改"></a>响应更改</h3><p>如果你需要在值改变时执行某些操作，可以使用 <code>onIncrement</code> 和 <code>onDecrement</code> 闭包：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(onIncrement: &#123;</span><br><span class="line">    <span class="keyword">self</span>.quantity <span class="operator">+=</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">self</span>.performSomeAction()</span><br><span class="line">&#125;, onDecrement: &#123;</span><br><span class="line">    <span class="keyword">self</span>.quantity <span class="operator">-=</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">self</span>.performSomeAction()</span><br><span class="line">&#125;, label: &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><code>performSomeAction()</code> 函数会在数量增加或减少时被调用。</p>
+<h3 id="样式自定义"><a href="#样式自定义" class="headerlink" title="样式自定义"></a>样式自定义</h3><p><code>Stepper</code> 可以通过修饰符自定义样式，例如加入 <code>.labelsHidden()</code> 来隐藏标签：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>)</span><br><span class="line">    .labelsHidden()</span><br></pre></td></tr></table></figure>
+
+<h3 id="集成到其他-UI-中"><a href="#集成到其他-UI-中" class="headerlink" title="集成到其他 UI 中"></a>集成到其他 UI 中</h3><p><code>Stepper</code> 可以很容易地集成到列表或者表单中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Form</span> &#123;</span><br><span class="line">    <span class="type">Section</span>(header: <span class="type">Text</span>(<span class="string">&quot;Settings&quot;</span>)) &#123;</span><br><span class="line">        <span class="type">Stepper</span>(<span class="string">&quot;Quantity: <span class="subst">\(quantity)</span>&quot;</span>, value: <span class="variable">$quantity</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>调整设置，如定时器的分钟数。</li>
+<li>购物车中商品的数量。</li>
+<li>任何需要简单加减数字输入的地方。</li>
+</ul>
+<p><code>Stepper</code> 因其简单直观的用户体验，在需要数字输入但又不适合打开键盘的场合尤其有用。在 SwiftUI 中，它的使用非常简洁，只需几行代码即可集成。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xr0016go74d7ijfg9l" data-title="SwiftUI中Stepper的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中Slider组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:50:43.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Slider组件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Slider</code> 是一个控件，允许用户从一个连续或者离散的值范围内选择一个值。它通常用来表示设置项中的数值，比如音量控制或者屏幕亮度调整。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>基础的 <code>Slider</code> 需要与 <code>@State</code> 绑定，来跟踪滑块的当前值。例如，创建一个调节音量的滑块：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> volume: <span class="type">Double</span> <span class="operator">=</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>volume</code> 变量将会跟踪滑块的当前位置，并且滑块的取值范围被设置在 0 到 100 之间。</p>
+<h3 id="步长"><a href="#步长" class="headerlink" title="步长"></a>步长</h3><p>你可以指定 <code>Slider</code> 的 <code>step</code> 参数来更改滑块的步长：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, step: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，滑块的值将以 5 的倍数变化。</p>
+<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p><code>Slider</code> 提供了多个修饰符来自定义外观：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    .accentColor(.green) <span class="comment">// 改变滑块的颜色</span></span><br><span class="line">    .trackColor(.blue, minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>), maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>)) <span class="comment">// 自iOS 16起可用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h3><p>为了增加无障碍性，你可以为 <code>Slider</code> 添加一个标签，这样辅助技术如 VoiceOver 可以读取这个标签：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.accessibilityValue(<span class="type">Text</span>(<span class="string">&quot;<span class="subst">\(Int(volume))</span>&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="实时预览"><a href="#实时预览" class="headerlink" title="实时预览"></a>实时预览</h3><p>如果你想在用户拖动滑块时实时获得更新，可以添加 <code>onEditingChanged</code> 回调：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> <span class="operator">!</span>editing &#123;</span><br><span class="line">        <span class="comment">// 用户停止拖动滑块时的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="范围选择"><a href="#范围选择" class="headerlink" title="范围选择"></a>范围选择</h3><p><code>SwiftUI</code> 也支持范围选择器，从 <code>iOS 14</code> 开始可以使用 <code>RangeSlider</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> priceRange: <span class="type">ClosedRange</span>&lt;<span class="type">Double</span>&gt; <span class="operator">=</span> <span class="number">10</span><span class="operator">...</span><span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="type">RangeSlider</span>(values: <span class="variable">$priceRange</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>priceRange</code> 会跟踪一个范围值，用户可以选择从最低到最高价之间的任何价格区间。</p>
+<h3 id="使用-Slider-配置"><a href="#使用-Slider-配置" class="headerlink" title="使用 Slider 配置"></a>使用 <code>Slider</code> 配置</h3><p>对于更复杂的配置，你可以使用 <code>Slider</code> 初始化器的更多参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(</span><br><span class="line">    value: <span class="variable">$volume</span>,</span><br><span class="line">    in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>,</span><br><span class="line">    step: <span class="number">1</span>,</span><br><span class="line">    onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 用户拖动滑块时的操作</span></span><br><span class="line">    &#125;,</span><br><span class="line">    minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>),</span><br><span class="line">    maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>),</span><br><span class="line">    label: &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>以上是 <code>Slider</code> 的一些常用用法和配置选项。通过合理利用，你可以在 SwiftUI 应用中提供丰富的交互式元素。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xq000rgo744x4u8tt5" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中Picker的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:47:14.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Picker的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Picker</code> 是一个可以让用户从一组选项中选择一个选项的控件。它可以采用多种样式，如轮盘、菜单或段控制（segmented control）。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>最基本的 <code>Picker</code> 使用时需要配合 <code>@State</code> 属性来绑定选择的值。以下是一个简单的 <code>Picker</code> 示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在表单中使用"><a href="#在表单中使用" class="headerlink" title="在表单中使用"></a>在表单中使用</h3><p><code>Picker</code> 常常用在 <code>Form</code> 中，这会自动采用最适合表单样式的方式显示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Form</span> &#123;</span><br><span class="line">            <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-PickerStyle"><a href="#使用-PickerStyle" class="headerlink" title="使用 PickerStyle"></a>使用 <code>PickerStyle</code></h3><p>可以使用 <code>PickerStyle</code> 来改变 <code>Picker</code> 的外观和感觉：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">    <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">        <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.pickerStyle(<span class="type">SegmentedPickerStyle</span>())</span><br></pre></td></tr></table></figure>
+
+<p>SwiftUI 提供的 <code>PickerStyle</code> 有：</p>
+<ul>
+<li><code>DefaultPickerStyle</code></li>
+<li><code>SegmentedPickerStyle</code></li>
+<li><code>WheelPickerStyle</code></li>
+<li><code>InlinePickerStyle</code></li>
+<li><code>MenuPickerStyle</code></li>
+<li><code>AutomaticPickerStyle</code></li>
+</ul>
+<p>不同的 <code>PickerStyle</code> 在不同的平台和上下文中有不同的外观和行为。</p>
+<h3 id="在导航视图中使用"><a href="#在导航视图中使用" class="headerlink" title="在导航视图中使用"></a>在导航视图中使用</h3><p>在导航视图中，<code>Picker</code> 通常会显示为可以导航到另一个视图选择项的列表：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">Form</span> &#123;</span><br><span class="line">                <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">                    <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                        <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                .navigationTitle(<span class="string">&quot;Fruits&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 iOS 上，<code>Picker</code> 会自动跳转到一个新的屏幕，用户可以选择一个选项后返回。</p>
+<h3 id="结合使用-ForEach-和-Identifiable"><a href="#结合使用-ForEach-和-Identifiable" class="headerlink" title="结合使用 ForEach 和 Identifiable"></a>结合使用 <code>ForEach</code> 和 <code>Identifiable</code></h3><p>如果你的数据模型遵循 <code>Identifiable</code> 协议，你可以更简洁地使用 <code>ForEach</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Fruit</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id <span class="operator">=</span> <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">Fruit</span>?</span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="type">Fruit</span>(name: <span class="string">&quot;Apple&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Banana&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Cherry&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Date&quot;</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(fruits) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(fruit.name).tag(fruit <span class="keyword">as</span> <span class="type">Fruit</span>?)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，当使用自定义数据类型作为 <code>Picker</code> 的 <code>tag</code> 值时，需要将 <code>selectedFruit</code> 类型设置为可选的 (<code>Fruit?</code>)，因为 <code>Picker</code> 的 <code>tag</code> 需要能够匹配未选择任何值的情况。</p>
+<p>SwiftUI 的 <code>Picker</code> 是一个强大的控件，提供了灵活的接口来适应各种选择需求，并且能够很好地与其他 UI 控件集成，创建直观且有效的用户界面。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xp000fgo74h11s2l0z" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中Label的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:43:44.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中Label的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Label</code> 是用于展示一个文本和一个图标（icon）的用户界面控件。这对于清晰表达控件或动作的目的非常有用，尤其是在列表、菜单和导航栏中。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>最简单的 <code>Label</code> 用法是提供文本和系统图标的名称：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Label</span>(<span class="string">&quot;Add Item&quot;</span>, systemImage: <span class="string">&quot;plus&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用自定义图像"><a href="#使用自定义图像" class="headerlink" title="使用自定义图像"></a>使用自定义图像</h3><p>你也可以使用自定义图像来创建一个 <code>Label</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Label</span>(<span class="string">&quot;Edit&quot;</span>, image: <span class="string">&quot;customIconName&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里 <code>&quot;customIconName&quot;</code> 是你的资产目录中的图像的名称。</p>
+<h3 id="使用-SF-Symbols"><a href="#使用-SF-Symbols" class="headerlink" title="使用 SF Symbols"></a>使用 SF Symbols</h3><p>SwiftUI 和 SF Symbols 集成，允许你方便地使用数千种符号图标：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Label</span>(<span class="string">&quot;Message&quot;</span>, systemImage: <span class="string">&quot;message.fill&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义视图"><a href="#自定义视图" class="headerlink" title="自定义视图"></a>自定义视图</h3><p>如果你需要对 <code>Label</code> 的文本或图标部分进行更多的自定义，你可以提供自定义视图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Label</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Settings&quot;</span>)</span><br><span class="line">        .foregroundColor(.primary)</span><br><span class="line">        .font(.body)</span><br><span class="line">        .padding()</span><br><span class="line">        .background(<span class="type">Color</span>.gray.opacity(<span class="number">0.2</span>))</span><br><span class="line">        .cornerRadius(<span class="number">5</span>)</span><br><span class="line">&#125; icon: &#123;</span><br><span class="line">    <span class="type">Image</span>(systemName: <span class="string">&quot;gear&quot;</span>)</span><br><span class="line">        .foregroundColor(.blue)</span><br><span class="line">        .padding()</span><br><span class="line">        .background(<span class="type">Color</span>.gray.opacity(<span class="number">0.2</span>))</span><br><span class="line">        .cornerRadius(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套在其他视图中"><a href="#嵌套在其他视图中" class="headerlink" title="嵌套在其他视图中"></a>嵌套在其他视图中</h3><p><code>Label</code> 可以嵌套在列表、按钮和其他容器视图中。例如，在一个 <code>List</code> 中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span> &#123;</span><br><span class="line">    <span class="type">Label</span>(<span class="string">&quot;Notifications&quot;</span>, systemImage: <span class="string">&quot;bell&quot;</span>)</span><br><span class="line">    <span class="type">Label</span>(<span class="string">&quot;Privacy&quot;</span>, systemImage: <span class="string">&quot;hand.raised&quot;</span>)</span><br><span class="line">    <span class="type">Label</span>(<span class="string">&quot;General&quot;</span>, systemImage: <span class="string">&quot;wrench&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><p><code>Label</code> 还可以使用不同的样式，例如：<code>iconOnlyLabelStyle</code> 或 <code>titleOnlyLabelStyle</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Label</span>(<span class="string">&quot;Airplane Mode&quot;</span>, systemImage: <span class="string">&quot;airplane&quot;</span>)</span><br><span class="line">    .labelStyle(<span class="type">TitleOnlyLabelStyle</span>())</span><br><span class="line"></span><br><span class="line"><span class="type">Label</span>(<span class="string">&quot;WiFi&quot;</span>, systemImage: <span class="string">&quot;wifi&quot;</span>)</span><br><span class="line">    .labelStyle(<span class="type">IconOnlyLabelStyle</span>())</span><br></pre></td></tr></table></figure>
+
+<h3 id="无障碍"><a href="#无障碍" class="headerlink" title="无障碍"></a>无障碍</h3><p>不要忘了考虑无障碍需求，你可以添加描述来帮助辅助技术，如 VoiceOver，更好地解释 <code>Label</code> 的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Label</span>(<span class="string">&quot;Delete&quot;</span>, systemImage: <span class="string">&quot;trash&quot;</span>)</span><br><span class="line">    .accessibilityLabel(<span class="type">Text</span>(<span class="string">&quot;Delete&quot;</span>))</span><br><span class="line">    .accessibilityHint(<span class="type">Text</span>(<span class="string">&quot;Double tap to remove the item&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
+<li>在 <code>NavigationView</code> 和工具栏按钮中展示图标和文本。</li>
+<li>在列表或菜单中作为条目显示，既要展示图标也要展示文本。</li>
+<li>在用户界面的其他任何地方，当你需要在文本旁边显示图标以提高识别度时。</li>
+</ul>
+<p><code>Label</code> 由于其多功能性和易用性，在 SwiftUI 中是一个很受欢迎的组件。通过组合使用文本和图标，你可以创建既美观又直观的用户界面元素。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xm0006go74920b8dfu" data-title="SwiftUI中Label的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中SecureField的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:40:52.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中SecureField的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>SecureField</code> 用于输入敏感信息，如密码，它会自动遮蔽输入的文字。<code>SecureField</code> 的 API 使用起来和 <code>TextField</code> 非常相似。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>下面是一个简单的 <code>SecureField</code> 示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> password: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">SecureField</span>(<span class="string">&quot;Enter your password&quot;</span>, text: <span class="variable">$password</span>)</span><br><span class="line">            .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">            .padding()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，用户输入的文本会被遮蔽，不会直接显示在屏幕上。</p>
+<h3 id="与-TextField-结合"><a href="#与-TextField-结合" class="headerlink" title="与 TextField 结合"></a>与 <code>TextField</code> 结合</h3><p>通常，在一个表单中，你可能会将 <code>TextField</code> 用于用户名输入，而将 <code>SecureField</code> 用于密码输入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> username: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> password: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">VStack</span> &#123;</span><br><span class="line">            <span class="type">TextField</span>(<span class="string">&quot;Username&quot;</span>, text: <span class="variable">$username</span>)</span><br><span class="line">                .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">                .autocapitalization(.none)</span><br><span class="line">                .disableAutocorrection(<span class="literal">true</span>)</span><br><span class="line">                .padding()</span><br><span class="line"></span><br><span class="line">            <span class="type">SecureField</span>(<span class="string">&quot;Password&quot;</span>, text: <span class="variable">$password</span>)</span><br><span class="line">                .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">                .padding()</span><br><span class="line"></span><br><span class="line">            <span class="type">Button</span>(<span class="string">&quot;Login&quot;</span>) &#123;</span><br><span class="line">                <span class="comment">// Perform login action</span></span><br><span class="line">            &#125;</span><br><span class="line">            .disabled(username.isEmpty <span class="operator">||</span> password.isEmpty)</span><br><span class="line">        &#125;</span><br><span class="line">        .padding()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，登录按钮会在用户名或密码字段为空时被禁用。</p>
+<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p>和 <code>TextField</code> 一样，你可以使用修饰符来自定义 <code>SecureField</code> 的外观：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SecureField</span>(<span class="string">&quot;Password&quot;</span>, text: <span class="variable">$password</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.gray.opacity(<span class="number">0.2</span>))</span><br><span class="line">    .cornerRadius(<span class="number">5</span>)</span><br><span class="line">    .padding(.horizontal)</span><br></pre></td></tr></table></figure>
+
+<h3 id="响应提交事件"><a href="#响应提交事件" class="headerlink" title="响应提交事件"></a>响应提交事件</h3><p>如果你想要在用户提交密码时做出响应（例如，按下键盘的 return 键），你可以使用 <code>onCommit</code> 闭包：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SecureField</span>(<span class="string">&quot;Password&quot;</span>, text: <span class="variable">$password</span>, onCommit: &#123;</span><br><span class="line">    <span class="comment">// Perform an action when the user submits the password</span></span><br><span class="line">    loginUser()</span><br><span class="line">&#125;)</span><br><span class="line">.textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">.padding()</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>loginUser()</code> 函数会在用户按下 return 键后被调用。</p>
+<p><code>SecureField</code> 是构建安全文本输入场景的基础组件，它可以与你的验证逻辑、用户认证服务以及其他 UI 组件结合使用，以创建安全的用户体验。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSecureField%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xq000lgo74fjwt4aol" data-title="SwiftUI中SecureField的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-使用TextField开发一个记事本" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:30:16.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/">使用TextField开发一个记事本</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>要使用 SwiftUI 创建一个简单的记事本应用，你可以按照以下步骤操作：</p>
+<ol>
+<li>创建一个用于存储用户输入文本的状态变量。</li>
+<li>使用 <code>TextField</code> 为用户提供文本输入的地方。</li>
+<li>将输入的文本存储起来，并显示在界面上。</li>
+<li>提供一个方法来保存和加载这些文本。</li>
+</ol>
+<p>下面是一个简单记事本应用的基本代码框架：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> noteText: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> savedNotes: [<span class="type">String</span>] <span class="operator">=</span> []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">VStack</span> &#123;</span><br><span class="line">                <span class="type">TextField</span>(<span class="string">&quot;Write your note here...&quot;</span>, text: <span class="variable">$noteText</span>)</span><br><span class="line">                    .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>())</span><br><span class="line">                    .padding()</span><br><span class="line"></span><br><span class="line">                <span class="type">Button</span>(<span class="string">&quot;Save Note&quot;</span>) &#123;</span><br><span class="line">                    saveNote()</span><br><span class="line">                    noteText <span class="operator">=</span> <span class="string">&quot;&quot;</span> <span class="comment">// Clear the TextField after saving</span></span><br><span class="line">                &#125;</span><br><span class="line">                .padding()</span><br><span class="line">                .disabled(noteText.isEmpty) <span class="comment">// Disable the button if there is no text</span></span><br><span class="line"></span><br><span class="line">                <span class="type">List</span>(savedNotes, id: \.<span class="keyword">self</span>) &#123; note <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(note)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            .navigationTitle(<span class="string">&quot;My Notes&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">saveNote</span>() &#123;</span><br><span class="line">        savedNotes.append(noteText) <span class="comment">// Adds the current note text to the saved notes array</span></span><br><span class="line">        <span class="comment">// Here, you might also write the notes to persistent storage</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ContentView</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码创建了一个简单的记事本界面。用户可以在 <code>TextField</code> 中输入文本，点击 “Save Note” 按钮后，文本会被添加到 <code>savedNotes</code> 数组中，并且显示在下面的列表中。</p>
+<h3 id="进阶："><a href="#进阶：" class="headerlink" title="进阶："></a>进阶：</h3><ul>
+<li>你可能希望将这些笔记保存到持久存储中，例如使用 <code>UserDefaults</code> 或文件系统，这样即使应用关闭，数据也不会丢失。</li>
+<li>可以考虑使用 <code>ForEach</code> 而不是直接在 <code>List</code> 中使用数组，以便于处理删除操作等。</li>
+<li>对 <code>List</code> 使用 <code>.onDelete(perform:)</code> 方法可以让用户删除条目。</li>
+</ul>
+<p>这个代码示例仅是一个起点，根据你的需求，你可以添加更多的功能，比如编辑已保存的笔记、按日期排序笔记、将笔记分组等。记事本应用可以根据个人需求有很多复杂的变体，上面的示例为你提供了一个构建更复杂应用的基础。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/%E4%BD%BF%E7%94%A8TextField%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%AE%B0%E4%BA%8B%E6%9C%AC/" data-id="cltv9a4xx002sgo74gct62nc0" data-title="使用TextField开发一个记事本" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI中的TextField组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:27:08.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的TextField组件的用法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>TextField</code> 组件用于收集用户输入的文本信息。它类似于 UIKit 中的 <code>UITextField</code> 或者 Web 开发中的 <code>&lt;input type=&quot;text&quot;&gt;</code>。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>要创建一个 <code>TextField</code>，你至少需要提供两个参数：一个标签和一个绑定到文本值的变量。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br><span class="line">            .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>()) <span class="comment">// 为文本框添加边框样式</span></span><br><span class="line">            .padding() <span class="comment">// 增加一些内边距</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="定制样式"><a href="#定制样式" class="headerlink" title="定制样式"></a>定制样式</h3><p>SwiftUI 允许通过修饰符来定制 <code>TextField</code> 的外观和行为。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.gray.opacity(<span class="number">0.2</span>)) <span class="comment">// 设置背景色</span></span><br><span class="line">    .cornerRadius(<span class="number">5</span>) <span class="comment">// 设置圆角</span></span><br><span class="line">    .font(.title) <span class="comment">// 设置字体样式</span></span><br><span class="line">    .padding(.horizontal) <span class="comment">// 水平方向的内边距</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="键盘类型、自动纠错和安全输入"><a href="#键盘类型、自动纠错和安全输入" class="headerlink" title="键盘类型、自动纠错和安全输入"></a>键盘类型、自动纠错和安全输入</h3><p>你可以为 <code>TextField</code> 设置键盘类型、是否自动纠错以及是否安全输入。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Email&quot;</span>, text: <span class="variable">$email</span>)</span><br><span class="line">    .keyboardType(.emailAddress) <span class="comment">// 设置键盘类型为邮箱地址</span></span><br><span class="line">    .autocapitalization(.none) <span class="comment">// 关闭自动大写</span></span><br><span class="line">    .disableAutocorrection(<span class="literal">true</span>) <span class="comment">// 关闭自动纠错</span></span><br><span class="line"></span><br><span class="line"><span class="type">SecureField</span>(<span class="string">&quot;Password&quot;</span>, text: <span class="variable">$password</span>) <span class="comment">// 用于密码输入，会隐藏输入内容</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="占位符的定制"><a href="#占位符的定制" class="headerlink" title="占位符的定制"></a>占位符的定制</h3><p>在 SwiftUI 中，占位符是通过直接在 <code>TextField</code> 的初始化器中设置的。你也可以使用 <code>NSAttributedString</code> 来自定义占位符的外观，但这需要与 <code>UIKit</code> 桥接。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="响应用户操作"><a href="#响应用户操作" class="headerlink" title="响应用户操作"></a>响应用户操作</h3><p>为了响应用户的输入操作，你可以使用 <code>onCommit</code> 参数来定义当用户按下 Return 键时的行为。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>, onCommit: &#123;</span><br><span class="line">    <span class="comment">// 用户按下 Return 键时的操作</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;User entered: <span class="subst">\(name)</span>&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="聚焦和失焦"><a href="#聚焦和失焦" class="headerlink" title="聚焦和失焦"></a>聚焦和失焦</h3><p>SwiftUI 2.0 引入了 <code>@FocusState</code>，使你能够控制 <code>TextField</code> 的聚焦状态。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="meta">@FocusState</span> <span class="keyword">private</span> <span class="keyword">var</span> isInputActive: <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br><span class="line">        .focused(<span class="variable">$isInputActive</span>) <span class="comment">// 将 TextField 的焦点状态绑定到 isInputActive</span></span><br><span class="line">        .onAppear &#123;</span><br><span class="line">            <span class="type">DispatchQueue</span>.main.asyncAfter(deadline: .now() <span class="operator">+</span> <span class="number">0.5</span>) &#123;</span><br><span class="line">                <span class="keyword">self</span>.isInputActive <span class="operator">=</span> <span class="literal">true</span> <span class="comment">// 自动聚焦到 TextField</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-TextField-修饰符"><a href="#使用-TextField-修饰符" class="headerlink" title="使用 TextField 修饰符"></a>使用 <code>TextField</code> 修饰符</h3><p>SwiftUI 为 <code>TextField</code> 提供了许多修饰符来自定义外观和行为，例如 <code>.textFieldStyle()</code>、<code>.keyboardType()</code>、<code>.textContentType()</code> 等。</p>
+<p>使用 <code>TextField</code> 的过程中，可能需要对其行为和外观进行调整以适应特定的 UI 设计。通过结合多种修饰符，你可以创建出符合需求的文本输入界面。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xs001fgo745qy6ekhy" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

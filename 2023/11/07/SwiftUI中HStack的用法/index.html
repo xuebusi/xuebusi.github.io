@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SwiftUI中HStack的用法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="HStack 是 SwiftUI 中一个非常基础和常用的布局工具，用于在水平方向上堆叠视图。以下是 HStack 的一些基本用法： 创建一个基础的 HStack12345HStack &#123;    Text(&quot;Left&quot;)    Text(&quot;Center&quot;)    Text(&quot;Right&quot;)&#125; 这会将三个文本视图水平排列在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI中HStack的用法">
+<meta property="og:url" content="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HStack 是 SwiftUI 中一个非常基础和常用的布局工具，用于在水平方向上堆叠视图。以下是 HStack 的一些基本用法： 创建一个基础的 HStack12345HStack &#123;    Text(&quot;Left&quot;)    Text(&quot;Center&quot;)    Text(&quot;Right&quot;)&#125; 这会将三个文本视图水平排列在">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-07T13:52:20.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.440Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SwiftUI中HStack的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:52:20.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SwiftUI中HStack的用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><code>HStack</code> 是 SwiftUI 中一个非常基础和常用的布局工具，用于在水平方向上堆叠视图。以下是 <code>HStack</code> 的一些基本用法：</p>
+<h3 id="创建一个基础的-HStack"><a href="#创建一个基础的-HStack" class="headerlink" title="创建一个基础的 HStack"></a>创建一个基础的 HStack</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Center&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这会将三个文本视图水平排列在一行内。</p>
+<h3 id="调整间距"><a href="#调整间距" class="headerlink" title="调整间距"></a>调整间距</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Center&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这将会在子视图之间设置为20点的间距。</p>
+<h3 id="对齐"><a href="#对齐" class="headerlink" title="对齐"></a>对齐</h3><p><code>HStack</code> 默认在垂直方向上是居中对齐的，但你可以改变这个对齐方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .top) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Top&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Aligned&quot;</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Text&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这会在垂直方向上将文本对齐到顶部。</p>
+<h3 id="使用-Spacer"><a href="#使用-Spacer" class="headerlink" title="使用 Spacer"></a>使用 Spacer</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Left&quot;</span>)</span><br><span class="line">    <span class="type">Spacer</span>() <span class="comment">// 使用 Spacer 会推动两侧的文本到左右边缘</span></span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Right&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Spacer</code> 占据所有可用的空间，这里将会使两个文本视图分别对齐到左右边缘。</p>
+<h3 id="嵌套-HStack"><a href="#嵌套-HStack" class="headerlink" title="嵌套 HStack"></a>嵌套 HStack</h3><p><code>HStack</code> 可以嵌套使用，以创建更复杂的布局：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span> &#123;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Left&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Left&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">VStack</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Top Right&quot;</span>)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Bottom Right&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这将在水平方向上创建两个垂直堆叠，每个堆叠包含两个文本视图。</p>
+<h3 id="结合使用-Frame-和-Alignment"><a href="#结合使用-Frame-和-Alignment" class="headerlink" title="结合使用 Frame 和 Alignment"></a>结合使用 Frame 和 Alignment</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HStack</span>(alignment: .bottom) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Bottom&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">100</span>)</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Aligned&quot;</span>)</span><br><span class="line">        .frame(width: <span class="number">100</span>, alignment: .trailing)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这将设置每个文本视图的宽度，并在底部对齐它们。</p>
+<h3 id="在实际应用中"><a href="#在实际应用中" class="headerlink" title="在实际应用中"></a>在实际应用中</h3><p><code>HStack</code> 通常与其它布局视图（如 <code>VStack</code>, <code>ZStack</code>, <code>ScrollView</code>）一起使用，以实现复杂的用户界面布局。下面是一个常见的例子，结合 <code>HStack</code> 和 <code>VStack</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">VStack</span> &#123;</span><br><span class="line">    <span class="type">HStack</span> &#123;</span><br><span class="line">        <span class="type">Image</span>(systemName: <span class="string">&quot;star.fill&quot;</span>)</span><br><span class="line">            .foregroundColor(.yellow)</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Favorite&quot;</span>)</span><br><span class="line">            .font(.headline)</span><br><span class="line">        <span class="type">Spacer</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    .padding()</span><br><span class="line">    </span><br><span class="line">    <span class="type">Divider</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 其他内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这会创建一个包含星形图标和标题的水平布局，并将其包裹在垂直布局中，通常这会作为列表的一部分。使用 <code>Divider</code> 来分隔列表项是常见的做法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADHStack%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xn0007go741md3820f" data-title="SwiftUI中HStack的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADVStack%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SwiftUI中VStack的用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E5%B8%83%E5%B1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI中的布局</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

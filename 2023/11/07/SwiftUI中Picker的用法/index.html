@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SwiftUI中Picker的用法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在 SwiftUI 中，Picker 是一个可以让用户从一组选项中选择一个选项的控件。它可以采用多种样式，如轮盘、菜单或段控制（segmented control）。 基础用法最基本的 Picker 使用时需要配合 @State 属性来绑定选择的值。以下是一个简单的 Picker 示例： 12345678910111213struct ContentView: View &#123;    @St">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI中Picker的用法">
+<meta property="og:url" content="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在 SwiftUI 中，Picker 是一个可以让用户从一组选项中选择一个选项的控件。它可以采用多种样式，如轮盘、菜单或段控制（segmented control）。 基础用法最基本的 Picker 使用时需要配合 @State 属性来绑定选择的值。以下是一个简单的 Picker 示例： 12345678910111213struct ContentView: View &#123;    @St">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-07T12:47:14.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.441Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SwiftUI中Picker的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:47:14.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SwiftUI中Picker的用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Picker</code> 是一个可以让用户从一组选项中选择一个选项的控件。它可以采用多种样式，如轮盘、菜单或段控制（segmented control）。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>最基本的 <code>Picker</code> 使用时需要配合 <code>@State</code> 属性来绑定选择的值。以下是一个简单的 <code>Picker</code> 示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在表单中使用"><a href="#在表单中使用" class="headerlink" title="在表单中使用"></a>在表单中使用</h3><p><code>Picker</code> 常常用在 <code>Form</code> 中，这会自动采用最适合表单样式的方式显示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Form</span> &#123;</span><br><span class="line">            <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-PickerStyle"><a href="#使用-PickerStyle" class="headerlink" title="使用 PickerStyle"></a>使用 <code>PickerStyle</code></h3><p>可以使用 <code>PickerStyle</code> 来改变 <code>Picker</code> 的外观和感觉：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">    <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">        <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.pickerStyle(<span class="type">SegmentedPickerStyle</span>())</span><br></pre></td></tr></table></figure>
+
+<p>SwiftUI 提供的 <code>PickerStyle</code> 有：</p>
+<ul>
+<li><code>DefaultPickerStyle</code></li>
+<li><code>SegmentedPickerStyle</code></li>
+<li><code>WheelPickerStyle</code></li>
+<li><code>InlinePickerStyle</code></li>
+<li><code>MenuPickerStyle</code></li>
+<li><code>AutomaticPickerStyle</code></li>
+</ul>
+<p>不同的 <code>PickerStyle</code> 在不同的平台和上下文中有不同的外观和行为。</p>
+<h3 id="在导航视图中使用"><a href="#在导航视图中使用" class="headerlink" title="在导航视图中使用"></a>在导航视图中使用</h3><p>在导航视图中，<code>Picker</code> 通常会显示为可以导航到另一个视图选择项的列表：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;Apple&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Cherry&quot;</span>, <span class="string">&quot;Date&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">NavigationView</span> &#123;</span><br><span class="line">            <span class="type">Form</span> &#123;</span><br><span class="line">                <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">                    <span class="type">ForEach</span>(fruits, id: \.<span class="keyword">self</span>) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                        <span class="type">Text</span>(fruit).tag(fruit)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                .navigationTitle(<span class="string">&quot;Fruits&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 iOS 上，<code>Picker</code> 会自动跳转到一个新的屏幕，用户可以选择一个选项后返回。</p>
+<h3 id="结合使用-ForEach-和-Identifiable"><a href="#结合使用-ForEach-和-Identifiable" class="headerlink" title="结合使用 ForEach 和 Identifiable"></a>结合使用 <code>ForEach</code> 和 <code>Identifiable</code></h3><p>如果你的数据模型遵循 <code>Identifiable</code> 协议，你可以更简洁地使用 <code>ForEach</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Fruit</span>: <span class="title class_">Identifiable</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> id <span class="operator">=</span> <span class="type">UUID</span>()</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> selectedFruit: <span class="type">Fruit</span>?</span><br><span class="line">    <span class="keyword">var</span> fruits <span class="operator">=</span> [<span class="type">Fruit</span>(name: <span class="string">&quot;Apple&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Banana&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Cherry&quot;</span>), <span class="type">Fruit</span>(name: <span class="string">&quot;Date&quot;</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Picker</span>(<span class="string">&quot;Select a fruit&quot;</span>, selection: <span class="variable">$selectedFruit</span>) &#123;</span><br><span class="line">            <span class="type">ForEach</span>(fruits) &#123; fruit <span class="keyword">in</span></span><br><span class="line">                <span class="type">Text</span>(fruit.name).tag(fruit <span class="keyword">as</span> <span class="type">Fruit</span>?)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，当使用自定义数据类型作为 <code>Picker</code> 的 <code>tag</code> 值时，需要将 <code>selectedFruit</code> 类型设置为可选的 (<code>Fruit?</code>)，因为 <code>Picker</code> 的 <code>tag</code> 需要能够匹配未选择任何值的情况。</p>
+<p>SwiftUI 的 <code>Picker</code> 是一个强大的控件，提供了灵活的接口来适应各种选择需求，并且能够很好地与其他 UI 控件集成，创建直观且有效的用户界面。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xp000fgo74h11s2l0z" data-title="SwiftUI中Picker的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SwiftUI中Slider组件的用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADLabel%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI中Label的用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

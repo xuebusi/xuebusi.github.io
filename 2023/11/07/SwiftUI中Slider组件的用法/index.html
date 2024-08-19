@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>SwiftUI中Slider组件的用法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在 SwiftUI 中，Slider 是一个控件，允许用户从一个连续或者离散的值范围内选择一个值。它通常用来表示设置项中的数值，比如音量控制或者屏幕亮度调整。 基础用法基础的 Slider 需要与 @State 绑定，来跟踪滑块的当前值。例如，创建一个调节音量的滑块： 1234567struct ContentView: View &#123;    @State private var volu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI中Slider组件的用法">
+<meta property="og:url" content="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在 SwiftUI 中，Slider 是一个控件，允许用户从一个连续或者离散的值范围内选择一个值。它通常用来表示设置项中的数值，比如音量控制或者屏幕亮度调整。 基础用法基础的 Slider 需要与 @State 绑定，来跟踪滑块的当前值。例如，创建一个调节音量的滑块： 1234567struct ContentView: View &#123;    @State private var volu">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-07T12:50:43.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.442Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-SwiftUI中Slider组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T12:50:43.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      SwiftUI中Slider组件的用法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，<code>Slider</code> 是一个控件，允许用户从一个连续或者离散的值范围内选择一个值。它通常用来表示设置项中的数值，比如音量控制或者屏幕亮度调整。</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>基础的 <code>Slider</code> 需要与 <code>@State</code> 绑定，来跟踪滑块的当前值。例如，创建一个调节音量的滑块：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> volume: <span class="type">Double</span> <span class="operator">=</span> <span class="number">50</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>volume</code> 变量将会跟踪滑块的当前位置，并且滑块的取值范围被设置在 0 到 100 之间。</p>
+<h3 id="步长"><a href="#步长" class="headerlink" title="步长"></a>步长</h3><p>你可以指定 <code>Slider</code> 的 <code>step</code> 参数来更改滑块的步长：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, step: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，滑块的值将以 5 的倍数变化。</p>
+<h3 id="自定义外观"><a href="#自定义外观" class="headerlink" title="自定义外观"></a>自定义外观</h3><p><code>Slider</code> 提供了多个修饰符来自定义外观：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br><span class="line">    .accentColor(.green) <span class="comment">// 改变滑块的颜色</span></span><br><span class="line">    .trackColor(.blue, minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>), maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>)) <span class="comment">// 自iOS 16起可用</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h3><p>为了增加无障碍性，你可以为 <code>Slider</code> 添加一个标签，这样辅助技术如 VoiceOver 可以读取这个标签：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>) &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">.accessibilityValue(<span class="type">Text</span>(<span class="string">&quot;<span class="subst">\(Int(volume))</span>&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="实时预览"><a href="#实时预览" class="headerlink" title="实时预览"></a>实时预览</h3><p>如果你想在用户拖动滑块时实时获得更新，可以添加 <code>onEditingChanged</code> 回调：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(value: <span class="variable">$volume</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>, onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> <span class="operator">!</span>editing &#123;</span><br><span class="line">        <span class="comment">// 用户停止拖动滑块时的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="范围选择"><a href="#范围选择" class="headerlink" title="范围选择"></a>范围选择</h3><p><code>SwiftUI</code> 也支持范围选择器，从 <code>iOS 14</code> 开始可以使用 <code>RangeSlider</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> priceRange: <span class="type">ClosedRange</span>&lt;<span class="type">Double</span>&gt; <span class="operator">=</span> <span class="number">10</span><span class="operator">...</span><span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="type">RangeSlider</span>(values: <span class="variable">$priceRange</span>, in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>priceRange</code> 会跟踪一个范围值，用户可以选择从最低到最高价之间的任何价格区间。</p>
+<h3 id="使用-Slider-配置"><a href="#使用-Slider-配置" class="headerlink" title="使用 Slider 配置"></a>使用 <code>Slider</code> 配置</h3><p>对于更复杂的配置，你可以使用 <code>Slider</code> 初始化器的更多参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Slider</span>(</span><br><span class="line">    value: <span class="variable">$volume</span>,</span><br><span class="line">    in: <span class="number">0</span><span class="operator">...</span><span class="number">100</span>,</span><br><span class="line">    step: <span class="number">1</span>,</span><br><span class="line">    onEditingChanged: &#123; editing <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 用户拖动滑块时的操作</span></span><br><span class="line">    &#125;,</span><br><span class="line">    minimumValueLabel: <span class="type">Text</span>(<span class="string">&quot;0&quot;</span>),</span><br><span class="line">    maximumValueLabel: <span class="type">Text</span>(<span class="string">&quot;100&quot;</span>),</span><br><span class="line">    label: &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Volume&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>以上是 <code>Slider</code> 的一些常用用法和配置选项。通过合理利用，你可以在 SwiftUI 应用中提供丰富的交互式元素。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%ADSlider%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xq000rgo744x4u8tt5" data-title="SwiftUI中Slider组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADStepper%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SwiftUI中Stepper的用法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/07/SwiftUI%E4%B8%ADPicker%E7%9A%84%E7%94%A8%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI中Picker的用法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

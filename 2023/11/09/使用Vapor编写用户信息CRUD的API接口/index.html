@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>使用Vapor编写用户信息CRUD的API接口 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="很高兴你对Vapor框架感兴趣！Vapor 是一个用 Swift 编写的 Web 框架，非常适合于构建快速、可靠的服务端应用程序。接下来我会引导你如何使用 Vapor 创建一个简单的用户信息 CRUD（创建、读取、更新、删除）API。 环境准备首先，确保你的电脑上安装了以下软件：  Swift: Vapor 是基于 Swift 的，所以你需要安装 Swift。 Vapor Toolbox: 这是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Vapor编写用户信息CRUD的API接口">
+<meta property="og:url" content="http://example.com/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="很高兴你对Vapor框架感兴趣！Vapor 是一个用 Swift 编写的 Web 框架，非常适合于构建快速、可靠的服务端应用程序。接下来我会引导你如何使用 Vapor 创建一个简单的用户信息 CRUD（创建、读取、更新、删除）API。 环境准备首先，确保你的电脑上安装了以下软件：  Swift: Vapor 是基于 Swift 的，所以你需要安装 Swift。 Vapor Toolbox: 这是一">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-09T00:49:10.000Z">
+<meta property="article:modified_time" content="2024-03-17T06:30:03.449Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-使用Vapor编写用户信息CRUD的API接口" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-09T00:49:10.000Z" itemprop="datePublished">2023-11-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      使用Vapor编写用户信息CRUD的API接口
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>很高兴你对Vapor框架感兴趣！Vapor 是一个用 Swift 编写的 Web 框架，非常适合于构建快速、可靠的服务端应用程序。接下来我会引导你如何使用 Vapor 创建一个简单的用户信息 CRUD（创建、读取、更新、删除）API。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>首先，确保你的电脑上安装了以下软件：</p>
+<ol>
+<li><strong>Swift</strong>: Vapor 是基于 Swift 的，所以你需要安装 Swift。</li>
+<li><strong>Vapor Toolbox</strong>: 这是一个命令行工具，用于简化 Vapor 项目的创建和管理。</li>
+</ol>
+<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><ol>
+<li>打开终端。</li>
+<li>使用 Vapor Toolbox 创建一个新项目：<code>vapor new UserCRUDAPI</code>。</li>
+<li>进入项目目录：<code>cd UserCRUDAPI</code>。</li>
+</ol>
+<h3 id="设定模型和数据库"><a href="#设定模型和数据库" class="headerlink" title="设定模型和数据库"></a>设定模型和数据库</h3><p>为了简单起见，我们将使用内存数据库（SQLite），这样就不需要额外安装数据库软件。</p>
+<ol>
+<li><p><strong>定义用户模型</strong>：在 <code>Sources/App/Models</code> 目录下创建一个新的 Swift 文件 <code>User.swift</code>。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">User</span>: <span class="title class_">Model</span>, <span class="title class_">Content</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> schema <span class="operator">=</span> <span class="string">&quot;users&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@ID</span>(key: .id)</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">UUID</span>?</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(key: <span class="string">&quot;name&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(key: <span class="string">&quot;email&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> email: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">id</span>: <span class="type">UUID</span>? <span class="operator">=</span> <span class="literal">nil</span>, <span class="params">name</span>: <span class="type">String</span>, <span class="params">email</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.id <span class="operator">=</span> id</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.email <span class="operator">=</span> email</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置数据库</strong>：在 <code>Sources/App/configure.swift</code> 文件中配置数据库。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"><span class="keyword">import</span> FluentSQLiteDriver</span><br><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">func</span> <span class="title function_">configure</span>(<span class="keyword">_</span> <span class="params">app</span>: <span class="type">Application</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">    app.databases.use(.sqlite(.memory), as: .sqlite)</span><br><span class="line">    app.migrations.add(<span class="type">CreateUser</span>())</span><br><span class="line">    <span class="keyword">try</span> app.autoMigrate().wait()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 其他配置...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建数据库迁移</strong>：创建一个新的 Swift 文件 <code>CreateUser.swift</code> 在 <code>Sources/App/Migrations</code>。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CreateUser</span>: <span class="title class_">Migration</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">prepare</span>(<span class="params">on</span> <span class="params">database</span>: <span class="type">Database</span>) -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">Void</span>&gt; &#123;</span><br><span class="line">        database.schema(<span class="string">&quot;users&quot;</span>)</span><br><span class="line">            .id()</span><br><span class="line">            .field(<span class="string">&quot;name&quot;</span>, .string, .required)</span><br><span class="line">            .field(<span class="string">&quot;email&quot;</span>, .string, .required)</span><br><span class="line">            .create()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">revert</span>(<span class="params">on</span> <span class="params">database</span>: <span class="type">Database</span>) -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">Void</span>&gt; &#123;</span><br><span class="line">        database.schema(<span class="string">&quot;users&quot;</span>).delete()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="编写-CRUD-接口"><a href="#编写-CRUD-接口" class="headerlink" title="编写 CRUD 接口"></a>编写 CRUD 接口</h3><ol>
+<li><p><strong>创建路由</strong>：在 <code>Sources/App/routes.swift</code> 文件中定义路由和相应的处理函数。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">routes</span>(<span class="keyword">_</span> <span class="params">app</span>: <span class="type">Application</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> userController <span class="operator">=</span> <span class="type">UserController</span>()</span><br><span class="line">    app.get(<span class="string">&quot;users&quot;</span>, use: userController.index)</span><br><span class="line">    app.post(<span class="string">&quot;users&quot;</span>, use: userController.create)</span><br><span class="line">    app.group(<span class="string">&quot;users&quot;</span>) &#123; users <span class="keyword">in</span></span><br><span class="line">        users.get(<span class="string">&quot;:userID&quot;</span>, use: userController.show)</span><br><span class="line">        users.put(<span class="string">&quot;:userID&quot;</span>, use: userController.update)</span><br><span class="line">        users.delete(<span class="string">&quot;:userID&quot;</span>, use: userController.delete)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>实现控制器</strong>：创建一个新的 Swift 文件 <code>UserController.swift</code> 在 <code>Sources/App/Controllers</code>。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">index</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;[<span class="type">User</span>]&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">User</span>.query(on: req.db).all()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">create</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">User</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> user <span class="operator">=</span> <span class="keyword">try</span> req.content.decode(<span class="type">User</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">return</span> user.save(on: req.db).map &#123; user &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">show</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">User</span>&gt; &#123;</span><br><span class="line">        <span class="type">User</span>.find(req.parameters.get(<span class="string">&quot;userID&quot;</span>), on: req.db)</span><br><span class="line">            .unwrap(or: <span class="type">Abort</span>(.notFound))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">update</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">User</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> updatedUser <span class="operator">=</span> <span class="keyword">try</span> req.content.decode(<span class="type">User</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="type">User</span>.find(req.parameters.get(<span class="string">&quot;userID&quot;</span>), on: req.db)</span><br><span class="line">            .unwrap(or: <span class="type">Abort</span>(.notFound)).flatMap &#123; user <span class="keyword">in</span></span><br><span class="line">                user.name <span class="operator">=</span> updatedUser.name</span><br><span class="line">                user.email <span class="operator">=</span> updatedUser.email</span><br><span class="line">                <span class="keyword">return</span> user.save(on: req.db).map &#123; user &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">delete</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">HTTPStatus</span>&gt; &#123;</span><br><span class="line">        <span class="type">User</span>.find(req.parameters.get(<span class="string">&quot;userID&quot;</span>), on: req.db)</span><br><span class="line">            .unwrap(or: <span class="type">Abort</span>(.notFound))</span><br><span class="line">            .flatMap &#123; user <span class="keyword">in</span></span><br><span class="line">                user.delete(on: req.db)</span><br><span class="line">                    .transform(to: .ok)</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="运行和测试"><a href="#运行和测试" class="headerlink" title="运行和测试"></a>运行和测试</h3><ol>
+<li><p><strong>启动服务器</strong>：在项目根目录下运行 <code>vapor run</code>。</p>
+</li>
+<li><p><strong>测试 API</strong>：使用 Postman 或任何 HTTP 客户端工具测试你的 API。</p>
+<ul>
+<li>创建用户：<code>POST /users</code>，带上 JSON 请求体，比如 <code>&#123;&quot;name&quot;: &quot;Alice&quot;, &quot;email&quot;: &quot;alice@example.com&quot;&#125;</code>。</li>
+<li>列出所有用户：<code>GET /users</code>。</li>
+<li>获取单个用户：<code>GET /users/:userID</code>。</li>
+<li>更新用户信息：<code>PUT /users/:userID</code>。</li>
+<li>删除用户：<code>DELETE /users/:userID</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这个简单的示例中，我们创建了一个使用 Swift 和 Vapor 框架的 RESTful API，它可以处理基本的用户信息 CRUD 操作。这个示例使用了内存中的 SQLite 数据库，因此在服务器重启时，所有数据都会丢失。在实际应用中，你可能会使用 PostgreSQL 或 MySQL 等持久化的数据库。希望这对你学习 Vapor 有所帮助！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/" data-id="cltv9a4xx002ugo74dc982hfl" data-title="使用Vapor编写用户信息CRUD的API接口" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java实现两台计算机之间的简单通信
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI核心技术第15章构建一个聊天APP</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

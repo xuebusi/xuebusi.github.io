@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-SwiftUI中的scrollTransition修饰符怎么使用？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" class="article-date">
+  <time class="dt-published" datetime="2024-08-19T00:06:26.000Z" itemprop="datePublished">2024-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在SwiftUI中，<code>scrollTransition</code>修饰符用于在滚动视图中为视图添加基于滚动位置的动画效果。它允许你在滚动过程中为视图添加过渡效果，比如缩放、旋转、透明度变化等。<code>scrollTransition</code>修饰符通常与<code>ScrollView</code>或<code>List</code>等视图配合使用。</p>
+<p>以下是<code>scrollTransition</code>修饰符的基本用法示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> SwiftUI</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ScrollTransitionExample</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollView</span> &#123;</span><br><span class="line">            <span class="type">VStack</span>(spacing: <span class="number">20</span>) &#123;</span><br><span class="line">                <span class="type">ForEach</span>(<span class="number">0</span><span class="operator">..&lt;</span><span class="number">20</span>) &#123; index <span class="keyword">in</span></span><br><span class="line">                    <span class="type">Text</span>(<span class="string">&quot;Item <span class="subst">\(index)</span>&quot;</span>)</span><br><span class="line">                        .font(.largeTitle)</span><br><span class="line">                        .padding()</span><br><span class="line">                        .background(<span class="type">Color</span>.blue)</span><br><span class="line">                        .cornerRadius(<span class="number">10</span>)</span><br><span class="line">                        .scrollTransition &#123; content, phase <span class="keyword">in</span></span><br><span class="line">                            content</span><br><span class="line">                                .scaleEffect(<span class="number">1</span> <span class="operator">-</span> phase.value <span class="operator">*</span> <span class="number">0.5</span>)</span><br><span class="line">                                .rotationEffect(.degrees(phase.value <span class="operator">*</span> <span class="number">360</span>))</span><br><span class="line">                                .opacity(<span class="number">1</span> <span class="operator">-</span> phase.value)</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            .padding()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ScrollTransitionExample_Previews</span>: <span class="title class_">PreviewProvider</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> previews: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">ScrollTransitionExample</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><ul>
+<li>**<code>scrollTransition</code>**：这个修饰符接受一个闭包，该闭包的两个参数是<code>content</code>和<code>phase</code>。<code>content</code>是你正在修饰的视图，<code>phase</code>是一个包含滚动进度信息的值。</li>
+<li>**<code>phase.value</code>**：<code>phase.value</code>表示滚动过渡的进度，通常在<code>0.0</code>到<code>1.0</code>之间变化，表示从完全未滚动到完全滚动的状态。</li>
+</ul>
+<h3 id="过渡效果"><a href="#过渡效果" class="headerlink" title="过渡效果"></a>过渡效果</h3><p>在上述示例中，当滚动视图向上滚动时，每个<code>Text</code>视图都会：</p>
+<ul>
+<li><strong>缩放</strong>：根据滚动进度缩小。</li>
+<li><strong>旋转</strong>：根据滚动进度旋转。</li>
+<li><strong>透明度</strong>：根据滚动进度变得透明。</li>
+</ul>
+<p>这个效果让用户在滚动时感受到流畅的视觉过渡，提升了用户体验。你可以根据需要自定义<code>scrollTransition</code>中的动画效果。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" data-id="cm008l4gw0000az74ex8w1eom" data-title="SwiftUI中的scrollTransition修饰符怎么使用？" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-使用JavaNIO编写一个HelloWorld程序" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/" class="article-date">
+  <time class="dt-published" datetime="2024-03-17T02:52:45.000Z" itemprop="datePublished">2024-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个简单的 Java NIO 客户端和服务端的 “Hello World” 程序：</p>
+<p><strong>服务端程序（Server.java）：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.ServerSocketChannel;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建 ServerSocketChannel</span></span><br><span class="line">            <span class="type">ServerSocketChannel</span> <span class="variable">serverSocketChannel</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 绑定端口</span></span><br><span class="line">            serverSocketChannel.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">9999</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;Server started, listening on port 9999...&quot;</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                <span class="comment">// 接受客户端连接</span></span><br><span class="line">                <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> serverSocketChannel.accept();</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 读取数据</span></span><br><span class="line">                <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">                socketChannel.read(buffer);</span><br><span class="line">                buffer.flip();</span><br><span class="line">                System.out.println(<span class="string">&quot;Received message from client: &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(buffer.array()).trim());</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 发送响应</span></span><br><span class="line">                <span class="type">String</span> <span class="variable">response</span> <span class="operator">=</span> <span class="string">&quot;Hello Client!&quot;</span>;</span><br><span class="line">                <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.wrap(response.getBytes());</span><br><span class="line">                socketChannel.write(responseBuffer);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 关闭连接</span></span><br><span class="line">                socketChannel.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>客户端程序（Client.java）：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 创建 SocketChannel</span></span><br><span class="line">            <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 连接到服务器</span></span><br><span class="line">            socketChannel.connect(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">9999</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;Connected to server...&quot;</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 发送数据</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;Hello Server!&quot;</span>;</span><br><span class="line">            <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.wrap(message.getBytes());</span><br><span class="line">            socketChannel.write(buffer);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 接收响应</span></span><br><span class="line">            <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line">            socketChannel.read(responseBuffer);</span><br><span class="line">            responseBuffer.flip();</span><br><span class="line">            System.out.println(<span class="string">&quot;Received response from server: &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(responseBuffer.array()).trim());</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 关闭连接</span></span><br><span class="line">            socketChannel.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个程序包括一个简单的客户端和服务器端。服务器监听端口9999，并在接收到客户端消息后，返回 “Hello Client!”。客户端连接到服务器，发送消息 “Hello Server!”，并打印出从服务器接收到的响应。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/" data-id="cltv9a4xw002qgo742d7fexwa" data-title="使用JavaNIO编写一个HelloWorld程序" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Docker部署xxl-job-admin步骤" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/" class="article-date">
+  <time class="dt-published" datetime="2024-03-14T05:09:17.000Z" itemprop="datePublished">2024-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在现代开发环境中，使用 Docker 进行部署已成为标准实践之一。xxl-job 作为一个基于 MySQL 的任务调度平台，在部署时也可以充分利用 Docker 的便利性。本文将指导您如何使用 Docker 在本地部署 xxl-job 项目。</p>
+<h3 id="1-下载-MySQL-镜像"><a href="#1-下载-MySQL-镜像" class="headerlink" title="1. 下载 MySQL 镜像"></a>1. 下载 MySQL 镜像</h3><p>首先，由于 xxl-job 依赖 MySQL 数据库，我们需要先下载 MySQL 的 Docker 镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建自定义网络"><a href="#2-创建自定义网络" class="headerlink" title="2. 创建自定义网络"></a>2. 创建自定义网络</h3><p>为了使 MySQL 容器和 xxl-job-admin 容器能够相互通信，我们需要创建一个自定义网络。执行以下命令创建名为 <code>my_net</code> 的自定义网络：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create my_net</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-启动-MySQL-容器"><a href="#3-启动-MySQL-容器" class="headerlink" title="3. 启动 MySQL 容器"></a>3. 启动 MySQL 容器</h3><p>使用以下命令启动 MySQL 容器，确保先下载了 MySQL 镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 \</span><br><span class="line">--name mysql \</span><br><span class="line">-v /Users/xiaozhang/v_docker_mysql/conf:/etc/mysql/conf.d \</span><br><span class="line">-v /Users/xiaozhang/v_docker_mysql/data:/var/lib/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=your_root_password \</span><br><span class="line">--network my_net \</span><br><span class="line">-d mysql</span><br></pre></td></tr></table></figure>
+
+<p>请将 <code>your_root_password</code> 替换为您的 MySQL ROOT 用户的密码。</p>
+<h3 id="4-执行-xxl-job-数据库脚本"><a href="#4-执行-xxl-job-数据库脚本" class="headerlink" title="4. 执行 xxl-job 数据库脚本"></a>4. 执行 xxl-job 数据库脚本</h3><p>使用数据库客户端工具连接到上一步启动的 MySQL 数据库，并执行 xxl-job-admin 项目提供的 <code>tables_xxl_job.sql</code> 脚本。该脚本将创建名为 <code>xxl-job</code> 的数据库并初始化所需的数据。</p>
+<p>连接信息如下：</p>
+<ul>
+<li>主机地址：localhost</li>
+<li>端口：3306</li>
+<li>用户名：root</li>
+<li>密码：您的 MySQL ROOT 用户的密码</li>
+</ul>
+<h3 id="5-启动-xxl-job-admin"><a href="#5-启动-xxl-job-admin" class="headerlink" title="5. 启动 xxl-job-admin"></a>5. 启动 xxl-job-admin</h3><p>现在，我们可以启动 xxl-job-admin 了。执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">-e PARAMS=&quot;--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=your_database_password&quot; \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line">-v /Users/xiaozhang/logs:/data/applogs \</span><br><span class="line">--network=my_net \</span><br><span class="line">--name xxl-job-admin \</span><br><span class="line">-d xuxueli/xxl-job-admin:2.4.0</span><br></pre></td></tr></table></figure>
+
+<p>请将 <code>your_database_password</code> 替换为您的数据库密码。</p>
+<h3 id="6-访问-xxl-job-admin"><a href="#6-访问-xxl-job-admin" class="headerlink" title="6. 访问 xxl-job-admin"></a>6. 访问 xxl-job-admin</h3><p>打开浏览器，并访问：<a target="_blank" rel="noopener" href="http://localhost:8080/xxl-job-admin/">http://localhost:8080/xxl-job-admin/</a></p>
+<p>默认登录用户名为：admin<br>默认登录密码为：123456</p>
+<h3 id="一键部署脚本：docker-compose-yml"><a href="#一键部署脚本：docker-compose-yml" class="headerlink" title="一键部署脚本：docker-compose.yml"></a>一键部署脚本：docker-compose.yml</h3><p>如果觉得上面的步骤繁琐，使用下面的<code>docker compose</code>脚本，可以实现一键部署。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.7&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;13306:3306&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./conf:/etc/mysql/conf.d</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./mysql_data:/var/lib/mysql</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./sql:/docker-entrypoint-initdb.d</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">MYSQL_ROOT_PASSWORD:</span> <span class="string">your_mysql_root_password</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">my_net</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">xxl-job-admin:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">xuxueli/xxl-job-admin:2.4.0</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">xxl-job-admin</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">PARAMS:</span> <span class="string">&quot;--spring.datasource.url=jdbc:mysql://mysql:3306/xxl_job?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=your_mysql_root_password&quot;</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;18080:8080&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/Users/xiaozhang/logs:/data/applogs</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">my_net</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">my_net:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+<p>要执行这个 <code>docker-compose.yml</code> 脚本，您需要使用 <code>docker-compose</code> 命令，在命令行中，进入包含 <code>docker-compose.yml</code> 文件的目录。运行以下命令启动服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>通过 <code>-d</code> 参数，您可以将服务在后台运行。如果您想要查看服务输出的日志信息，可以省略 <code>-d</code> 参数。</p>
+<p>下面解释一下这个脚本，该脚本包含了<code>mysql</code>和<code>xxl-job-admin</code>两个服务：</p>
+<ol>
+<li><p><strong>mysql 服务</strong>：</p>
+<ul>
+<li>使用官方提供的最新版本 MySQL 镜像。</li>
+<li>定义容器名称为 <code>mysql</code>。</li>
+<li>将宿主机的 <code>3306</code> 端口映射到容器的 <code>3306</code> 端口，允许外部访问 MySQL 服务。</li>
+<li>将宿主机的 MySQL 配置文件和数据目录挂载到容器中，以保留持久化数据。</li>
+<li>设置 MySQL ROOT 用户的密码为 <code>your_root_password</code>。</li>
+<li>将容器连接到名为 <code>my_net</code> 的自定义网络中。</li>
+</ul>
+</li>
+<li><p><strong>xxl-job-admin 服务</strong>：</p>
+<ul>
+<li>使用 xxl-job-admin 2.4.0 版本的镜像。</li>
+<li>定义容器名称为 <code>xxl-job-admin</code>。</li>
+<li>设置 xxl-job-admin 启动时的参数，包括连接到 MySQL 数据库所需的信息，以及其他必要的配置。</li>
+<li>将宿主机的 <code>8080</code> 端口映射到容器的 <code>8080</code> 端口，允许外部访问 xxl-job-admin。</li>
+<li>将宿主机的日志目录挂载到容器中，以便记录日志和持久化数据。</li>
+<li>将容器连接到名为 <code>my_net</code> 的自定义网络中。</li>
+</ul>
+</li>
+</ol>
+<p>最后，定义了一个名为 <code>my_net</code> 的自定义网络，并使用 <code>bridge</code> 驱动。此网络用于连接上述两个服务，以实现它们之间的通信。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>确保 MySQL 容器和 xxl-job-admin 容器使用同一个自定义网络，否则 xxl-job-admin 将无法连接 MySQL 数据库而启动失败。</li>
+<li>由于<code>xxl-job-admin</code>依赖<code>mysql</code>服务，所以要先启动<code>mysql</code>服务，然后再启动<code>xxl-job-admin</code>服务。</li>
+<li>在启动 xxl-job-admin 容器时，注意指定 MySQL 数据库的连接信息。连接地址应为容器名称 <code>mysql</code>，且数据库密码应与启动 MySQL 容器时使用的 ROOT 用户密码保持一致。</li>
+<li>确保宿主机的 <code>3306</code> 端口和 <code>8080</code> 端口未被占用，否则容器启动将失败。</li>
+<li>如果在启动 xxl-job-admin 容器时挂载了宿主机上的目录（例如 <code>/Users/xiaozhang/logs</code>），请确保在 MacOS 操作系统上手动创建这些目录，以避免由于目录权限问题导致容器无法启动的情况。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/" data-id="cltv9a4xh0000go746nrwegn8" data-title="用 Docker 部署 xxl-job 简明指南" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-在Mac上如何终止某个端口所在的进程？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/" class="article-date">
+  <time class="dt-published" datetime="2023-11-12T03:31:14.000Z" itemprop="datePublished">2023-11-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在Mac上终止占用特定端口的进程可以通过以下步骤来完成：</p>
+<ol>
+<li><p><strong>查找占用端口的进程</strong>：<br>打开终端（Terminal），然后使用<code>lsof</code>命令来查找占用特定端口的进程。例如，如果你想查找占用端口8080的进程，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :8080</span><br></pre></td></tr></table></figure>
+
+<p>这将列出所有占用端口8080的进程。输出中通常会包含进程ID（PID），这是一个数字。</p>
+</li>
+<li><p><strong>终止进程</strong>：<br>一旦你知道了进程ID，可以使用<code>kill</code>命令来终止该进程。例如，如果进程ID是1234，可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> 1234</span><br></pre></td></tr></table></figure>
+
+<p>如果进程拒绝终止，你可以使用更强制的方式，比如<code>kill -9</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 1234</span><br></pre></td></tr></table></figure>
+
+<p>这将强制终止该进程。</p>
+</li>
+</ol>
+<p>请注意，在使用这些命令时要小心，确保你终止的是正确的进程，因为错误地终止进程可能会影响系统的稳定性或其他应用的运行。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/" data-id="cltv9a4xx002wgo748vn1clml" data-title="在Mac上如何终止某个端口所在的进程？" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java实现两台计算机之间长连接通信" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time class="dt-published" datetime="2023-11-09T12:54:10.000Z" itemprop="datePublished">2023-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>要实现客户端和服务器端的长连接，即一直保持连接直到程序显式关闭，你可以在客户端和服务器端都使用循环来持续地发送和接收消息。下面是相应的代码示例：</p>
+<h3 id="服务器端（B计算机）"><a href="#服务器端（B计算机）" class="headerlink" title="服务器端（B计算机）"></a>服务器端（B计算机）</h3><p>服务器端持续监听客户端发送的消息。使用<code>while(true)</code>确保服务器始终在运行，等待和处理客户端的消息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">1234</span>;</span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(port);</span><br><span class="line">        System.out.println(<span class="string">&quot;等待连接...&quot;</span>);</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">clientSocket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">        System.out.println(<span class="string">&quot;连接成功！&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(clientSocket.getInputStream()));</span><br><span class="line"></span><br><span class="line">        String inputLine;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123; <span class="comment">// 一直保持监听状态</span></span><br><span class="line">            inputLine = in.readLine();</span><br><span class="line">            <span class="keyword">if</span> (inputLine != <span class="literal">null</span>) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;收到: &quot;</span> + inputLine);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 注意：实际应用中需要添加适当的退出条件和异常处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="客户端（A计算机）"><a href="#客户端（A计算机）" class="headerlink" title="客户端（A计算机）"></a>客户端（A计算机）</h3><p>客户端持续发送消息到服务器。在这个例子中，我们仅以发送时间作为消息的示例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, InterruptedException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">serverAddress</span> <span class="operator">=</span> <span class="string">&quot;服务器的IP地址&quot;</span>; <span class="comment">// 替换为B计算机的IP地址</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">1234</span>;</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(serverAddress, port);</span><br><span class="line"></span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(socket.getOutputStream(), <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123; <span class="comment">// 一直发送消息</span></span><br><span class="line">            out.println(<span class="string">&quot;当前时间: &quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>); <span class="comment">// 每秒发送一次</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 注意：实际应用中需要添加适当的退出条件和异常处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这两个示例中，我没有添加退出条件和异常处理，但这在实际应用中是非常重要的。你需要确保代码能够优雅地处理网络异常、I&#x2F;O异常以及如何安全地关闭连接。记住，长时间保持连接会增加资源消耗，确保服务器有足够的资源来处理这些长连接。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/" data-id="cltv9a4xk0001go74gd0obnt9" data-title="Java实现两台计算机之间长连接通信" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java实现两台计算机之间的简单通信" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time class="dt-published" datetime="2023-11-09T12:41:22.000Z" itemprop="datePublished">2023-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间的简单通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>要在Java中实现从一台计算机（A）向另一台计算机（B）发送数据，你可以使用Java的套接字编程。这通常涉及到创建服务器端和客户端程序。服务器在B计算机上运行，监听一个端口等待连接；客户端运行在A计算机上，连接到服务器并发送数据。</p>
+<p>这里是一个简单的示例：</p>
+<h3 id="服务器端（在B计算机上运行）"><a href="#服务器端（在B计算机上运行）" class="headerlink" title="服务器端（在B计算机上运行）"></a>服务器端（在B计算机上运行）</h3><ol>
+<li>创建<code>ServerSocket</code>对象并指定一个端口。</li>
+<li>调用<code>accept</code>方法等待客户端连接。</li>
+<li>通过建立的连接读取数据。</li>
+<li>关闭连接。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Server</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">1234</span>; <span class="comment">// 选择一个端口</span></span><br><span class="line">        <span class="type">ServerSocket</span> <span class="variable">serverSocket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ServerSocket</span>(port);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;等待连接...&quot;</span>);</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">clientSocket</span> <span class="operator">=</span> serverSocket.accept();</span><br><span class="line">        System.out.println(<span class="string">&quot;连接成功！&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(clientSocket.getInputStream()));</span><br><span class="line">        String inputLine;</span><br><span class="line">        <span class="keyword">while</span> ((inputLine = in.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;收到: &quot;</span> + inputLine);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        in.close();</span><br><span class="line">        clientSocket.close();</span><br><span class="line">        serverSocket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="客户端（在A计算机上运行）"><a href="#客户端（在A计算机上运行）" class="headerlink" title="客户端（在A计算机上运行）"></a>客户端（在A计算机上运行）</h3><ol>
+<li>创建<code>Socket</code>对象，指定服务器地址和端口。</li>
+<li>获取输出流并发送数据。</li>
+<li>关闭连接。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Client</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">serverAddress</span> <span class="operator">=</span> <span class="string">&quot;服务器的IP地址&quot;</span>; <span class="comment">// 替换为B计算机的IP地址</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> <span class="number">1234</span>;</span><br><span class="line">        <span class="type">Socket</span> <span class="variable">socket</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Socket</span>(serverAddress, port);</span><br><span class="line"></span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(socket.getOutputStream(), <span class="literal">true</span>);</span><br><span class="line">        out.println(<span class="string">&quot;你好，服务器！&quot;</span>);</span><br><span class="line"></span><br><span class="line">        out.close();</span><br><span class="line">        socket.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li>请确保服务器和客户端使用相同的端口号。</li>
+<li>需要处理网络异常和I&#x2F;O异常。</li>
+<li>根据你的网络设置，你可能需要配置防火墙允许这些端口的通信。</li>
+<li>在实际应用中，还需要考虑安全性和效率等问题。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1/" data-id="cltv9a4xl0002go74b1uw10mt" data-title="Java实现两台计算机之间的简单通信" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-使用Vapor编写用户信息CRUD的API接口" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-09T00:49:10.000Z" itemprop="datePublished">2023-11-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/">使用Vapor编写用户信息CRUD的API接口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>很高兴你对Vapor框架感兴趣！Vapor 是一个用 Swift 编写的 Web 框架，非常适合于构建快速、可靠的服务端应用程序。接下来我会引导你如何使用 Vapor 创建一个简单的用户信息 CRUD（创建、读取、更新、删除）API。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>首先，确保你的电脑上安装了以下软件：</p>
+<ol>
+<li><strong>Swift</strong>: Vapor 是基于 Swift 的，所以你需要安装 Swift。</li>
+<li><strong>Vapor Toolbox</strong>: 这是一个命令行工具，用于简化 Vapor 项目的创建和管理。</li>
+</ol>
+<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><ol>
+<li>打开终端。</li>
+<li>使用 Vapor Toolbox 创建一个新项目：<code>vapor new UserCRUDAPI</code>。</li>
+<li>进入项目目录：<code>cd UserCRUDAPI</code>。</li>
+</ol>
+<h3 id="设定模型和数据库"><a href="#设定模型和数据库" class="headerlink" title="设定模型和数据库"></a>设定模型和数据库</h3><p>为了简单起见，我们将使用内存数据库（SQLite），这样就不需要额外安装数据库软件。</p>
+<ol>
+<li><p><strong>定义用户模型</strong>：在 <code>Sources/App/Models</code> 目录下创建一个新的 Swift 文件 <code>User.swift</code>。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">User</span>: <span class="title class_">Model</span>, <span class="title class_">Content</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> schema <span class="operator">=</span> <span class="string">&quot;users&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@ID</span>(key: .id)</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">UUID</span>?</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(key: <span class="string">&quot;name&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Field</span>(key: <span class="string">&quot;email&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> email: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(<span class="params">id</span>: <span class="type">UUID</span>? <span class="operator">=</span> <span class="literal">nil</span>, <span class="params">name</span>: <span class="type">String</span>, <span class="params">email</span>: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.id <span class="operator">=</span> id</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.email <span class="operator">=</span> email</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置数据库</strong>：在 <code>Sources/App/configure.swift</code> 文件中配置数据库。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"><span class="keyword">import</span> FluentSQLiteDriver</span><br><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">func</span> <span class="title function_">configure</span>(<span class="keyword">_</span> <span class="params">app</span>: <span class="type">Application</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">    app.databases.use(.sqlite(.memory), as: .sqlite)</span><br><span class="line">    app.migrations.add(<span class="type">CreateUser</span>())</span><br><span class="line">    <span class="keyword">try</span> app.autoMigrate().wait()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 其他配置...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建数据库迁移</strong>：创建一个新的 Swift 文件 <code>CreateUser.swift</code> 在 <code>Sources/App/Migrations</code>。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">CreateUser</span>: <span class="title class_">Migration</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">prepare</span>(<span class="params">on</span> <span class="params">database</span>: <span class="type">Database</span>) -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">Void</span>&gt; &#123;</span><br><span class="line">        database.schema(<span class="string">&quot;users&quot;</span>)</span><br><span class="line">            .id()</span><br><span class="line">            .field(<span class="string">&quot;name&quot;</span>, .string, .required)</span><br><span class="line">            .field(<span class="string">&quot;email&quot;</span>, .string, .required)</span><br><span class="line">            .create()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">revert</span>(<span class="params">on</span> <span class="params">database</span>: <span class="type">Database</span>) -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">Void</span>&gt; &#123;</span><br><span class="line">        database.schema(<span class="string">&quot;users&quot;</span>).delete()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="编写-CRUD-接口"><a href="#编写-CRUD-接口" class="headerlink" title="编写 CRUD 接口"></a>编写 CRUD 接口</h3><ol>
+<li><p><strong>创建路由</strong>：在 <code>Sources/App/routes.swift</code> 文件中定义路由和相应的处理函数。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">routes</span>(<span class="keyword">_</span> <span class="params">app</span>: <span class="type">Application</span>) <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> userController <span class="operator">=</span> <span class="type">UserController</span>()</span><br><span class="line">    app.get(<span class="string">&quot;users&quot;</span>, use: userController.index)</span><br><span class="line">    app.post(<span class="string">&quot;users&quot;</span>, use: userController.create)</span><br><span class="line">    app.group(<span class="string">&quot;users&quot;</span>) &#123; users <span class="keyword">in</span></span><br><span class="line">        users.get(<span class="string">&quot;:userID&quot;</span>, use: userController.show)</span><br><span class="line">        users.put(<span class="string">&quot;:userID&quot;</span>, use: userController.update)</span><br><span class="line">        users.delete(<span class="string">&quot;:userID&quot;</span>, use: userController.delete)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>实现控制器</strong>：创建一个新的 Swift 文件 <code>UserController.swift</code> 在 <code>Sources/App/Controllers</code>。</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vapor</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">index</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;[<span class="type">User</span>]&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">User</span>.query(on: req.db).all()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">create</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">User</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> user <span class="operator">=</span> <span class="keyword">try</span> req.content.decode(<span class="type">User</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">return</span> user.save(on: req.db).map &#123; user &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">show</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">User</span>&gt; &#123;</span><br><span class="line">        <span class="type">User</span>.find(req.parameters.get(<span class="string">&quot;userID&quot;</span>), on: req.db)</span><br><span class="line">            .unwrap(or: <span class="type">Abort</span>(.notFound))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">update</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">User</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> updatedUser <span class="operator">=</span> <span class="keyword">try</span> req.content.decode(<span class="type">User</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="type">User</span>.find(req.parameters.get(<span class="string">&quot;userID&quot;</span>), on: req.db)</span><br><span class="line">            .unwrap(or: <span class="type">Abort</span>(.notFound)).flatMap &#123; user <span class="keyword">in</span></span><br><span class="line">                user.name <span class="operator">=</span> updatedUser.name</span><br><span class="line">                user.email <span class="operator">=</span> updatedUser.email</span><br><span class="line">                <span class="keyword">return</span> user.save(on: req.db).map &#123; user &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">delete</span>(<span class="params">req</span>: <span class="type">Request</span>) <span class="keyword">throws</span> -&gt; <span class="type">EventLoopFuture</span>&lt;<span class="type">HTTPStatus</span>&gt; &#123;</span><br><span class="line">        <span class="type">User</span>.find(req.parameters.get(<span class="string">&quot;userID&quot;</span>), on: req.db)</span><br><span class="line">            .unwrap(or: <span class="type">Abort</span>(.notFound))</span><br><span class="line">            .flatMap &#123; user <span class="keyword">in</span></span><br><span class="line">                user.delete(on: req.db)</span><br><span class="line">                    .transform(to: .ok)</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="运行和测试"><a href="#运行和测试" class="headerlink" title="运行和测试"></a>运行和测试</h3><ol>
+<li><p><strong>启动服务器</strong>：在项目根目录下运行 <code>vapor run</code>。</p>
+</li>
+<li><p><strong>测试 API</strong>：使用 Postman 或任何 HTTP 客户端工具测试你的 API。</p>
+<ul>
+<li>创建用户：<code>POST /users</code>，带上 JSON 请求体，比如 <code>&#123;&quot;name&quot;: &quot;Alice&quot;, &quot;email&quot;: &quot;alice@example.com&quot;&#125;</code>。</li>
+<li>列出所有用户：<code>GET /users</code>。</li>
+<li>获取单个用户：<code>GET /users/:userID</code>。</li>
+<li>更新用户信息：<code>PUT /users/:userID</code>。</li>
+<li>删除用户：<code>DELETE /users/:userID</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这个简单的示例中，我们创建了一个使用 Swift 和 Vapor 框架的 RESTful API，它可以处理基本的用户信息 CRUD 操作。这个示例使用了内存中的 SQLite 数据库，因此在服务器重启时，所有数据都会丢失。在实际应用中，你可能会使用 PostgreSQL 或 MySQL 等持久化的数据库。希望这对你学习 Vapor 有所帮助！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/09/%E4%BD%BF%E7%94%A8Vapor%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AFCRUD%E7%9A%84API%E6%8E%A5%E5%8F%A3/" data-id="cltv9a4xx002ugo74dc982hfl" data-title="使用Vapor编写用户信息CRUD的API接口" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术第15章构建一个聊天APP" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T02:24:42.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/">SwiftUI核心技术第15章构建一个聊天APP</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第1小节：应用结构规划</strong></p>
+<p>在开发一个新的应用时，规划应用的结构是成功的关键。一个良好设计的应用结构可以提高代码的可维护性和扩展性，并使团队合作变得更加高效。本小节我们将讨论如何为我们的聊天应用进行结构规划。</p>
+<h3 id="应用概览"><a href="#应用概览" class="headerlink" title="应用概览"></a>应用概览</h3><p>我们的聊天应用将具备以下基本功能：</p>
+<ul>
+<li>用户注册与登录</li>
+<li>好友列表管理</li>
+<li>实时消息传递</li>
+<li>个人与群组聊天</li>
+<li>消息通知</li>
+</ul>
+<h3 id="架构模式"><a href="#架构模式" class="headerlink" title="架构模式"></a>架构模式</h3><p>首先，我们需要选择一个适合于聊天应用的架构模式。考虑到SwiftUI的特性，我们选择MVVM（Model-View-ViewModel）作为主要架构，因为它能够很好地与SwiftUI的声明式UI和数据流工作模式配合。</p>
+<h3 id="分层设计"><a href="#分层设计" class="headerlink" title="分层设计"></a>分层设计</h3><p>我们的应用将分为以下几层：</p>
+<ol>
+<li><strong>视图层（View）</strong>：负责展示用户界面，捕获用户输入。</li>
+<li><strong>视图模型层（ViewModel）</strong>：处理视图逻辑，响应用户输入，与模型层通信。</li>
+<li><strong>模型层（Model）</strong>：定义数据结构和业务逻辑。</li>
+<li><strong>网络层</strong>：处理所有网络通信，例如发送和接收消息。</li>
+<li><strong>数据库层</strong>：负责数据持久化，存储历史消息和用户数据。</li>
+</ol>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p>为了支持这种分层设计，我们的项目目录将如下组织：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">ChatApp/</span><br><span class="line">├── Views/</span><br><span class="line">│   ├── LoginView.swift</span><br><span class="line">│   ├── ChatListView.swift</span><br><span class="line">│   ├── ChatView.swift</span><br><span class="line">│   └── ...</span><br><span class="line">├── ViewModels/</span><br><span class="line">│   ├── LoginViewModel.swift</span><br><span class="line">│   ├── ChatListViewModel.swift</span><br><span class="line">│   ├── ChatViewModel.swift</span><br><span class="line">│   └── ...</span><br><span class="line">├── Models/</span><br><span class="line">│   ├── User.swift</span><br><span class="line">│   ├── Message.swift</span><br><span class="line">│   ├── Conversation.swift</span><br><span class="line">│   └── ...</span><br><span class="line">├── Services/</span><br><span class="line">│   ├── AuthenticationService.swift</span><br><span class="line">│   ├── ChatService.swift</span><br><span class="line">│   ├── NotificationService.swift</span><br><span class="line">│   └── ...</span><br><span class="line">└── Utilities/</span><br><span class="line">    ├── Constants.swift</span><br><span class="line">    ├── Extensions.swift</span><br><span class="line">    └── ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="功能模块划分"><a href="#功能模块划分" class="headerlink" title="功能模块划分"></a>功能模块划分</h3><p>接下来，我们将应用分解为几个核心模块：</p>
+<ul>
+<li><strong>用户认证模块</strong>：包括用户注册、登录和验证。</li>
+<li><strong>联系人模块</strong>：用户的好友列表，添加和删除联系人。</li>
+<li><strong>聊天模块</strong>：展示消息历史，发送新消息，消息推送。</li>
+<li><strong>设置模块</strong>：用户可以修改个人信息，设置应用选项等。</li>
+</ul>
+<h3 id="数据流规划"><a href="#数据流规划" class="headerlink" title="数据流规划"></a>数据流规划</h3><p>由于聊天应用需要实时的数据更新，我们将使用Combine框架来处理数据的发布和订阅，以确保用户界面能够响应数据的变化。</p>
+<ul>
+<li>使用<code>@Published</code>属性包装器来自动管理数据的发布。</li>
+<li><code>ViewModels</code>将订阅<code>Models</code>的变化，并更新视图状态。</li>
+<li>视图将绑定到视图模型的发布者，以获得数据变更的通知。</li>
+</ul>
+<h3 id="安全和隐私"><a href="#安全和隐私" class="headerlink" title="安全和隐私"></a>安全和隐私</h3><p>聊天应用需要格外注意安全和隐私：</p>
+<ul>
+<li>采用安全的认证机制，如OAuth 2.0。</li>
+<li>传输层加密，确保数据传输的安全。</li>
+<li>数据库加密存储敏感信息。</li>
+</ul>
+<h3 id="用户体验（UX）"><a href="#用户体验（UX）" class="headerlink" title="用户体验（UX）"></a>用户体验（UX）</h3><p>用户体验是聊天应用成功的关键，我们需要确保：</p>
+<ul>
+<li>界面简洁明了，易于导航。</li>
+<li>消息即时传送，无明显延迟。</li>
+<li>有声音和震动的通知反馈。</li>
+</ul>
+<p>通过仔细规</p>
+<p>划应用结构，我们为聊天应用的开发奠定了坚实的基础。后续小节中，我们将深入每个模块，开始具体的设计和编码工作。</p>
+<p><strong>第2小节：用户界面设计</strong></p>
+<p>用户界面（UI）设计是创建聊天应用的重要组成部分。一个直观、易用且美观的UI将极大地提升用户体验。在这一小节，我们将概述聊天应用的用户界面设计过程，包括布局、组件选择、颜色和动画的应用等方面。</p>
+<h3 id="UI设计原则"><a href="#UI设计原则" class="headerlink" title="UI设计原则"></a>UI设计原则</h3><p>在设计界面之前，我们首先确定几个核心设计原则：</p>
+<ul>
+<li><strong>一致性</strong>：整个应用的设计风格保持一致，包括按钮样式、字体、颜色等。</li>
+<li><strong>简洁性</strong>：避免不必要的元素，使用户可以集中于聊天功能。</li>
+<li><strong>直观性</strong>：确保用户能够直观地理解如何使用应用，无需额外学习。</li>
+<li><strong>响应式</strong>：界面应该能够适应不同设备和屏幕大小。</li>
+</ul>
+<h3 id="布局设计"><a href="#布局设计" class="headerlink" title="布局设计"></a>布局设计</h3><p>布局是UI设计的基础，我们将采用如下布局策略：</p>
+<ul>
+<li><strong>导航栏</strong>：位于屏幕顶部，包含用户的状态和导航控件。</li>
+<li><strong>消息列表</strong>：主屏幕显示消息列表，一览无余。</li>
+<li><strong>输入区</strong>：屏幕底部为消息输入区，包括文本输入框和发送按钮。</li>
+<li><strong>设置菜单</strong>：通过导航栏访问，包括个人资料编辑和应用设置。</li>
+</ul>
+<h3 id="组件设计"><a href="#组件设计" class="headerlink" title="组件设计"></a>组件设计</h3><p>我们将使用SwiftUI来构建以下组件：</p>
+<ul>
+<li><strong>CustomButton</strong>：自定义按钮，用于登录、发送消息等。</li>
+<li><strong>ChatBubble</strong>：聊天气泡，区分自己和他人的消息。</li>
+<li><strong>UserAvatar</strong>：用户头像，显示在消息旁边和好友列表中。</li>
+<li><strong>TextField</strong>：自定义文本输入框，支持多行文本输入和表情。</li>
+</ul>
+<h3 id="颜色和主题"><a href="#颜色和主题" class="headerlink" title="颜色和主题"></a>颜色和主题</h3><p>颜色方案将支持暗黑模式和光亮模式，我们将定义一组基础颜色：</p>
+<ul>
+<li><strong>主色调</strong>：定义应用的主题颜色，如蓝色或绿色。</li>
+<li><strong>辅助色</strong>：用于强调按钮或重要信息。</li>
+<li><strong>背景色</strong>：分为深色和浅色变体，适应不同模式。</li>
+<li><strong>文字色</strong>：确保在任何背景色上都清晰可见。</li>
+</ul>
+<h3 id="图标和图形"><a href="#图标和图形" class="headerlink" title="图标和图形"></a>图标和图形</h3><p>应用中的图标和图形将采用矢量图形，以确保在不同分辨率下都能清晰显示。我们将为每个主要功能选择直观的图标。</p>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>为了提升用户体验，我们将在以下方面应用动画：</p>
+<ul>
+<li><strong>页面切换</strong>：平滑过渡，增强用户操作的连贯感。</li>
+<li><strong>消息发送</strong>：消息框飞入聊天区域的动画。</li>
+<li><strong>加载指示器</strong>：在等待网络响应时提供动态反馈。</li>
+</ul>
+<h3 id="响应式设计"><a href="#响应式设计" class="headerlink" title="响应式设计"></a>响应式设计</h3><p>我们的UI设计将采用响应式方法，以适应不同的设备和屏幕尺寸：</p>
+<ul>
+<li><strong>自适应布局</strong>：使用<code>Stacks</code>、<code>Grids</code>和<code>Flexible Spaces</code>确保组件在不同屏幕上都能正确布局。</li>
+<li><strong>动态字体大小</strong>：支持系统字体大小设置，适应用户的阅读需求。</li>
+</ul>
+<h3 id="交互设计"><a href="#交互设计" class="headerlink" title="交互设计"></a>交互设计</h3><p>最后，交互设计也是我们关注的重点：</p>
+<ul>
+<li><strong>触控反馈</strong>：按钮和可交互元素将提供触觉反馈。</li>
+<li><strong>滑动删除</strong>：在消息列表中轻松</li>
+</ul>
+<p>滑动来删除消息或撤回。</p>
+<p>通过上述设计，我们将创建一个美观、直观且功能强大的聊天应用用户界面。接下来，我们将在小节中进一步详细说明每个组件和功能的实现过程。</p>
+<p><strong>第3小节：应用逻辑实现</strong></p>
+<p>构建一个聊天应用不仅仅是设计外观上的美观与实用，应用的核心在于其逻辑实现。在本小节，我们将探讨如何在SwiftUI框架下实现聊天应用的基本逻辑，包括消息的发送与接收、状态管理以及实时更新等功能。</p>
+<h3 id="基础逻辑构建"><a href="#基础逻辑构建" class="headerlink" title="基础逻辑构建"></a>基础逻辑构建</h3><p>首先，我们需要建立应用的数据模型和业务逻辑层，这通常涉及以下几个关键部分：</p>
+<ul>
+<li><strong>用户模型（User Model）</strong>：定义用户的基本信息，如用户名、头像、状态等。</li>
+<li><strong>消息模型（Message Model）</strong>：定义消息的数据结构，包含发送者、接收者、消息内容、发送时间等。</li>
+<li><strong>会话列表（Conversations List）</strong>：存储用户的聊天会话，每个会话包含多条消息。</li>
+<li><strong>数据管理器（Data Manager）</strong>：负责处理数据的存取、更新以及同步。</li>
+</ul>
+<h3 id="消息发送与接收"><a href="#消息发送与接收" class="headerlink" title="消息发送与接收"></a>消息发送与接收</h3><p>聊天的核心功能是消息的发送与接收，我们将通过以下步骤来实现：</p>
+<ol>
+<li><p><strong>输入与发送</strong>：</p>
+<ul>
+<li>使用<code>TextField</code>或<code>TextView</code>获取用户输入的消息文本。</li>
+<li>当用户点击发送按钮时，通过数据管理器将消息对象保存到会话列表中。</li>
+</ul>
+</li>
+<li><p><strong>消息展示</strong>：</p>
+<ul>
+<li>使用<code>ScrollView</code>和<code>LazyVStack</code>展示消息列表。</li>
+<li>对于每条消息，使用<code>ChatBubble</code>视图来展示，根据发送者是自己还是对方来调整样式和位置。</li>
+</ul>
+</li>
+<li><p><strong>实时更新</strong>：</p>
+<ul>
+<li>通过<code>Combine</code>框架监听数据变化，实现消息的实时更新。</li>
+<li>当有新消息时，更新UI以展示新消息。</li>
+</ul>
+</li>
+</ol>
+<h3 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h3><p>在SwiftUI中，状态管理是一个重要的概念，它确保UI的正确性和数据的同步。我们将使用<code>@State</code>、<code>@Binding</code>、<code>@ObservedObject</code>等属性包装器来管理状态：</p>
+<ul>
+<li><strong>用户状态</strong>：使用<code>@State</code>管理用户的在线状态，比如在线、离开、忙碌等。</li>
+<li><strong>消息状态</strong>：使用<code>@ObservedObject</code>监控消息的发送和接收状态。</li>
+</ul>
+<h3 id="实时更新和同步"><a href="#实时更新和同步" class="headerlink" title="实时更新和同步"></a>实时更新和同步</h3><p>为了实现聊天应用中的实时互动，我们将使用WebSocket或者Apple的<code>CloudKit</code>来进行网络通信，实现消息的即时推送：</p>
+<ul>
+<li><strong>WebSocket连接</strong>：建立WebSocket连接来监听服务器发来的新消息。</li>
+<li><strong>CloudKit同步</strong>：如果使用<code>CloudKit</code>，则设置相应的记录类型和订阅，以便于新消息到来时可以立即更新。</li>
+</ul>
+<h3 id="聊天功能拓展"><a href="#聊天功能拓展" class="headerlink" title="聊天功能拓展"></a>聊天功能拓展</h3><p>除了基础的文本消息，我们还可以实现以下几个功能：</p>
+<ul>
+<li><strong>图片和视频发送</strong>：允许用户发送媒体文件，并在聊天气泡中预览。</li>
+<li><strong>消息状态标记</strong>：如已读、已发送等状态的标记。</li>
+<li><strong>通知与提醒</strong>：通过本地通知或推送通知，告知用户新消息的到来。</li>
+</ul>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>在实现聊天逻辑时，还需要考虑异常情况的处理：</p>
+<ul>
+<li><strong>网络异常</strong>：当网络不稳定或断开时，给用户适当的反馈，并尝试重新连接。</li>
+<li><strong>数据持久化</strong>：确保消息在本地被保存，即使应用关闭后也能恢复历史消息。</li>
+</ul>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>开发过程中，持续进行单元测试和集成测试来确保各个功能的可靠性，包括：</p>
+<ul>
+<li><strong>逻辑测试</strong>：对数据管理器和业务逻辑层进行测试。</li>
+<li><strong>UI测试</strong>：确保消息正确显示，</li>
+</ul>
+<p>用户交互按预期工作。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在本小节中，我们详细探讨了构建聊天应用的应用逻辑实现。从用户界面的交互到后端的数据处理，每一步都是为了提供流畅而可靠的用户体验。通过上述步骤的实现，我们的聊天应用将能够处理实时的消息交流，拥有健壮的逻辑处理能力以及优雅的错误处理机制。接下来的小节，我们将继续深入探讨应用的其他关键功能和实现细节。</p>
+<p><strong>第4小节：数据持久化</strong></p>
+<p>在聊天应用中，数据持久化是保证用户信息、消息历史以及应用状态在不同会话间能够得到保存和恢复的关键技术。不仅仅是为了增强用户体验，数据持久化同样是数据安全和隐私的重要组成部分。在本小节中，我们将讨论在SwiftUI应用中实现数据持久化的策略和技术。</p>
+<h3 id="持久化选项"><a href="#持久化选项" class="headerlink" title="持久化选项"></a>持久化选项</h3><p>SwiftUI应用中，我们可以选择多种方式来实现数据持久化：</p>
+<ol>
+<li><strong>UserDefaults</strong>：适合存储少量的用户偏好设置或简单的应用状态。</li>
+<li><strong>文件系统</strong>：适合存储大量数据，如日志文件或者用户生成的内容。</li>
+<li><strong>SQLite数据库</strong>：适合复杂的数据结构和大量数据的管理。</li>
+<li><strong>Core Data</strong>：苹果推荐的解决方案，集成了SQLite，并提供了丰富的数据管理功能。</li>
+<li><strong>CloudKit</strong>：允许数据在设备间同步，同时保留在iCloud上。</li>
+</ol>
+<h3 id="Core-Data集成"><a href="#Core-Data集成" class="headerlink" title="Core Data集成"></a>Core Data集成</h3><p>我们将以Core Data为例，探讨如何在SwiftUI聊天应用中实现数据持久化。</p>
+<ul>
+<li><strong>设置Core Data堆栈</strong>：这包括了<code>NSPersistentContainer</code>的创建和配置，它将负责管理数据模型和协调数据存储。</li>
+<li><strong>定义数据模型</strong>：在<code>.xcdatamodeld</code>文件中定义实体（Entity），包括<code>User</code>和<code>Message</code>等，并设置好它们的属性和关系。</li>
+<li><strong>管理上下文（Context）</strong>：使用<code>NSManagedObjectContext</code>来管理对象的生命周期，实现数据的增删改查操作。</li>
+</ul>
+<h3 id="数据存储和检索"><a href="#数据存储和检索" class="headerlink" title="数据存储和检索"></a>数据存储和检索</h3><ul>
+<li><strong>存储消息</strong>：当用户发送消息时，创建<code>Message</code>的实例，并通过上下文将其插入到持久化存储中。</li>
+<li><strong>读取会话</strong>：加载聊天会话时，从Core Data中检索相关联的<code>Message</code>实例，根据时间戳排序后显示在界面上。</li>
+</ul>
+<h3 id="同步和更新"><a href="#同步和更新" class="headerlink" title="同步和更新"></a>同步和更新</h3><ul>
+<li><strong>监听数据变化</strong>：利用<code>NSFetchedResultsController</code>监听Core Data模型的变化，当新消息被插入时，自动刷新UI。</li>
+<li><strong>后台更新</strong>：通过<code>performBackgroundTask</code>方法在后台线程上进行数据更新操作，以避免阻塞UI线程。</li>
+</ul>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><ul>
+<li><strong>处理Core Data错误</strong>：在进行数据操作时，正确处理<code>NSManagedObjectContext</code>的保存（save）操作可能出现的错误。</li>
+<li><strong>数据迁移</strong>：为了应对未来数据模型的变化，实现Core Data的数据迁移策略。</li>
+</ul>
+<h3 id="测试与维护"><a href="#测试与维护" class="headerlink" title="测试与维护"></a>测试与维护</h3><ul>
+<li><strong>单元测试</strong>：为数据模型的创建、更新、删除编写单元测试，确保数据层逻辑的正确性。</li>
+<li><strong>数据清理</strong>：实现数据清理策略，比如删除过旧的消息，避免数据库不断增大。</li>
+</ul>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>数据持久化不仅能提高用户体验，同时对于保证数据的安全性和完整性也至关重要。通过使用Core Data，我们可以为聊天应用提供一个强大、灵活且易于维护的数据存储方案。在聊天应用中实现了数据持久化之后，无论用户何时回到应用，都能够立即接入到他们离开时的状态，保持流畅的聊天体验。在下一小节中，我们将进一步探讨如何将我们的聊天应用与云服务（如CloudKit）整合，实现跨设备的数据同步功能。</p>
+<p><strong>第5小节：网络请求和数据处理</strong></p>
+<p>当我们在构建一个现代的聊天应用时，网络请求成为了一个核心部分，它负责从远程服务器获取数据以及将数据推送到服务器。在本小节中，我们将介绍如何在聊天应用中处理网络请求和数据。</p>
+<h3 id="设计API接口"><a href="#设计API接口" class="headerlink" title="设计API接口"></a>设计API接口</h3><p>在开始编写代码之前，我们需要设计我们聊天应用所需的API接口。这些接口应包括：</p>
+<ul>
+<li>用户注册与登录</li>
+<li>消息发送与接收</li>
+<li>用户状态更新</li>
+<li>好友列表和消息历史获取</li>
+</ul>
+<p>API设计应该遵循RESTful原则或者使用更现代的GraphQL。</p>
+<h3 id="使用Swift的网络框架"><a href="#使用Swift的网络框架" class="headerlink" title="使用Swift的网络框架"></a>使用Swift的网络框架</h3><p>Swift提供了多种网络请求的方法，如<code>URLSession</code>，它是一个强大且灵活的网络通信框架。</p>
+<ul>
+<li><strong>创建网络请求</strong>：使用<code>URLRequest</code>构建请求，包括URL、HTTP方法（如GET、POST）、请求头和请求体。</li>
+<li><strong>发送请求和接收响应</strong>：利用<code>URLSession</code>发起请求，并通过<code>URLSessionDataTask</code>处理回调。</li>
+<li><strong>解析JSON数据</strong>：使用<code>JSONDecoder</code>将服务器返回的JSON数据解析成Swift的结构体。</li>
+</ul>
+<h3 id="异步和等待"><a href="#异步和等待" class="headerlink" title="异步和等待"></a>异步和等待</h3><p>SwiftUI 与 Swift 5.5 引入的 async&#x2F;await 一起，可以大大简化异步网络请求的处理。</p>
+<ul>
+<li><strong>异步函数</strong>：定义异步函数来发起网络请求，使用<code>await</code>关键字等待响应。</li>
+<li><strong>错误处理</strong>：使用<code>do-catch</code>语句捕获并处理网络请求或数据解析中可能发生的错误。</li>
+</ul>
+<h3 id="数据模型和解析"><a href="#数据模型和解析" class="headerlink" title="数据模型和解析"></a>数据模型和解析</h3><p>定义数据模型来对应API返回的数据格式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">User</span>: <span class="title class_">Codable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Message</span>: <span class="title class_">Codable</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> senderId: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> receiverId: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> content: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> timestamp: <span class="type">Date</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>Codable</code>协议自动将JSON数据和模型进行映射。</p>
+<h3 id="实时聊天功能"><a href="#实时聊天功能" class="headerlink" title="实时聊天功能"></a>实时聊天功能</h3><p>对于聊天应用来说，实时通讯是必不可少的。WebSocket 是一种在单个TCP连接上进行全双工通讯的协议。</p>
+<ul>
+<li><strong>使用WebSocket</strong>：通过<code>URLSessionWebSocketTask</code>来与服务器建立WebSocket连接。</li>
+<li><strong>接收消息</strong>：监听WebSocket的消息事件来实时接收新消息。</li>
+<li><strong>发送消息</strong>：发送消息通过WebSocket实时传递给其他用户。</li>
+</ul>
+<h3 id="网络状态监听"><a href="#网络状态监听" class="headerlink" title="网络状态监听"></a>网络状态监听</h3><p>考虑到网络状态可能时常变化，应用应能响应网络状态的改变。</p>
+<ul>
+<li><strong>使用Reachability</strong>：检测网络连接状态，根据网络状况提示用户或执行重连策略。</li>
+<li><strong>网络指示器</strong>：提供用户界面反馈，例如当应用正在进行网络请求时显示加载指示器。</li>
+</ul>
+<h3 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h3><p>安全性是聊天应用中一个重要的议题。</p>
+<ul>
+<li><strong>使用HTTPS</strong>：确保所有的网络请求都通过安全的HTTP连接进行。</li>
+<li><strong>身份验证</strong>：使用OAuth、JWT等机制来管理和验证用户身份。</li>
+<li><strong>数据加密</strong>：对敏感数据进行加密，确保即使在传输过程中数据被截获也无法被解读。</li>
+</ul>
+<h3 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h3><p>网络请求的测试至关重要。</p>
+<ul>
+<li><strong>单元测试</strong>：为网络请求编写单元测试，使用Mock对象来模拟网络响应。</li>
+<li><strong>集成测试</strong>：确保网络请求与应用其他部分的整合运行无误。</li>
+</ul>
+<h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><p>网络请求和数据处理是构建聊天应用的核心部分。利用Swift的现代编程特性和网络框架，我们可以有效地发送请求、接收响应、处理数据，并保证用户信息的安全性。在下一小节中，我们将讨论如何</p>
+<p>实现跨平台的消息推送通知，这是提升用户体验的另一个关键点。</p>
+<p><strong>第6小节：应用测试和发布准备</strong></p>
+<p>在开发完一个应用后，进行彻底的测试并做好发布前的各种准备工作是至关重要的。这一步骤确保了你的应用能够在广泛发布之前，满足质量标准，减少可能的错误或问题，为最终用户提供良好的体验。</p>
+<h3 id="应用测试"><a href="#应用测试" class="headerlink" title="应用测试"></a>应用测试</h3><p><strong>单元测试</strong>：为应用的每一个独立模块编写单元测试，验证逻辑的正确性。在聊天应用中，需要确保消息处理、用户认证、数据解析等核心功能的准确无误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"><span class="keyword">@testable</span> <span class="keyword">import</span> ChatApp</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChatAppTests</span>: <span class="title class_">XCTestCase</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testMessageParsing</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> json <span class="operator">=</span> <span class="string">&quot;&#123; <span class="subst">\&quot;</span>senderId<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>1<span class="subst">\&quot;</span>, <span class="subst">\&quot;</span>receiverId<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>2<span class="subst">\&quot;</span>, <span class="subst">\&quot;</span>content<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>Hello<span class="subst">\&quot;</span> &#125;&quot;</span></span><br><span class="line">        <span class="keyword">let</span> data <span class="operator">=</span> <span class="type">Data</span>(json.utf8)</span><br><span class="line">        <span class="keyword">let</span> message <span class="operator">=</span> <span class="keyword">try?</span> <span class="type">JSONDecoder</span>().decode(<span class="type">Message</span>.<span class="keyword">self</span>, from: data)</span><br><span class="line">        <span class="type">XCTAssertNotNil</span>(message)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>集成测试</strong>：检查应用中各个模块之间的交互是否正确。这包括用户界面流程的测试，确保视图控制器和视图模型间的交互按预期工作。</p>
+<p><strong>性能测试</strong>：确保应用的性能达标。例如，消息加载和发送的速度要快，内存消耗要低。</p>
+<p><strong>安全性测试</strong>：验证应用的安全措施，包括数据加密和身份验证流程。</p>
+<h3 id="用户界面测试"><a href="#用户界面测试" class="headerlink" title="用户界面测试"></a>用户界面测试</h3><p><strong>UI测试</strong>：自动化测试用户界面，确保用户的交互行为如点击、滚动、输入等能够产生预期的结果。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChatAppUITests</span>: <span class="title class_">XCTestCase</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">testChatFlow</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> app <span class="operator">=</span> <span class="type">XCUIApplication</span>()</span><br><span class="line">        app.launch()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> messageTextField <span class="operator">=</span> app.textFields[<span class="string">&quot;messageTextField&quot;</span>]</span><br><span class="line">        messageTextField.tap()</span><br><span class="line">        messageTextField.typeText(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> sendButton <span class="operator">=</span> app.buttons[<span class="string">&quot;sendButton&quot;</span>]</span><br><span class="line">        sendButton.tap()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 验证消息是否显示在聊天界面上</span></span><br><span class="line">        <span class="keyword">let</span> chatBubble <span class="operator">=</span> app.staticTexts[<span class="string">&quot;Hello, World!&quot;</span>]</span><br><span class="line">        <span class="type">XCTAssertTrue</span>(chatBubble.exists)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>可访问性测试</strong>：确保应用支持VoiceOver等辅助功能，使得所有用户都能使用你的应用。</p>
+<h3 id="发布前的准备"><a href="#发布前的准备" class="headerlink" title="发布前的准备"></a>发布前的准备</h3><p><strong>Beta测试</strong>：通过TestFlight或类似的服务，发布应用的测试版本，邀请用户参与beta测试。</p>
+<p><strong>性能优化</strong>：回顾代码，查找并优化可能的性能瓶颈，如减少不必要的网络请求，优化图片加载。</p>
+<p><strong>本地化</strong>：确保应用支持多语言，包括界面文本和用户内容的适当本地化。</p>
+<p><strong>应用商店优化（ASO）</strong>：为了在应用商店中获得更好的曝光，优化应用的标题、描述、关键字和截图。</p>
+<p><strong>隐私政策和用户协议</strong>：准备并审核应用的隐私政策和用户协议文档，确保符合法律法规和应用商店的要求。</p>
+<p><strong>备份和恢复策略</strong>：确保应用支持数据备份和恢复功能，以便用户更换设备后可以恢复数据。</p>
+<h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3><p>确保你的聊天应用在发布前通过了各种形式的测试，这包括了功能、性能、安全性和用户界面的测试。同时，完成发布前的各项准备工作，确保你的应用在上架后能够吸引用户并且避免法律风险。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC15%E7%AB%A0%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E8%81%8A%E5%A4%A9APP/" data-id="cltv9a4xu0026go742ld669ta" data-title="SwiftUI核心技术第15章构建一个聊天APP" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术第14章测试与调试" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T01:49:07.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/">SwiftUI核心技术第14章测试与调试</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第1小节：单元测试和UI测试</strong></p>
+<p>在软件开发过程中，测试是确保应用质量的关键步骤。SwiftUI应用的测试主要分为单元测试和UI测试两种。单元测试确保代码逻辑的正确性，而UI测试确保用户界面的行为与期望一致。本节将详细介绍如何在SwiftUI中实施有效的单元测试和UI测试策略。</p>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>单元测试是在最小的代码单位级别上验证功能正确性的测试。在Swift中，单元测试通常是针对独立的函数或对象进行的。</p>
+<h4 id="设计可测试的代码"><a href="#设计可测试的代码" class="headerlink" title="设计可测试的代码"></a>设计可测试的代码</h4><ul>
+<li><strong>解耦和模块化</strong>：确保代码是松耦合和高内聚的，这样更容易编写测试。</li>
+<li><strong>依赖注入</strong>：通过依赖注入可以在测试时替换实际的依赖，以实现更精确的测试。</li>
+<li><strong>使用协议和Mock对象</strong>：定义接口并在测试中使用Mock对象来模拟真实对象。</li>
+</ul>
+<h4 id="编写单元测试"><a href="#编写单元测试" class="headerlink" title="编写单元测试"></a>编写单元测试</h4><ul>
+<li><strong>XCTest框架</strong>：使用Xcode集成的XCTest框架编写测试用例。</li>
+<li><strong>Assert函数</strong>：使用assert函数（如<code>XCTAssertTrue</code>, <code>XCTAssertEqual</code>等）验证预期结果。</li>
+<li><strong>测试边界条件</strong>：确保测试边界情况和异常情况。</li>
+</ul>
+<h3 id="UI测试"><a href="#UI测试" class="headerlink" title="UI测试"></a>UI测试</h3><p>UI测试模拟用户与应用界面的交互，验证UI元素的存在性、状态和应用的响应性。</p>
+<h4 id="配置UI测试环境"><a href="#配置UI测试环境" class="headerlink" title="配置UI测试环境"></a>配置UI测试环境</h4><ul>
+<li><strong>使用XCTestUI框架</strong>：XCTestUI提供了一套工具用于编写UI测试。</li>
+<li><strong>Accessibility标识</strong>：给UI元素设置Accessibility标识，以便测试脚本可以准确地定位它们。</li>
+</ul>
+<h4 id="编写UI测试脚本"><a href="#编写UI测试脚本" class="headerlink" title="编写UI测试脚本"></a>编写UI测试脚本</h4><ul>
+<li><strong>记录UI交互</strong>：Xcode提供了UI测试录制功能，可以自动生成用户交互的基本代码。</li>
+<li><strong>编写测试用例</strong>：基于录制的代码，编写完整的测试用例来验证特定的UI行为。</li>
+<li><strong>断言验证</strong>：使用断言来验证UI状态是否符合预期。</li>
+</ul>
+<h3 id="测试最佳实践"><a href="#测试最佳实践" class="headerlink" title="测试最佳实践"></a>测试最佳实践</h3><ul>
+<li><strong>持续集成（CI）</strong>：将测试集成到持续集成流程中，确保每次提交都通过测试。</li>
+<li><strong>代码覆盖率</strong>：监控代码覆盖率，尽量使之覆盖所有的代码路径。</li>
+<li><strong>性能测试</strong>：包含性能测试来验证关键功能的响应时间。</li>
+<li><strong>定期回归测试</strong>：每次代码更新后进行回归测试，确保新改动没有引入新的错误。</li>
+</ul>
+<p>通过遵循上述方法，您可以为SwiftUI应用实施一套全面的测试策略，显著提高应用的质量和可靠性。记得，测试是一个持续的过程，应随着应用的迭代而不断更新和完善。</p>
+<p><strong>第2小节：使用Xcode调试</strong></p>
+<p>调试是发现、定位并修正编程错误过程。Xcode提供了强大的调试工具，它们可以帮助开发者理解代码在运行时的行为，并有效地找到并解决问题。在这一小节中，我们将深入探讨如何使用Xcode来调试SwiftUI应用。</p>
+<h3 id="断点（Breakpoints）"><a href="#断点（Breakpoints）" class="headerlink" title="断点（Breakpoints）"></a>断点（Breakpoints）</h3><p>断点是调试中的一个核心概念，它允许你在特定的代码行暂停代码执行，以便你可以检查此时的变量状态和应用逻辑。</p>
+<h4 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h4><ul>
+<li><strong>标准断点</strong>：点击Xcode编辑器左侧的边栏，即可在代码行旁设置断点。</li>
+<li><strong>条件断点</strong>：断点可设置条件，使之仅在满足特定条件时才触发。</li>
+<li><strong>动作断点</strong>：在触发断点时自动执行一个特定的动作，如打印一条日志信息。</li>
+</ul>
+<h3 id="调试面板"><a href="#调试面板" class="headerlink" title="调试面板"></a>调试面板</h3><p>当代码在断点处停止时，Xcode的调试面板会提供多种工具来帮助你理解代码的状态。</p>
+<ul>
+<li><strong>变量查看器</strong>：显示当前作用域内所有变量的值。</li>
+<li><strong>调用堆栈查看器</strong>：查看函数调用堆栈，了解当前代码执行的路径。</li>
+<li><strong>内存检查器</strong>：检查应用的内存使用情况，发现潜在的内存泄露。</li>
+</ul>
+<h3 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h3><p>使用调试面板的控件来控制应用的执行流。</p>
+<ul>
+<li><strong>继续执行</strong>（Continue）：继续执行代码直到下一个断点。</li>
+<li><strong>逐步执行</strong>（Step Over）：执行当前行，并在下一行停止。</li>
+<li><strong>深入执行</strong>（Step Into）：如果当前行调用了一个函数，进入该函数内部。</li>
+<li><strong>跳出执行</strong>（Step Out）：从当前函数跳出，回到上一层函数。</li>
+</ul>
+<h3 id="LLDB调试器"><a href="#LLDB调试器" class="headerlink" title="LLDB调试器"></a>LLDB调试器</h3><p>LLDB是Xcode使用的底层调试器。你可以使用LLDB控制台来执行更复杂的调试命令。</p>
+<ul>
+<li><strong>打印变量</strong>：使用<code>po</code>命令打印变量的描述。</li>
+<li><strong>设置变量值</strong>：直接在调试会话中修改变量的值。</li>
+<li><strong>执行表达式</strong>：使用<code>expr</code>命令执行代码表达式。</li>
+</ul>
+<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><p>Xcode的Instrument工具可以用来分析应用的性能问题。</p>
+<ul>
+<li><strong>时间分析器</strong>：查看CPU的使用情况以及代码执行的时间。</li>
+<li><strong>内存分析器</strong>：分析应用的内存使用模式和潜在的内存泄露。</li>
+<li><strong>网络分析器</strong>：检查应用的网络请求和响应。</li>
+</ul>
+<h3 id="Xcode调试技巧"><a href="#Xcode调试技巧" class="headerlink" title="Xcode调试技巧"></a>Xcode调试技巧</h3><ul>
+<li><strong>视图调试</strong>（View Debugging）：可视化地检查UI元素的布局和属性。</li>
+<li><strong>条件表达式</strong>：使用条件表达式来精确控制断点的触发时机。</li>
+<li><strong>符号断点</strong>：在特定的系统函数或方法调用时触发断点。</li>
+</ul>
+<p>通过熟练使用Xcode的调试工具，你将能够更快地发现问题所在，并对SwiftUI应用进行高效的故障排查。记得，耐心和细心是调试过程中的良师益友，不断实践将使你成为更高效的开发者。</p>
+<p><strong>第3小节：预览与条件编译</strong></p>
+<p>SwiftUI 的预览功能是其最具革命性的特点之一，它允许开发者在不运行整个应用的情况下快速迭代和测试其视图。条件编译则是一种控制代码在不同环境下如何编译的方法。在这一小节中，我们将讨论如何使用这两个强大的功能来提高开发效率和代码质量。</p>
+<h3 id="使用SwiftUI预览"><a href="#使用SwiftUI预览" class="headerlink" title="使用SwiftUI预览"></a>使用SwiftUI预览</h3><p>SwiftUI的<code>Canvas</code>视图提供了一个实时预览，它显示了你的用户界面组件在实际应用中的外观和表现。以下是如何高效使用SwiftUI预览的指南：</p>
+<ul>
+<li><strong>基本预览</strong>：每个SwiftUI视图都可以有一个或多个预览。通过创建<code>PreviewProvider</code>的实现，你可以快速看到你的UI更改的效果。</li>
+<li><strong>多设备预览</strong>：在预览提供者中，你可以设置多个预览设备和配置，同时查看在不同设备和方向上的界面表现。</li>
+<li><strong>动态预览</strong>：通过添加预览参数，如不同的字体大小、颜色主题（包括Dark Mode）和辅助功能设置，你可以查看你的视图在不同用户设置下的表现。</li>
+<li><strong>交互式预览</strong>：你可以在Canvas中与UI交互，例如点击按钮或切换开关，这有助于测试视图的响应性。</li>
+<li><strong>实时数据预览</strong>：将模型对象注入到预览中，使你可以用实际数据来展示和测试视图。</li>
+</ul>
+<h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><p>在Swift中，可以使用编译配置来为不同的编译目标提供不同的代码路径。这对于处理开发和生产环境的差异至关重要。</p>
+<ul>
+<li><strong>编译标志</strong>：使用<code>#if</code>、<code>#elseif</code>和<code>#endif</code>指令来控制哪些代码块应被编译。这常用于开发和生产环境的日志记录和配置。</li>
+<li><strong>平台特定代码</strong>：可以检查<code>os(macOS)</code>、<code>os(iOS)</code>等条件，来编写只在特定操作系统上编译的代码。</li>
+<li><strong>功能特性检查</strong>：使用<code>canImport(module)</code>来确定是否可以导入一个特定的模块，这在跨多个Swift版本或平台时很有用。</li>
+<li><strong>调试与发布区分</strong>：使用<code>DEBUG</code>标识符来保证某些代码仅在调试构建中编译，而在发布构建中不会包含这些代码。</li>
+</ul>
+<h3 id="组合预览与条件编译"><a href="#组合预览与条件编译" class="headerlink" title="组合预览与条件编译"></a>组合预览与条件编译</h3><p>将SwiftUI预览和条件编译相结合，可以创建更为强大和灵活的开发环境。</p>
+<ul>
+<li><strong>预览特定配置</strong>：为不同的预览目标配置不同的环境变量或者模拟数据。</li>
+<li><strong>隐藏调试UI</strong>：使用条件编译隐藏调试时用到的UI元素，以免它们出现在生产版本的应用中。</li>
+</ul>
+<p>通过利用这些工具，你可以确保在开发过程中，你的应用表现出色，并且在上线前能有效地去除所有不必要的测试代码。这样的实践不仅可以提高代码的质量，也能显著减少调试和测试时的工作量。预览和条件编译应当成为每一个SwiftUI开发者工具箱中的核心部分。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC14%E7%AB%A0%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%B0%83%E8%AF%95/" data-id="cltv9a4xv0028go748zdi0cif" data-title="SwiftUI核心技术第14章测试与调试" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-SwiftUI核心技术第13章性能优化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="article-date">
+  <time class="dt-published" datetime="2023-11-08T01:43:56.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">SwiftUI核心技术第13章性能优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>第13章：性能优化</strong></p>
+<p><strong>第1小节：诊断和解决性能问题</strong></p>
+<p>性能优化是软件开发中的关键步骤，特别是对于那些要求快速响应和流畅体验的应用。性能问题可能是由许多因素造成的，包括但不限于内存泄漏、过度渲染、网络延迟或者不高效的数据结构和算法。有效的性能优化往往从准确诊断问题开始。</p>
+<h3 id="1-性能评估"><a href="#1-性能评估" class="headerlink" title="1. 性能评估"></a>1. 性能评估</h3><p>在深入代码优化之前，首先要进行一个全面的性能评估。使用Xcode自带的Instrument工具可以帮助检测应用的CPU使用率、内存泄漏、能耗和网络性能等。</p>
+<h3 id="2-识别瓶颈"><a href="#2-识别瓶颈" class="headerlink" title="2. 识别瓶颈"></a>2. 识别瓶颈</h3><p>在性能评估之后，需要确定应用中的性能瓶颈。通过分析Instruments的报告，可以识别出CPU和内存的高消耗区域。对于图形密集型的应用，可能还需要检查GPU的使用情况。</p>
+<h3 id="3-代码分析与调优"><a href="#3-代码分析与调优" class="headerlink" title="3. 代码分析与调优"></a>3. 代码分析与调优</h3><p>一旦确定了瓶颈，就可以开始针对性的代码优化了。这可能包括：</p>
+<ul>
+<li><strong>优化算法和数据结构</strong>：改进或替换那些复杂度高的算法和数据结构。</li>
+<li><strong>减少计算量</strong>：避免不必要的计算，特别是在渲染和布局的过程中。</li>
+<li><strong>异步执行</strong>：使用异步编程模式来避免UI线程阻塞。</li>
+<li><strong>资源优化</strong>：优化图像和资源的加载，确保它们是压缩的且以正确的尺寸使用。</li>
+</ul>
+<h3 id="4-内存管理"><a href="#4-内存管理" class="headerlink" title="4. 内存管理"></a>4. 内存管理</h3><p>内存问题，尤其是内存泄漏，是性能问题的常见原因。使用ARC（自动引用计数）应该是管理内存的首选方法，但开发者仍需避免循环引用，及时释放不再使用的对象。</p>
+<h3 id="5-网络优化"><a href="#5-网络优化" class="headerlink" title="5. 网络优化"></a>5. 网络优化</h3><p>应用的响应时间很大程度上受网络状况的影响。通过优化API调用，使用缓存和数据预加载技术，可以显著提高性能。</p>
+<h3 id="6-测试与监控"><a href="#6-测试与监控" class="headerlink" title="6. 测试与监控"></a>6. 测试与监控</h3><ul>
+<li><strong>单元测试</strong>：编写单元测试来确保代码的效率。</li>
+<li><strong>性能测试</strong>：模拟高负载情况下应用的表现。</li>
+<li><strong>监控</strong>：发布应用后，继续监控其性能，并根据用户反馈和数据进行调整。</li>
+</ul>
+<h3 id="7-优化策略"><a href="#7-优化策略" class="headerlink" title="7. 优化策略"></a>7. 优化策略</h3><ul>
+<li><strong>延迟加载</strong>：只有当需要时才加载数据或执行计算。</li>
+<li><strong>预计算和缓存</strong>：预计算重复计算的结果并进行缓存。</li>
+<li><strong>复用和回收</strong>：在可能的情况下复用对象和视图。</li>
+</ul>
+<h3 id="8-持续优化"><a href="#8-持续优化" class="headerlink" title="8. 持续优化"></a>8. 持续优化</h3><p>性能优化不是一次性的任务，而是一个持续的过程。随着应用的发展和用户基础的增长，应持续关注性能指标，并进行相应的优化。</p>
+<p>通过遵循上述步骤，开发者可以诊断出性能问题的根本原因，并采取相应的措施来解决问题。从用户体验的角度出发，提升应用的性能将直接影响到应用的成功与否。</p>
+<p><strong>第2小节：延迟加载和内存管理</strong></p>
+<p>在移动应用开发中，高效的内存使用是至关重要的。用户设备的内存资源有限，如果应用消耗过多内存，会影响用户体验，并可能导致应用被系统终止。延迟加载（Lazy Loading）和精心的内存管理是优化应用性能的关键策略。</p>
+<h3 id="延迟加载（Lazy-Loading）"><a href="#延迟加载（Lazy-Loading）" class="headerlink" title="延迟加载（Lazy Loading）"></a>延迟加载（Lazy Loading）</h3><p>延迟加载是一种在需要时才加载数据或对象到内存的策略。这种方法可以减少应用的启动时间，降低内存消耗，提高整体性能。</p>
+<h4 id="实施延迟加载的策略："><a href="#实施延迟加载的策略：" class="headerlink" title="实施延迟加载的策略："></a>实施延迟加载的策略：</h4><ol>
+<li><strong>按需实例化</strong>：仅当确实需要显示或处理某个对象时，才创建该对象的实例。</li>
+<li><strong>视图渲染优化</strong>：对于列表和滚动视图，可以使用如SwiftUI的<code>LazyVStack</code>和<code>LazyHStack</code>，这些组件能确保只有那些在屏幕上的视图才会被加载和渲染。</li>
+<li><strong>数据获取</strong>：对于网络请求，可以实现预加载和按页面分段加载数据，避免一次性加载大量数据。</li>
+<li><strong>资源管理</strong>：对图像和视频等大型文件进行按需加载，并考虑实现缓存机制。</li>
+</ol>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>良好的内存管理可以避免内存泄漏和过度消耗，从而提高应用性能。</p>
+<h4 id="内存管理的关键点："><a href="#内存管理的关键点：" class="headerlink" title="内存管理的关键点："></a>内存管理的关键点：</h4><ol>
+<li><strong>自动引用计数（ARC）</strong>：理解并正确使用ARC是必要的，避免循环引用和内存泄漏。</li>
+<li><strong>弱引用和无主引用</strong>：在闭包和委托模式中使用<code>weak</code>和<code>unowned</code>关键字来避免强引用循环。</li>
+<li><strong>资源释放</strong>：及时释放不再需要的对象，特别是在处理大型对象和文件时。</li>
+<li><strong>内存警告处理</strong>：正确处理内存警告，释放可以释放的资源，避免应用被系统终止。</li>
+<li><strong>内存分析工具</strong>：使用Xcode的Memory Graph Debugger和Leaks工具定期检查内存问题。</li>
+</ol>
+<h4 id="实施内存管理的技术："><a href="#实施内存管理的技术：" class="headerlink" title="实施内存管理的技术："></a>实施内存管理的技术：</h4><ul>
+<li><strong>使用<code>deinit</code>进行清理</strong>：当对象被销毁时，确保释放它持有的资源。</li>
+<li><strong>缓存策略</strong>：智能地实施缓存策略，既要提高数据访问的效率，又要避免过度消耗内存。</li>
+<li><strong>内存池</strong>：对于频繁创建和销毁的小对象，可以使用内存池来管理。</li>
+<li><strong>对象复用</strong>：例如，在UITableView中复用cell，而不是每次都创建新的cell。</li>
+</ul>
+<p>通过延迟加载和内存管理，开发者可以显著提高应用的性能和用户体验。理解和正确实现这些概念将使应用在不同设备和操作系统上更加稳定和流畅。</p>
+<p><strong>第3小节：视图更新效率优化</strong></p>
+<p>在现代移动应用中，保持流畅的用户界面至关重要。在SwiftUI中，视图更新的效率直接影响到用户体验。这一小节将探讨如何优化视图更新的效率。</p>
+<h3 id="理解视图更新机制"><a href="#理解视图更新机制" class="headerlink" title="理解视图更新机制"></a>理解视图更新机制</h3><p>首先，我们需要理解SwiftUI是如何处理视图更新的。SwiftUI视图是声明式的，这意味着你定义的是视图的期望状态，而非状态变化的过程。当视图的状态发生变化时，SwiftUI会重新计算视图的body属性。</p>
+<h4 id="管理状态变化"><a href="#管理状态变化" class="headerlink" title="管理状态变化"></a>管理状态变化</h4><ul>
+<li><strong>最小化状态变化</strong>：确保只有真正需要更新的视图状态时才进行更改。</li>
+<li><strong>精确的观察</strong>：使用<code>@State</code>、<code>@Binding</code>、<code>@ObservedObject</code>和<code>@EnvironmentObject</code>智能地观察模型的变化。</li>
+</ul>
+<h3 id="避免不必要的视图更新"><a href="#避免不必要的视图更新" class="headerlink" title="避免不必要的视图更新"></a>避免不必要的视图更新</h3><p>不必要的视图重建会浪费资源并降低性能。</p>
+<h4 id="实现策略："><a href="#实现策略：" class="headerlink" title="实现策略："></a>实现策略：</h4><ol>
+<li>**合理使用<code>Equatable</code>**：对于自定义视图，实现<code>Equatable</code>协议并在<code>shouldUpdate</code>中提供差异对比，以避免相同状态时的重建。</li>
+<li><strong>条件式视图更新</strong>：通过逻辑判断确保只有当状态确实改变时才更新视图。</li>
+<li><strong>局部更新</strong>：使用<code>.id()</code>修饰符或其他方式来提示SwiftUI哪些部分的视图是稳定的，不需要重建。</li>
+</ol>
+<h3 id="高效的数据流"><a href="#高效的数据流" class="headerlink" title="高效的数据流"></a>高效的数据流</h3><p>数据流向视图的方式也影响更新效率。</p>
+<h4 id="优化数据流的方法："><a href="#优化数据流的方法：" class="headerlink" title="优化数据流的方法："></a>优化数据流的方法：</h4><ul>
+<li><strong>使用<code>@State</code>进行本地状态管理</strong>：对于视图私有的状态，使用<code>@State</code>来进行本地化管理。</li>
+<li><strong>利用<code>@ObservedObject</code>和<code>@EnvironmentObject</code>共享状态</strong>：对于需要在多个视图间共享的状态，可以使用这些属性包装器。</li>
+</ul>
+<h3 id="性能分析工具"><a href="#性能分析工具" class="headerlink" title="性能分析工具"></a>性能分析工具</h3><p>使用Xcode提供的性能分析工具来查找性能瓶颈。</p>
+<h4 id="分析方法："><a href="#分析方法：" class="headerlink" title="分析方法："></a>分析方法：</h4><ol>
+<li><strong>时间分析器</strong>：利用Xcode的时间分析器查看哪些部分的代码耗时最多。</li>
+<li><strong>SwiftUI预览性能检查</strong>：在SwiftUI预览中测试视图更新，观察是否有延迟。</li>
+</ol>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><ul>
+<li><strong>延迟复杂计算</strong>：对于复杂的视图计算，可以考虑将其推迟到视图显示之后的背景线程。</li>
+<li><strong>异步图片加载</strong>：对于图片和其他媒体资源，使用异步加载以避免阻塞UI线程。</li>
+<li><strong>智能组件分割</strong>：将复杂视图拆分成更小的、可以独立更新的组件。</li>
+</ul>
+<p>通过以上策略，可以确保SwiftUI应用中的视图更新是高效的，从而提供流畅的用户体验。记住，性能调优是一个持续的过程，定期的性能评测和分析是非常必要的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC13%E7%AB%A0%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" data-id="cltv9a4xu0022go745z2c1ymw" data-title="SwiftUI核心技术第13章性能优化" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
