@@ -69,6 +69,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI中的模态视图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T13:09:46.000Z" itemprop="datePublished">2023-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/">SwiftUI中的模态视图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 SwiftUI 中，通常我们提到“模态”时，指的是一个全屏或部分屏幕的视图，它会暂时中断用户的当前工作流程以获取用户的注意和交互。在 SwiftUI 中，没有直接命名为 <code>Modal</code> 的控件，但模态行为可以通过多种方式实现，如 <code>sheet</code>、<code>fullScreenCover</code> 以及 <code>popover</code>（在 iPad 上）。下面将介绍如何实现模态行为的几种方法。</p>
+<h3 id="使用-sheet-展示模态视图"><a href="#使用-sheet-展示模态视图" class="headerlink" title="使用 sheet 展示模态视图"></a>使用 <code>sheet</code> 展示模态视图</h3><p><code>sheet</code> 修饰符可以用来展示一个模态视图，这个视图会覆盖在当前视图的上方，并带有一个背景遮罩。用户必须明确地关闭模态视图才能返回到原始视图。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingSheet <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Sheet&quot;</span>) &#123;</span><br><span class="line">            showingSheet <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">            <span class="comment">// Sheet的内容</span></span><br><span class="line">            <span class="type">ModalContentView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ModalContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;This is a modal view.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-fullScreenCover-展示模态视图"><a href="#使用-fullScreenCover-展示模态视图" class="headerlink" title="使用 fullScreenCover 展示模态视图"></a>使用 <code>fullScreenCover</code> 展示模态视图</h3><p><code>fullScreenCover</code> 类似于 <code>sheet</code>，但是会覆盖整个屏幕，为模态视图提供了更多的空间。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingFullScreenModal <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Full-Screen Modal&quot;</span>) &#123;</span><br><span class="line">            showingFullScreenModal <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .fullScreenCover(isPresented: <span class="variable">$showingFullScreenModal</span>) &#123;</span><br><span class="line">            <span class="type">FullScreenModalView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">FullScreenModalView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@Environment</span>(\.presentationMode) <span class="keyword">var</span> presentationMode</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Dismiss&quot;</span>) &#123;</span><br><span class="line">            presentationMode.wrappedValue.dismiss()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-popover-展示模态视图（仅限-iPad）"><a href="#使用-popover-展示模态视图（仅限-iPad）" class="headerlink" title="使用 popover 展示模态视图（仅限 iPad）"></a>使用 <code>popover</code> 展示模态视图（仅限 iPad）</h3><p>Popover 在 iPad 上提供了另一种模态体验，它显示一个浮动的视图，不会覆盖整个屏幕，允许用户在不完全离开当前上下文的情况下与 popover 互动。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingPopover <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Popover&quot;</span>) &#123;</span><br><span class="line">            showingPopover <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Popover content here&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-NavigationLink-或-State-和-Binding-触发模态视图"><a href="#使用-NavigationLink-或-State-和-Binding-触发模态视图" class="headerlink" title="使用 NavigationLink 或 @State 和 @Binding 触发模态视图"></a>使用 <code>NavigationLink</code> 或 <code>@State</code> 和 <code>@Binding</code> 触发模态视图</h3><p>在某些情况下，你可能需要通过更传统的方式来显示一个模态视图，例如使用 <code>NavigationLink</code> 或通过程序化地控制视图的显示。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isModalPresented <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            isModalPresented <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Show Modal&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        .background(</span><br><span class="line">            <span class="type">NavigationLink</span>(destination: <span class="type">ModalView</span>(), isActive: <span class="variable">$isModalPresented</span>) &#123;</span><br><span class="line">                <span class="type">EmptyView</span>()</span><br><span class="line">            &#125;</span><br><span class="line">            .hidden()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ModalView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;This is a modal view presented via NavigationLink.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 SwiftUI 中，这些模态呈现方法都是通过声明式的 API 来控制，使状态变化与视图更新之间保持同步。你需要根据你的应用设计需求来选择使用哪种模态展示方式。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="cltv9a4xt001mgo7467wy4rf5" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI中Popover控件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/07/SwiftUI%E4%B8%ADPopover%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
@@ -643,69 +699,6 @@
 
 
   
-    <article id="post-SwiftUI中的TextField组件的用法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T12:27:08.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/">SwiftUI中的TextField组件的用法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，<code>TextField</code> 组件用于收集用户输入的文本信息。它类似于 UIKit 中的 <code>UITextField</code> 或者 Web 开发中的 <code>&lt;input type=&quot;text&quot;&gt;</code>。</p>
-<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>要创建一个 <code>TextField</code>，你至少需要提供两个参数：一个标签和一个绑定到文本值的变量。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br><span class="line">            .textFieldStyle(<span class="type">RoundedBorderTextFieldStyle</span>()) <span class="comment">// 为文本框添加边框样式</span></span><br><span class="line">            .padding() <span class="comment">// 增加一些内边距</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="定制样式"><a href="#定制样式" class="headerlink" title="定制样式"></a>定制样式</h3><p>SwiftUI 允许通过修饰符来定制 <code>TextField</code> 的外观和行为。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br><span class="line">    .padding()</span><br><span class="line">    .background(<span class="type">Color</span>.gray.opacity(<span class="number">0.2</span>)) <span class="comment">// 设置背景色</span></span><br><span class="line">    .cornerRadius(<span class="number">5</span>) <span class="comment">// 设置圆角</span></span><br><span class="line">    .font(.title) <span class="comment">// 设置字体样式</span></span><br><span class="line">    .padding(.horizontal) <span class="comment">// 水平方向的内边距</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="键盘类型、自动纠错和安全输入"><a href="#键盘类型、自动纠错和安全输入" class="headerlink" title="键盘类型、自动纠错和安全输入"></a>键盘类型、自动纠错和安全输入</h3><p>你可以为 <code>TextField</code> 设置键盘类型、是否自动纠错以及是否安全输入。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Email&quot;</span>, text: <span class="variable">$email</span>)</span><br><span class="line">    .keyboardType(.emailAddress) <span class="comment">// 设置键盘类型为邮箱地址</span></span><br><span class="line">    .autocapitalization(.none) <span class="comment">// 关闭自动大写</span></span><br><span class="line">    .disableAutocorrection(<span class="literal">true</span>) <span class="comment">// 关闭自动纠错</span></span><br><span class="line"></span><br><span class="line"><span class="type">SecureField</span>(<span class="string">&quot;Password&quot;</span>, text: <span class="variable">$password</span>) <span class="comment">// 用于密码输入，会隐藏输入内容</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="占位符的定制"><a href="#占位符的定制" class="headerlink" title="占位符的定制"></a>占位符的定制</h3><p>在 SwiftUI 中，占位符是通过直接在 <code>TextField</code> 的初始化器中设置的。你也可以使用 <code>NSAttributedString</code> 来自定义占位符的外观，但这需要与 <code>UIKit</code> 桥接。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="响应用户操作"><a href="#响应用户操作" class="headerlink" title="响应用户操作"></a>响应用户操作</h3><p>为了响应用户的输入操作，你可以使用 <code>onCommit</code> 参数来定义当用户按下 Return 键时的行为。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>, onCommit: &#123;</span><br><span class="line">    <span class="comment">// 用户按下 Return 键时的操作</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;User entered: <span class="subst">\(name)</span>&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="聚焦和失焦"><a href="#聚焦和失焦" class="headerlink" title="聚焦和失焦"></a>聚焦和失焦</h3><p>SwiftUI 2.0 引入了 <code>@FocusState</code>，使你能够控制 <code>TextField</code> 的聚焦状态。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="meta">@FocusState</span> <span class="keyword">private</span> <span class="keyword">var</span> isInputActive: <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">TextField</span>(<span class="string">&quot;Enter your name&quot;</span>, text: <span class="variable">$name</span>)</span><br><span class="line">        .focused(<span class="variable">$isInputActive</span>) <span class="comment">// 将 TextField 的焦点状态绑定到 isInputActive</span></span><br><span class="line">        .onAppear &#123;</span><br><span class="line">            <span class="type">DispatchQueue</span>.main.asyncAfter(deadline: .now() <span class="operator">+</span> <span class="number">0.5</span>) &#123;</span><br><span class="line">                <span class="keyword">self</span>.isInputActive <span class="operator">=</span> <span class="literal">true</span> <span class="comment">// 自动聚焦到 TextField</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-TextField-修饰符"><a href="#使用-TextField-修饰符" class="headerlink" title="使用 TextField 修饰符"></a>使用 <code>TextField</code> 修饰符</h3><p>SwiftUI 为 <code>TextField</code> 提供了许多修饰符来自定义外观和行为，例如 <code>.textFieldStyle()</code>、<code>.keyboardType()</code>、<code>.textContentType()</code> 等。</p>
-<p>使用 <code>TextField</code> 的过程中，可能需要对其行为和外观进行调整以适应特定的 UI 设计。通过结合多种修饰符，你可以创建出符合需求的文本输入界面。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84TextField%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%A8%E6%B3%95/" data-id="cltv9a4xs001fgo745qy6ekhy" data-title="SwiftUI中的TextField组件的用法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -763,6 +756,10 @@
       <ul>
         
           <li>
+            <a href="/2024/08/19/%E5%9C%A8SwiftUI%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F/">在SwiftUI中如何计算代码的执行时间？</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
           </li>
         
@@ -776,10 +773,6 @@
         
           <li>
             <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
           </li>
         
       </ul>

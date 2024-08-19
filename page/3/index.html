@@ -69,6 +69,215 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SwiftUI核心技术第3章环境搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time class="dt-published" datetime="2023-11-07T16:28:17.000Z" itemprop="datePublished">2023-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">SwiftUI核心技术第3章环境搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>1. Xcode和SwiftUI</strong></p>
+<p>为了开始使用SwiftUI，您需要安装Xcode，这是Apple提供的官方集成开发环境（IDE）。Xcode提供了构建iOS、iPadOS、macOS、watchOS和tvOS应用的所有工具和资源。SwiftUI是Xcode的一部分，是一个用于设计和开发用户界面的框架。在这一节中，我们将指导您如何设置Xcode和开始使用SwiftUI。</p>
+<p><strong>安装Xcode</strong></p>
+<ol>
+<li><p><strong>从Mac App Store下载Xcode</strong></p>
+<p>Xcode是免费的，可以直接从Mac App Store下载。确保您的Mac操作系统是最新的，因为新版本的Xcode通常只能在最新或次新的操作系统上运行。</p>
+</li>
+<li><p><strong>启动Xcode并安装额外组件</strong></p>
+<p>当您第一次打开Xcode时，它可能会提示您安装额外的必需组件。按照提示进行安装。</p>
+</li>
+<li><p><strong>接受Xcode许可协议</strong></p>
+<p>在安装组件之前，您可能需要接受Xcode的许可协议。您可以通过Xcode或使用终端命令行来完成这一步骤。</p>
+</li>
+</ol>
+<p><strong>配置Xcode</strong></p>
+<p>安装完成后，您可能需要进行一些基础配置：</p>
+<ol>
+<li><p><strong>设置开发者账户</strong></p>
+<p>在Xcode的Preferences（偏好设置）中，您可以登录您的Apple开发者账户。如果您还没有账户，您需要注册一个。</p>
+</li>
+<li><p><strong>下载模拟器或配置开发设备</strong></p>
+<p>如果您打算在真实设备上运行应用，需要在Xcode中配置您的iOS设备。否则，您可以下载并使用模拟器。</p>
+</li>
+</ol>
+<p><strong>创建SwiftUI项目</strong></p>
+<ol>
+<li><p><strong>打开Xcode并创建一个新的项目</strong></p>
+<p>选择“Create a new Xcode project”（创建一个新的Xcode项目）。</p>
+</li>
+<li><p><strong>选择项目模板</strong></p>
+<p>在模板选择器中，选择“App”作为您的项目模板。</p>
+</li>
+<li><p><strong>配置项目设置</strong></p>
+<p>您需要填写项目名称、团队、组织名称、组织标识符以及选择您想要支持的平台。</p>
+</li>
+<li><p><strong>选择SwiftUI作为界面</strong></p>
+<p>在创建项目时，确保在“User Interface”选项中选择“SwiftUI”。</p>
+</li>
+</ol>
+<p><strong>探索SwiftUI</strong></p>
+<ol>
+<li><p><strong>Canvas</strong></p>
+<p>Xcode提供了一个实时预览界面（Canvas），您可以看到SwiftUI代码的实时渲染结果。通过点击Canvas右上角的“Resume”按钮，可以启动或刷新预览。</p>
+</li>
+<li><p><strong>Inspector</strong></p>
+<p>Xcode的Inspector可以帮助您调整SwiftUI视图的属性，您可以直接通过图形界面来调整代码，而不需要编写任何代码。</p>
+</li>
+<li><p><strong>代码编辑器</strong></p>
+<p>Xcode的代码编辑器是您编写Swift和SwiftUI代码的地方。它提供了代码高亮、自动完成等功能，这可以极大提升编码效率。</p>
+</li>
+</ol>
+<p><strong>构建和运行</strong></p>
+<ol>
+<li><p><strong>选择目标</strong></p>
+<p>在Xcode顶部的工具栏中，您可以选择要在哪个模拟器或真实设备上运行您的应用。</p>
+</li>
+<li><p><strong>构建并运行应用</strong></p>
+<p>点击工具栏中的“Run”按钮（或使用快捷键<code>Command + R</code>）来构建并运行您的应用。如果一切设置正确，您应该能看到您的SwiftUI应用在模拟器或设备上运行。</p>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<p>设置Xcode并开始使用SwiftUI是开发现代iOS应用的第一步。通过Xcode，您可以使用SwiftUI框架来创建美观、响应迅速且易于维护的用户界面。本节提供了有关如何安装和配置Xcode、创建新的SwiftUI项目以及构建和运行应用的基本信息。掌握这些基础知识后，您将准备好深入探索SwiftUI的强大功能，并开始构建您自己的应用。</p>
+<p><strong>2. Swift Package Manager</strong></p>
+<p>Swift Package Manager（简称SPM）是Apple官方提供的一个用于自动化Swift代码的依赖管理和分发的工具。它与Xcode紧密集成，允许开发者方便地添加、更新和管理依赖库。</p>
+<p><strong>SPM的概念</strong></p>
+<ol>
+<li><strong>包（Package）</strong>：是一个或多个库的集合，它们共享一个构建设置和版本号。</li>
+<li><strong>库（Library）</strong>：是可复用代码的集合，用于构建程序或其他库。</li>
+<li><strong>依赖（Dependency）</strong>：是您的项目需要的外部库或包。</li>
+</ol>
+<p><strong>使用Swift Package Manager</strong></p>
+<ol>
+<li><p><strong>创建Package.swift</strong></p>
+<p>为了使用SPM，您的项目需要一个<code>Package.swift</code>文件，这是一个定义了包的名称、平台、Swift版本和依赖的清单文件。以下是一个基本的<code>Package.swift</code>示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swift-tools-version:5.3</span></span><br><span class="line"><span class="keyword">import</span> PackageDescription</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> package <span class="operator">=</span> <span class="type">Package</span>(</span><br><span class="line">    name: <span class="string">&quot;MyLibrary&quot;</span>,</span><br><span class="line">    platforms: [</span><br><span class="line">       .macOS(.v10_15), .iOS(.v13)</span><br><span class="line">    ],</span><br><span class="line">    products: [</span><br><span class="line">        .library(</span><br><span class="line">            name: <span class="string">&quot;MyLibrary&quot;</span>,</span><br><span class="line">            targets: [<span class="string">&quot;MyLibrary&quot;</span>]),</span><br><span class="line">    ],</span><br><span class="line">    dependencies: [</span><br><span class="line">        .package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, from: <span class="string">&quot;1.0.0&quot;</span>),</span><br><span class="line">    ],</span><br><span class="line">    targets: [</span><br><span class="line">        .target(</span><br><span class="line">            name: <span class="string">&quot;MyLibrary&quot;</span>,</span><br><span class="line">            dependencies: []),</span><br><span class="line">        .testTarget(</span><br><span class="line">            name: <span class="string">&quot;MyLibraryTests&quot;</span>,</span><br><span class="line">            dependencies: [<span class="string">&quot;MyLibrary&quot;</span>]),</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>添加依赖</strong></p>
+<p>在<code>Package.swift</code>文件中，您可以添加其他包作为依赖。SPM将自动下载和链接这些依赖。</p>
+</li>
+<li><p><strong>集成到Xcode项目</strong></p>
+<p>您可以通过Xcode直接添加SPM依赖：</p>
+<ul>
+<li>打开Xcode项目或工作区。</li>
+<li>选择“File” &gt; “Swift Packages” &gt; “Add Package Dependency…”。</li>
+<li>输入包的Git存储库URL，然后选择一个版本号或分支。</li>
+<li>选择要添加到哪个目标，然后完成集成流程。</li>
+</ul>
+</li>
+<li><p><strong>使用命令行</strong></p>
+<p>您也可以通过命令行界面使用SPM：</p>
+<ul>
+<li><code>swift build</code>：构建您的项目。</li>
+<li><code>swift test</code>：测试您的项目。</li>
+<li><code>swift run</code>：运行您的项目。</li>
+<li><code>swift package update</code>：更新您的依赖。</li>
+</ul>
+</li>
+</ol>
+<p><strong>管理依赖版本</strong></p>
+<p>SPM支持多种方式指定依赖版本：</p>
+<ul>
+<li>指定一个具体版本号。</li>
+<li>指定一个版本范围。</li>
+<li>使用分支名称或提交哈希。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, .exact(<span class="string">&quot;1.0.0&quot;</span>))</span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, from: <span class="string">&quot;1.0.0&quot;</span>)</span><br><span class="line">.package(url: <span class="string">&quot;https://github.com/someone/Something.git&quot;</span>, .branch(<span class="string">&quot;main&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<p>Swift Package Manager是一个强大的依赖管理工具，它简化了Swift项目中库和依赖的管理。通过声明式的<code>Package.swift</code>文件和Xcode的集成，SPM使得添加、更新和维护依赖变得既简单又可靠。了解SPM是现代Swift开发的重要组成部分，尤其是当您开始构建更大型且依赖多个第三方库的项目时。掌握SPM的使用将帮助您保持项目的清洁和组织，提高构建的可复用性和可维护性。</p>
+<p><strong>3. 创建第一个SwiftUI应用</strong></p>
+<p>进入到SwiftUI世界的第一步是创建您的第一个SwiftUI应用。本节将指导您完成创建和运行一个基本的SwiftUI应用程序的步骤，让您快速体验到SwiftUI开发的流畅和直观。</p>
+<p><strong>设置项目</strong></p>
+<ol>
+<li><p><strong>启动Xcode</strong>：<br>打开Xcode。在欢迎屏幕上选择“Create a new Xcode project”或在菜单栏选择“File” &gt; “New” &gt; “Project”。</p>
+</li>
+<li><p><strong>选择模板</strong>：<br>在项目模板选择界面，选择“App”作为项目模板。这将创建一个包含所有必需文件的iOS应用程序项目。</p>
+</li>
+<li><p><strong>项目配置</strong>：<br>在“Choose options for your new project”界面，填写项目的详细信息：</p>
+<ul>
+<li><code>Product Name</code>：应用程序的名称。</li>
+<li><code>Team</code>：如果您已注册Apple开发者计划并设置了Xcode，选择您的开发者团队。</li>
+<li><code>Organization Identifier</code>：通常是您或您公司的域名反写（例如com.example）。</li>
+<li><code>Interface</code>：确保选择“SwiftUI”。</li>
+<li><code>Language</code>：选择“Swift”。</li>
+<li><code>Lifecycle</code>：根据您的需求选择“SwiftUI App”。</li>
+<li><code>Use Core Data</code>：如果不需要，保持未选中状态。</li>
+<li><code>Include Tests</code>：如果您打算写测试，选择相应的测试复选框。</li>
+</ul>
+</li>
+<li><p><strong>选择保存位置</strong>：<br>选择一个适合您项目的位置，并且如果您想使用版本控制（例如Git），确保选中“Create Git repository”。</p>
+</li>
+</ol>
+<p><strong>探索SwiftUI工作区</strong></p>
+<ol>
+<li><p><strong>Project Navigator</strong>：<br>在Xcode左侧的侧边栏中，您可以看到Project Navigator，它展示了项目中所有的文件和资源。</p>
+</li>
+<li><p><strong>ContentView.swift</strong>：<br>这是您的SwiftUI视图代码所在的文件。Xcode默认为您提供了一个包含Text视图的简单SwiftUI视图。</p>
+</li>
+<li><p><strong>Preview</strong>：<br>Xcode支持SwiftUI的实时预览。如果Preview未自动显示，您可以点击代码编辑器顶部的“Resume”按钮来加载它。</p>
+</li>
+</ol>
+<p><strong>编写SwiftUI代码</strong></p>
+<ol>
+<li><p><strong>修改ContentView</strong>：</p>
+<ul>
+<li><p>用以下代码替换<code>ContentView</code>结构体中的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;Hello, SwiftUI!&quot;</span>)</span><br><span class="line">            .padding()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>使用Preview</strong>：</p>
+<ul>
+<li>使用Preview功能，您可以实时看到代码更改的效果。如果预览未显示，点击“Resume”按钮。</li>
+</ul>
+</li>
+</ol>
+<p><strong>运行应用</strong></p>
+<ol>
+<li><p><strong>选择模拟器或设备</strong>：<br>在Xcode工具栏中，选择一个模拟器或连接的设备作为目标。</p>
+</li>
+<li><p><strong>构建并运行</strong>：<br>点击工具栏中的“Run”按钮或使用快捷键<code>Command + R</code>来编译并运行您的应用。</p>
+</li>
+<li><p><strong>查看结果</strong>：<br>您的应用程序将启动，并在所选模拟器或设备上显示“Hello, SwiftUI!”文本。</p>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<p>恭喜您！通过完成这些步骤，您已经成功创建并运行了您的第一个SwiftUI应用。这只是一个开始，SwiftUI有着非常丰富的视图和控件供您使用，通过学习和实验，您将能够构建出功能强大且界面美观的应用程序。接下来的章节中，我们将进一步深入探索SwiftUI提供的各种构建用户界面的工具和技术。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E7%AC%AC3%E7%AB%A0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-id="cltv9a4xv002cgo74hjmk4rkt" data-title="SwiftUI核心技术第3章环境搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-SwiftUI核心技术" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/08/SwiftUI%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" class="article-date">
@@ -958,62 +1167,6 @@
 
 
   
-    <article id="post-SwiftUI中的模态视图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" class="article-date">
-  <time class="dt-published" datetime="2023-11-07T13:09:46.000Z" itemprop="datePublished">2023-11-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/SwiftUI/">SwiftUI</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/">SwiftUI中的模态视图</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 SwiftUI 中，通常我们提到“模态”时，指的是一个全屏或部分屏幕的视图，它会暂时中断用户的当前工作流程以获取用户的注意和交互。在 SwiftUI 中，没有直接命名为 <code>Modal</code> 的控件，但模态行为可以通过多种方式实现，如 <code>sheet</code>、<code>fullScreenCover</code> 以及 <code>popover</code>（在 iPad 上）。下面将介绍如何实现模态行为的几种方法。</p>
-<h3 id="使用-sheet-展示模态视图"><a href="#使用-sheet-展示模态视图" class="headerlink" title="使用 sheet 展示模态视图"></a>使用 <code>sheet</code> 展示模态视图</h3><p><code>sheet</code> 修饰符可以用来展示一个模态视图，这个视图会覆盖在当前视图的上方，并带有一个背景遮罩。用户必须明确地关闭模态视图才能返回到原始视图。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingSheet <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Sheet&quot;</span>) &#123;</span><br><span class="line">            showingSheet <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .sheet(isPresented: <span class="variable">$showingSheet</span>) &#123;</span><br><span class="line">            <span class="comment">// Sheet的内容</span></span><br><span class="line">            <span class="type">ModalContentView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ModalContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;This is a modal view.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-fullScreenCover-展示模态视图"><a href="#使用-fullScreenCover-展示模态视图" class="headerlink" title="使用 fullScreenCover 展示模态视图"></a>使用 <code>fullScreenCover</code> 展示模态视图</h3><p><code>fullScreenCover</code> 类似于 <code>sheet</code>，但是会覆盖整个屏幕，为模态视图提供了更多的空间。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingFullScreenModal <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Full-Screen Modal&quot;</span>) &#123;</span><br><span class="line">            showingFullScreenModal <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .fullScreenCover(isPresented: <span class="variable">$showingFullScreenModal</span>) &#123;</span><br><span class="line">            <span class="type">FullScreenModalView</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">FullScreenModalView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@Environment</span>(\.presentationMode) <span class="keyword">var</span> presentationMode</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Dismiss&quot;</span>) &#123;</span><br><span class="line">            presentationMode.wrappedValue.dismiss()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-popover-展示模态视图（仅限-iPad）"><a href="#使用-popover-展示模态视图（仅限-iPad）" class="headerlink" title="使用 popover 展示模态视图（仅限 iPad）"></a>使用 <code>popover</code> 展示模态视图（仅限 iPad）</h3><p>Popover 在 iPad 上提供了另一种模态体验，它显示一个浮动的视图，不会覆盖整个屏幕，允许用户在不完全离开当前上下文的情况下与 popover 互动。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> showingPopover <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(<span class="string">&quot;Show Popover&quot;</span>) &#123;</span><br><span class="line">            showingPopover <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        .popover(isPresented: <span class="variable">$showingPopover</span>) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Popover content here&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-NavigationLink-或-State-和-Binding-触发模态视图"><a href="#使用-NavigationLink-或-State-和-Binding-触发模态视图" class="headerlink" title="使用 NavigationLink 或 @State 和 @Binding 触发模态视图"></a>使用 <code>NavigationLink</code> 或 <code>@State</code> 和 <code>@Binding</code> 触发模态视图</h3><p>在某些情况下，你可能需要通过更传统的方式来显示一个模态视图，例如使用 <code>NavigationLink</code> 或通过程序化地控制视图的显示。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ContentView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="meta">@State</span> <span class="keyword">private</span> <span class="keyword">var</span> isModalPresented <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Button</span>(action: &#123;</span><br><span class="line">            isModalPresented <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">        &#125;) &#123;</span><br><span class="line">            <span class="type">Text</span>(<span class="string">&quot;Show Modal&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        .background(</span><br><span class="line">            <span class="type">NavigationLink</span>(destination: <span class="type">ModalView</span>(), isActive: <span class="variable">$isModalPresented</span>) &#123;</span><br><span class="line">                <span class="type">EmptyView</span>()</span><br><span class="line">            &#125;</span><br><span class="line">            .hidden()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ModalView</span>: <span class="title class_">View</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> body: <span class="keyword">some</span> <span class="type">View</span> &#123;</span><br><span class="line">        <span class="type">Text</span>(<span class="string">&quot;This is a modal view presented via NavigationLink.&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 SwiftUI 中，这些模态呈现方法都是通过声明式的 API 来控制，使状态变化与视图更新之间保持同步。你需要根据你的应用设计需求来选择使用哪种模态展示方式。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/07/SwiftUI%E4%B8%AD%E7%9A%84%E6%A8%A1%E6%80%81%E8%A7%86%E5%9B%BE/" data-id="cltv9a4xt001mgo7467wy4rf5" data-title="SwiftUI中的模态视图" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1071,6 +1224,10 @@
       <ul>
         
           <li>
+            <a href="/2024/08/19/%E5%9C%A8SwiftUI%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F/">在SwiftUI中如何计算代码的执行时间？</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
           </li>
         
@@ -1084,10 +1241,6 @@
         
           <li>
             <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/09/Java%E5%AE%9E%E7%8E%B0%E4%B8%A4%E5%8F%B0%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E9%95%BF%E8%BF%9E%E6%8E%A5%E9%80%9A%E4%BF%A1/">Java实现两台计算机之间长连接通信</a>
           </li>
         
       </ul>

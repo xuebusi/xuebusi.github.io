@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>在SwiftUI中如何计算代码的执行时间？ | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在Swift中，可以通过使用Date类来测量一段代码的执行时间。以下是一个简单的示例： 1234567891011let startTime &#x3D; Date()&#x2F;&#x2F; 这里放置你想测量执行时间的代码for i in 0..&lt;1000 &#123;    print(i)&#125;let endTime &#x3D; Date()let executionTime &#x3D; endTime.timeInterv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在SwiftUI中如何计算代码的执行时间？">
+<meta property="og:url" content="http://example.com/2024/08/19/%E5%9C%A8SwiftUI%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在Swift中，可以通过使用Date类来测量一段代码的执行时间。以下是一个简单的示例： 1234567891011let startTime &#x3D; Date()&#x2F;&#x2F; 这里放置你想测量执行时间的代码for i in 0..&lt;1000 &#123;    print(i)&#125;let endTime &#x3D; Date()let executionTime &#x3D; endTime.timeInterv">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-19T00:43:10.000Z">
+<meta property="article:modified_time" content="2024-08-19T00:44:26.368Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-在SwiftUI中如何计算代码的执行时间？" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/08/19/%E5%9C%A8SwiftUI%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F/" class="article-date">
+  <time class="dt-published" datetime="2024-08-19T00:43:10.000Z" itemprop="datePublished">2024-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      在SwiftUI中如何计算代码的执行时间？
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在Swift中，可以通过使用<code>Date</code>类来测量一段代码的执行时间。以下是一个简单的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> startTime <span class="operator">=</span> <span class="type">Date</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里放置你想测量执行时间的代码</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">1000</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> endTime <span class="operator">=</span> <span class="type">Date</span>()</span><br><span class="line"><span class="keyword">let</span> executionTime <span class="operator">=</span> endTime.timeIntervalSince(startTime)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;代码执行时间: <span class="subst">\(executionTime)</span> 秒&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><ol>
+<li><code>let startTime = Date()</code>：记录代码开始执行的时间。</li>
+<li>代码块：放置你想要测量执行时间的代码。</li>
+<li><code>let endTime = Date()</code>：记录代码执行结束的时间。</li>
+<li><code>let executionTime = endTime.timeIntervalSince(startTime)</code>：计算两个时间点之间的时间差，单位是秒。</li>
+<li><code>print(&quot;代码执行时间: \(executionTime) 秒&quot;)</code>：输出执行时间。</li>
+</ol>
+<p>这种方法适合用来测量相对较短时间的代码块执行时间。如果你需要更精确的时间测量，特别是对于需要在更小时间单位（如纳秒）内测量的场合，可以使用<code>DispatchTime</code>。</p>
+<h3 id="使用-DispatchTime"><a href="#使用-DispatchTime" class="headerlink" title="使用 DispatchTime"></a>使用 <code>DispatchTime</code></h3><p><code>DispatchTime</code> 提供了更高精度的时间测量，适用于需要微秒或纳秒级别精度的情况：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> start <span class="operator">=</span> <span class="type">DispatchTime</span>.now()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里放置你想测量执行时间的代码</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">1000</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> end <span class="operator">=</span> <span class="type">DispatchTime</span>.now()</span><br><span class="line"><span class="keyword">let</span> nanoseconds <span class="operator">=</span> end.uptimeNanoseconds <span class="operator">-</span> start.uptimeNanoseconds</span><br><span class="line"><span class="keyword">let</span> milliseconds <span class="operator">=</span> <span class="type">Double</span>(nanoseconds) <span class="operator">/</span> <span class="number">1_000_000</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;代码执行时间: <span class="subst">\(milliseconds)</span> 毫秒&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中：</p>
+<ol>
+<li><code>let start = DispatchTime.now()</code>：记录代码开始执行的时间。</li>
+<li>代码块：放置你想要测量执行时间的代码。</li>
+<li><code>let end = DispatchTime.now()</code>：记录代码执行结束的时间。</li>
+<li><code>let nanoseconds = end.uptimeNanoseconds - start.uptimeNanoseconds</code>：计算两个时间点之间的时间差，单位是纳秒。</li>
+<li><code>let milliseconds = Double(nanoseconds) / 1_000_000</code>：将时间差转换为毫秒。</li>
+<li><code>print(&quot;代码执行时间: \(milliseconds) 毫秒&quot;)</code>：输出执行时间。</li>
+</ol>
+<p>可以封装一个通用的函数来测量代码的执行时间。你可以使用一个闭包来传递需要测量的代码块，并在函数中计算并打印执行时间。</p>
+<p>下面是一个封装好的函数示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">func</span> <span class="title function_">measureExecutionTime</span>(<span class="params">of</span> <span class="params">closure</span>: () -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> start <span class="operator">=</span> <span class="type">DispatchTime</span>.now()</span><br><span class="line"></span><br><span class="line">    closure()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> end <span class="operator">=</span> <span class="type">DispatchTime</span>.now()</span><br><span class="line">    <span class="keyword">let</span> nanoseconds <span class="operator">=</span> end.uptimeNanoseconds <span class="operator">-</span> start.uptimeNanoseconds</span><br><span class="line">    <span class="keyword">let</span> milliseconds <span class="operator">=</span> <span class="type">Double</span>(nanoseconds) <span class="operator">/</span> <span class="number">1_000_000</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;代码执行时间: <span class="subst">\(milliseconds)</span> 毫秒&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>你可以在业务代码的后面调用这个函数，并将需要测量执行时间的代码块作为闭包传递给它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">measureExecutionTime &#123;</span><br><span class="line">    <span class="comment">// 这里放置你想测量执行时间的代码</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">1000</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数说明"><a href="#函数说明" class="headerlink" title="函数说明"></a>函数说明</h3><ul>
+<li><code>measureExecutionTime(of closure: () -&gt; Void)</code>：该函数接受一个闭包作为参数，在闭包内编写你想要测量执行时间的代码。</li>
+<li>该函数会自动测量代码的执行时间，并以毫秒为单位输出到控制台。</li>
+</ul>
+<p>这样你就可以方便地在任何代码块后面调用<code>measureExecutionTime</code>函数来测量执行时间了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2024/08/19/%E5%9C%A8SwiftUI%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F/" data-id="cm009x49500002g74e0klbsoa" data-title="在SwiftUI中如何计算代码的执行时间？" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SwiftUI中的scrollTransition修饰符怎么使用？</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SwiftUI/">SwiftUI</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BufferedReader/" rel="tag">BufferedReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/InputStreamReader/" rel="tag">InputStreamReader</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PrintWriter/" rel="tag">PrintWriter</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ServerSocket/" rel="tag">ServerSocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Socket/" rel="tag">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BufferedReader/" style="font-size: 10px;">BufferedReader</a> <a href="/tags/InputStreamReader/" style="font-size: 10px;">InputStreamReader</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/PrintWriter/" style="font-size: 10px;">PrintWriter</a> <a href="/tags/ServerSocket/" style="font-size: 20px;">ServerSocket</a> <a href="/tags/Socket/" style="font-size: 20px;">Socket</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">August 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">March 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/08/19/%E5%9C%A8SwiftUI%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F/">在SwiftUI中如何计算代码的执行时间？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/19/SwiftUI%E4%B8%AD%E7%9A%84scrollTransition%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F/">SwiftUI中的scrollTransition修饰符怎么使用？</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/17/%E4%BD%BF%E7%94%A8JavaNIO%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAHelloWorld%E7%A8%8B%E5%BA%8F/">使用JavaNIO编写一个HelloWorld程序</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/14/Docker%E9%83%A8%E7%BD%B2xxl-job-admin%E6%AD%A5%E9%AA%A4/">用 Docker 部署 xxl-job 简明指南</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E5%9C%A8Mac%E4%B8%8A%E5%A6%82%E4%BD%95%E7%BB%88%E6%AD%A2%E6%9F%90%E4%B8%AA%E7%AB%AF%E5%8F%A3%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F/">在Mac上如何终止某个端口所在的进程？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
