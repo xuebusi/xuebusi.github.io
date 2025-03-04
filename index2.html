@@ -68,7 +68,7 @@
         // 9. 创建一个导出按钮
         var exportButton = document.getElementById("exportButton");
         exportButton.addEventListener("click", function () {
-            // 通过 BABYLON.GLTF2Export.CreateScene 和 .glb 格式导出场景
+            // 通过 BABYLON.GLTF2Export.GLTFAsync 和 .glb 格式导出场景
             BABYLON.GLTF2Export.GLTFAsync(scene, "sceneExport").then(function (glb) {
                 // 使用 Blob 对象保存 GLB 文件
                 glb.downloadFiles();
